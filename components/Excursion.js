@@ -161,7 +161,7 @@ const Excursion = {
 					this.$store.commit('deleteExcursion', e.id)
 				)
 				this.selectExcursions.forEach(ex =>
-					this.$store.commit('addExcursion', { ...ex })
+					this.$store.commit('addExcursion', { ...ex, tourist: this.tourist })
 				)
 			},
 			deep: true,

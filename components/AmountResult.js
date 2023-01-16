@@ -139,7 +139,7 @@ const AmountResult = {
 			this.guests.forEach(guest => {
 				result += guest.feed.graph.split(' + ').length * guest.feed.type * 500
 			})
-			return result
+			return result ? result : 0
 		},
 		breakfastAmount() {
 			let result = 0
