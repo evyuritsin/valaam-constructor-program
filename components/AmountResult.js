@@ -86,7 +86,7 @@ const AmountResult = {
 											<span class="program-card__label">Проживание:</span>
 											<span class="program-card__price"><b>{{accommodationsPrice}}</b> ₽</span>
 										</div>
-										<div class="program-card__item" v-if="ships.there.price">
+										<div class="program-card__item" v-if="ships.there.price && ships.back.price">
 											<span class="program-card__label">Теплоход:</span>
 											<span v-if class="program-card__price"><b>{{shipsPrice}}</b> ₽</span>
 										</div>
