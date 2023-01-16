@@ -161,8 +161,9 @@ const Order = {
 									</div>
 								</div>
 								<div class="order-form__field pos-h">
-									<div class="order-form__pay-group d-flex justify-between items-center w-full">
-										<button class="vp-btn-inline mr-20" @click="clickToPervStage">Назад</button>
+								<div className=" d-flex justify-between items-center w-full">
+								<button class="vp-btn-inline mr-20" @click="clickToPervStage">Назад</button>
+								<div class="order-form__pay-group">
 										<div class="order-form__footer">
 											<div class="order-form__agreement">
 												<div class="checkbox__label">
@@ -181,6 +182,8 @@ const Order = {
 											<button class="vp-btn flex-1" @click="clickToOrder">Оплатить</button>
 										</div>
 									</div>
+								</div>
+									
 								</div>
 							</div>
 						</div>`,

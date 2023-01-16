@@ -85,6 +85,7 @@ const Excursion = {
 			adults: 0,
 			children: 0,
 		},
+		selectExcursions: [],
 	}),
 	computed: {
 		guests() {
@@ -139,9 +140,31 @@ const Excursion = {
 					price: this.excursion.price,
 					tourist: { ...this.tourist },
 				})
+				this.selectExcursions.push({
+					title: this.excursion.title,
+					date: date,
+					time: time,
+					id: id,
+					price: this.excursion.price,
+					tourist: { ...this.tourist },
+				})
 			} else {
 				this.$store.commit('deleteExcursion', id)
+				this.selectExcursions = this.selectExcursion.filter(e => e.id !== id)
 			}
+		},
+	},
+	watch: {
+		tourist: {
+			handler() {
+				this.selectExcursions.forEach(e =>
+					this.$store.commit('deleteExcursion', e.id)
+				)
+				this.selectExcursions.forEach(ex =>
+					this.$store.commit('addExcursion', { ...ex })
+				)
+			},
+			deep: true,
 		},
 	},
 }
