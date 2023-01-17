@@ -62,6 +62,11 @@ const store = createStore({
 		setClient(state, action) {
 			state.client = action
 		},
+		changeGuest(state, action) {
+			state.guests = state.guests.map(client =>
+				client.id === action.id ? { ...action } : { ...client }
+			)
+		},
 	},
 	getters: {
 		getMainInfo(state) {
@@ -98,6 +103,9 @@ const store = createStore({
 		},
 		getClient(state) {
 			return state.client
+		},
+		getGuestById: state => id => {
+			return state.guests.filter(guest => guest.id === id)
 		},
 	},
 })

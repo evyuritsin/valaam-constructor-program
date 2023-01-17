@@ -1,6 +1,6 @@
 const Addpicker = {
 	template: /*html*/ `
-		<div class="popup popup__select findout-list hide" popupobject="" obj="">
+		<div class="popup popup__select findout-list hide" popupobject="" obj="" @click.prevent='click'>
 			<div class="select__item">Новости</div>
 			<div class="select__item">Реклама</div>
 			<div class="select__item">Соцсети</div>
@@ -9,4 +9,5 @@ const Addpicker = {
 			<div class="select__item">Другое</div>
 		</div>
 	`,
+	props: ['click'],
 }

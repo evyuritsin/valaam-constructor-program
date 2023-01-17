@@ -578,6 +578,19 @@ option::after {
 	color: #1d3054;
 	background-repeat: no-repeat;
 }
+
+.p-0 {
+	padding: 0 !important;
+}
+
+.border-none {
+	border: 0 !important;
+}
+
+.plaholder-color {
+	color: #848da7 !important;
+}
+
 .vp-input_invalid {
 	border: 1px solid #b72025 !important;
 }

@@ -494,7 +494,6 @@ $(document).ready(function () {
 		$(this).closest('.datepicker').find('.datepicker__body').html(days)
 	})
 	$('body').on('click', '.datepicker__date', function (e) {
-		console.log($(this).attr('date'))
 		var parent = $(this).closest('.popup')
 		var date = $(this).attr('date')
 		var obj = parent.attr('obj')

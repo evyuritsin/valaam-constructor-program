@@ -179,6 +179,8 @@ const Tabs = {
 		},
 		onClickDatapickerSecond() {
 			setTimeout(() => {
+				console.log(1111)
+
 				this.$refs.input5.click()
 				$('.popup__blocked').click()
 			}, 0)
@@ -243,6 +245,20 @@ const Tabs = {
 							graph: 'default',
 							type: 'default',
 						},
+						firstName: '',
+						lastName: '',
+						middleName: '',
+						gender: 'male',
+						birthdayDate: '',
+						document: {
+							type: 'default',
+							id: '',
+							issuedBy: '',
+							issueDate: '',
+						},
+						phone: '',
+						privilege: 'default',
+						comment: '',
 					})
 					id++
 				}

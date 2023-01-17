@@ -5,10 +5,10 @@ const Datapicker = {
 			popupobject=""
 			:obj="obj"
 			ref="datapicker"
-			@click.prevent="click"
+			@click="click"
 		>
-			<div class="datepicker__header bg-while">
-				<div class="datepicker_prev-btn datepicker-lite__prev-btn"></div>
+			<div class="datepicker__header bg-while" @click.stop>
+				<div class="datepicker_prev-btn datepicker-lite__prev-btn" ></div>
 				<div
 					class="datepicker_label datepicker-lite__header-label"
 					month="11"
@@ -18,7 +18,7 @@ const Datapicker = {
 				</div>
 				<div class="datepicker_next-btn datepicker-lite__next-btn"></div>
 			</div>
-			<div class="datepicker__body border-none">
+			<div class="datepicker__body border-none" @click="click">
 				<div class="datepicker__date datepicker_another-month">26</div>
 				<div class="datepicker__date datepicker_another-month">27</div>
 				<div class="datepicker__date datepicker_another-month">28</div>
@@ -67,6 +67,7 @@ const Datapicker = {
 			class="popup popup__datepicker datepicker datepicker-prog p-15 hide"
 			popupobject=""
 			obj=""
+			@click.stop
 		>
 			<div class="datepicker__header br-20">
 				<div class="datepicker_prev-btn datepicker__prev-btn"></div>
@@ -77,9 +78,9 @@ const Datapicker = {
 				>
 					Декабрь 2022
 				</div>
-				<div class="datepicker_next-btn datepicker__next-btn"></div>
+				<div class="datepicker_next-btn datepicker__next-btn" ></div>
 			</div>
-			<div class="datepicker__body border-none p-0">
+			<div class="datepicker__body border-none p-0" @click="click">
 				<div class="datepicker__date datepicker_another-month">26</div>
 				<div class="datepicker__date datepicker_another-month">27</div>
 				<div class="datepicker__date datepicker_another-month">28</div>
