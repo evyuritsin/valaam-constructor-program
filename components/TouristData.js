@@ -44,7 +44,7 @@ const TouristData = {
 														readonly
 													/>
 													<Datapicker :click="onClickDatapicker"/>
-													<select v-model="copyGuest.document.type" class="vp-input flex-1 input__icon_right icon_arrowdown ml-20">
+													<select v-model="copyGuest.document.type" class="vp-input flex-1 input__icon_right icon_arrowdown ml-20" :class="{'placeholder-color' : copyGuest.document.type === 'default'}">
 														<option selected disabled hidden value="default">Тип документа*</option>
 														<option class="select__item">Паспорт РФ</option>
 														<option class="select__item">Свидетельство о рождении</option>
@@ -96,7 +96,7 @@ const TouristData = {
 														:class="{'vp-input_invalid' : !copyGuest.phone && validationErrors}"
 													/>
 													<div className="vp-input ml-20 p-0 border-none">
-													<select v-model="copyGuest.privilege" class="vp-input flex-1 input__icon_right  icon_arrowdown">
+													<select v-model="copyGuest.privilege" class="vp-input flex-1 input__icon_right  icon_arrowdown" :class="{'placeholder-color' : copyGuest.privilege === 'default'}">
 														<option selected disabled hidden value="default">Право на льготу</option>
 														<option class="select__item">Студент</option>
 														<option class="select__item">Инвалид</option>

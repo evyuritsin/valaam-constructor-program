@@ -50,7 +50,7 @@ const Order = {
 														readonly												
 													/>
 													<Datapicker :click="onClickDatapicker"/>
-													<select v-model="client.document.type" class="vp-input flex-1 input__icon_right icon_arrowdown ml-20">
+													<select v-model="client.document.type" class="vp-input flex-1 input__icon_right icon_arrowdown ml-20" :class="{'placeholder-color' : client.document.type === 'default'}">
 														<option selected disabled hidden value="default">Тип документа*</option>
 														<option class="select__item">Паспорт РФ</option>
 														<option class="select__item">Свидетельство о рождении</option>
@@ -110,7 +110,7 @@ const Order = {
 													/>
 												</div>
 												<div class="order-form__field-contact-col flex-1 ml-20">
-													<select v-model="client.add" class="vp-input flex-1 input__icon_right icon_arrowdown">
+													<select v-model="client.add" class="vp-input flex-1 input__icon_right icon_arrowdown" :class="{'placeholder-color' : client.add === 'default'}">
 															<option selected disabled hidden value="default">Откуда узнали о нас</option>
 															<option class="select__item">Новости</option>
 															<option class="select__item">Реклама</option>
@@ -232,18 +232,6 @@ const Order = {
 		onClickDatapicker() {
 			setTimeout(() => {
 				$('.input-data').focus()
-			}, 0)
-		},
-		onClickDocumentspicker() {
-			setTimeout(() => {
-				$('.input-docp').focus()
-				$('.popup__blocked').click()
-			}, 0)
-		},
-		onClickAddpicker() {
-			setTimeout(() => {
-				$('.input-addp').focus()
-				$('.popup__blocked').click()
 			}, 0)
 		},
 		clickToOrder() {
