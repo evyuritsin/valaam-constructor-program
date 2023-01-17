@@ -21,7 +21,7 @@ const app = Vue.createApp({
 					<div class="main__caption">Конструктор программ</div>
 					<div class="main__content">
 						<div class="program-designer__header">
-							<Tabs />
+							<Tabs v-if="selectStage !== 6"/>
 							<Stages :selectId="selectStage"/>
 						</div>
 						<div class="program-designer__content">

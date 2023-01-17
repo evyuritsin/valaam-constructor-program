@@ -35,16 +35,16 @@ const TouristData = {
 												<div class="order-form__field-contact-col flex-2">
 													<input
 														type="text"
-														class="vp-input flex-1 input1"
+														class="vp-input flex-1"
 														placeholder="Дата рождения*"
 														:inputobj="guest.id+123453234123453"
 														showmodal="datepicker-lite"
+														ref="input1"
 														@focus="e => copyGuest.birthdayDate = e.target.value"
 														:class="{'vp-input_invalid' : !copyGuest.birthdayDate && validationErrors}"
 														readonly
 													/>
-													<Datapicker :click="onClickDatapicker"/>
-													<select v-model="copyGuest.document.type" class="vp-input flex-1 input__icon_right icon_arrowdown ml-20" :class="{'placeholder-color' : copyGuest.document.type === 'default'}">
+													<select v-model="copyGuest.document.type" class="vp-input flex-1 input__icon_right icon_arrowdown ml-20" :class="{'placeholder-color' : copyGuest.document.type === 'default', 'vp-input_invalid' : !copyGuest.document.type && validationErrors}">
 														<option selected disabled hidden value="default">Тип документа*</option>
 														<option class="select__item">Паспорт РФ</option>
 														<option class="select__item">Свидетельство о рождении</option>
@@ -337,6 +337,7 @@ const TouristData = {
 			})
 		}, 0)
 	},
+	methods: {},
 	watch: {
 		copyGuest: {
 			handler() {

@@ -5,7 +5,7 @@ const Datapicker = {
 			popupobject=""
 			:obj="obj"
 			ref="datapicker"
-			@click="click"
+			@click="e => click(e)"
 		>
 			<div class="datepicker__header bg-while" @click.stop>
 				<div class="datepicker_prev-btn datepicker-lite__prev-btn" ></div>

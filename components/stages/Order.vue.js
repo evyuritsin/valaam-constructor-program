@@ -40,17 +40,17 @@ const Order = {
 												<div class="order-form__field-contact-col flex-2">
 													<input
 														type="text"
-														class="vp-input flex-1 flatpickr-input input-data"
+														class="vp-input flex-1 flatpickr-input"
 														placeholder="Дата рождения*"
-														:value="client.birthdayDate"
-  													@input="client.birthdayDate = $event.target.value"
+  													@focus="client.birthdayDate = $event.target.value"
+														ref="client-input1"
 														inputobj="515151515151"
 														showmodal="datepicker-lite"
 														:class="{'vp-input_invalid' : !client.birthdayDate && validationErrors}"		
 														readonly												
 													/>
 													<Datapicker :click="onClickDatapicker"/>
-													<select v-model="client.document.type" class="vp-input flex-1 input__icon_right icon_arrowdown ml-20" :class="{'placeholder-color' : client.document.type === 'default'}">
+													<select v-model="client.document.type" class="vp-input flex-1 input__icon_right icon_arrowdown ml-20" :class="{'placeholder-color' : client.document.type === 'default', 'vp-input_invalid' : !client.document.type && validationErrors}">
 														<option selected disabled hidden value="default">Тип документа*</option>
 														<option class="select__item">Паспорт РФ</option>
 														<option class="select__item">Свидетельство о рождении</option>
@@ -81,9 +81,10 @@ const Order = {
 												<div class="order-form__field-contact-col flex-1 ml-20">
 													<input
 														type="text"
-														class="vp-input input-datedocp input-data"
+														class="vp-input input-datedocp"
 														placeholder="Дата выдачи*"
-														@click="e => client.document.issueDate = e.target.value"
+														@focus="e => client.document.issueDate = e.target.value"
+														ref="client-input2"														
 														inputobj="31313131313"
 														showmodal="datepicker-lite"
 														:class="{'vp-input_invalid' : !client.document.issueDate && validationErrors}"						
@@ -227,11 +228,16 @@ const Order = {
 		originalClient() {
 			return this.$store.getters['getClient']
 		},
+		requestData() {
+			return this.$store.getters['getRequestData']
+		},
 	},
 	methods: {
-		onClickDatapicker() {
+		onClickDatapicker(e) {
 			setTimeout(() => {
-				$('.input-data').focus()
+				this.$refs['client-input1'].focus()
+				this.$refs['client-input2'].focus()
+				console.log(e)
 			}, 0)
 		},
 		clickToOrder() {
@@ -255,7 +261,7 @@ const Order = {
 					if (!guest[key]) return (this.validationErrors = true)
 				})
 			})
-			alert('Заказ создан')
+			console.log(this.requestData)
 		},
 		clickToPervStage() {
 			this.$emit('clickToPerv')

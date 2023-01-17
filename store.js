@@ -107,5 +107,8 @@ const store = createStore({
 		getGuestById: state => id => {
 			return state.guests.filter(guest => guest.id === id)
 		},
+		getRequestData(state) {
+			return state
+		},
 	},
 })
