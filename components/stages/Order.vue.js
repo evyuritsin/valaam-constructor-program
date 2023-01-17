@@ -237,7 +237,7 @@ const Order = {
 			setTimeout(() => {
 				this.$refs['client-input1'].focus()
 				this.$refs['client-input2'].focus()
-				console.log(e)
+				console.log($(e.target))
 			}, 0)
 		},
 		clickToOrder() {

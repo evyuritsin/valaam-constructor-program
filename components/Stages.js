@@ -19,6 +19,7 @@ const Stages = {
 									<div v-else class="program-designer__stage-label">{{stage.name}}</div>
 								</div>
 							</div>
+							<h4 class="red" v-if="alertSpan">{{alertSpan}}</h4>
 	`,
 	data: () => ({
 		stages: [
@@ -31,4 +32,9 @@ const Stages = {
 		],
 	}),
 	props: ['selectId'],
+	computed: {
+		alertSpan() {
+			return this.$store.getters['getAlertSpan']
+		},
+	},
 }

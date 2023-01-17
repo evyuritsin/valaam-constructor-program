@@ -20,6 +20,7 @@ const store = createStore({
 			excursions: [],
 			services: [],
 			client: {},
+			alertSpan: '',
 		}
 	},
 	mutations: {
@@ -67,6 +68,9 @@ const store = createStore({
 				client.id === action.id ? { ...action } : { ...client }
 			)
 		},
+		setAlertSpan(state, action) {
+			state.alertSpan = action
+		},
 	},
 	getters: {
 		getMainInfo(state) {
@@ -109,6 +113,9 @@ const store = createStore({
 		},
 		getRequestData(state) {
 			return state
+		},
+		getAlertSpan(state) {
+			return state.alertSpan
 		},
 	},
 })

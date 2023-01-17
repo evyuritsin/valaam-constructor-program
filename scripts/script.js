@@ -260,31 +260,6 @@ $(document).ready(function () {
 		$('.vp-tab-content').removeClass('vp-tab-content_active')
 		$('[id-tab-content=' + idTab + ']').addClass('vp-tab-content_active')
 	})
-	$('.direction-table__select-ship').click(function () {
-		if ($(this).hasClass('direction-table_select-ship-active')) {
-			$(this)
-				.closest('.direction-table__body')
-				.find('tr')
-				.removeClass('direction-table__tr-active')
-			$(this)
-				.closest('.direction-table__body')
-				.find('th')
-				.removeClass('green')
-				.removeClass('direction-table_select-ship-active')
-		} else {
-			$(this)
-				.closest('.direction-table__body')
-				.find('tr')
-				.removeClass('direction-table__tr-active')
-			$(this)
-				.closest('.direction-table__body')
-				.find('th')
-				.removeClass('green')
-				.removeClass('direction-table_select-ship-active')
-			$(this).closest('tr').addClass('direction-table__tr-active')
-			$(this).addClass('direction-table_select-ship-active')
-		}
-	})
 	$('.custom-select__body').click(function () {
 		$('.custom-select__items').removeClass('show').addClass('hide')
 		var items = $(this).parent().find('.custom-select__items')

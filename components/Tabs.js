@@ -145,6 +145,7 @@ const Tabs = {
 									</div>
 								</div>
 							</div>`,
+	props: ['selectStage'],
 	data: () => ({
 		info: {
 			multiDay: false,
@@ -179,8 +180,6 @@ const Tabs = {
 		},
 		onClickDatapickerSecond() {
 			setTimeout(() => {
-				console.log(1111)
-
 				this.$refs.input5.click()
 				$('.popup__blocked').click()
 			}, 0)
@@ -218,6 +217,17 @@ const Tabs = {
 				this.$store.commit('setMainInfo', { ...this.info })
 			},
 			deep: true,
+		},
+		'info.departurePoint'() {
+			if (this.selectStage > 2) {
+				this.$store.commit(
+					'setAlertSpan',
+					'Так как город отправления был изменен, необходимо выбрать новые теплоходы'
+				)
+				this.$store.commit('setShipThere', { price: 0 })
+				this.$store.commit('setShipBack', { price: 0 })
+				this.$emit('goToShip')
+			}
 		},
 		'info.peopleAmount'() {
 			let result = []

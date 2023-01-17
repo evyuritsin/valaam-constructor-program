@@ -24,7 +24,7 @@ const ShipTimetable = {
 											</tr>
 										</thead>
 										<tbody class="direction-table__body" v-show="!showDetails">
-											<tr v-for="(ship, index) in [...Array(3)]" :key="index">
+											<tr v-for="(ship, index) in [...Array(3)]" :key="index" :class="{'direction-table__tr-active' : ships[index].id === selectShip.id}">
 												<th class="ta-left">{{ships[index].sailing}}</th>
 												<th class="ta-left">{{ships[index].arrival}}</th>
 												<th class="ta-left">{{ships[index].name}}</th>
@@ -35,11 +35,11 @@ const ShipTimetable = {
 													</div>
 												</th>
 												<th class="fw-700">{{ships[index].price}} ₽</th>
-												<th class="direction-table__select-ship" @click.prevent="clickToSelectShip(ships[index])">ВЫБРАТЬ</th>
+												<th class="direction-table__select-ship" @click.prevent="clickToSelectShip(ships[index])" :class="{'direction-table_select-ship-active' : ships[index].id === selectShip.id}">ВЫБРАТЬ</th>
 											</tr>
 										</tbody>
 										<tbody class="direction-table__body" v-show="showDetails">
-											<tr v-for="ship in ships" :key="ship.id">
+											<tr v-for="ship in ships" :key="ship.id" :class="{'direction-table__tr-active' : ship.id === selectShip.id}">
 												<th class="ta-left">{{ship.sailing}}</th>
 												<th class="ta-left">{{ship.arrival}}</th>
 												<th class="ta-left">{{ship.name}}</th>
@@ -50,7 +50,7 @@ const ShipTimetable = {
 													</div>
 												</th>
 												<th class="fw-700">{{ship.price}}</th>
-												<th class="direction-table__select-ship" @click.prevent="clickToSelectShip(ship)">ВЫБРАТЬ</th>
+												<th class="direction-table__select-ship" @click.prevent="clickToSelectShip(ship)" :class="{'direction-table_select-ship-active' : ship.id === selectShip.id}">ВЫБРАТЬ</th>
 											</tr>
 										</tbody>
 									</table>
@@ -61,7 +61,7 @@ const ShipTimetable = {
 	props: ['direction'],
 	data: () => ({
 		showDetails: false,
-		selectShip: null,
+		selectShip: { id: 0 },
 		ships: [
 			{
 				id: 1,
@@ -111,6 +111,9 @@ const ShipTimetable = {
 		mainInfo() {
 			return this.$store.getters['getMainInfo']
 		},
+		alertSpan() {
+			return this.$store.getters['getAlertSpan']
+		},
 	},
 	methods: {
 		clickToShow() {
@@ -125,6 +128,7 @@ const ShipTimetable = {
 			} else {
 				this.selectShip = ship
 			}
+			this.$store.commit('setAlertSpan', '')
 		},
 	},
 	watch: {
@@ -134,6 +138,9 @@ const ShipTimetable = {
 			} else {
 				this.$store.commit('setShipThere', { ...this.selectShip })
 			}
+		},
+		alertSpan() {
+			this.selectShip = { id: 0 }
 		},
 	},
 	components: {
