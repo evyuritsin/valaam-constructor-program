@@ -17,6 +17,7 @@ const Tabs = {
 														type="text"
 														ref="input1"
 														readonly
+														:value="info.arrivalDate"
 														@click="e => arrivalDateOnClick(e)"
 														class="search__filter icon_date flatpickr-input active"
 														inputobj="12121212"
@@ -63,6 +64,7 @@ const Tabs = {
 														type="text"
 														class="search__filter icon_geo_search"
 														ref="input4"
+														:value="info.departurePoint"
 														readonly
 														@focus="e => departurePointOnFocus(e)"
 														showmodal="geo-list"
@@ -89,6 +91,7 @@ const Tabs = {
 														class="search__filter icon_date flatpickr-input active"
 														ref="input5"
 														inputobj="111111"
+														:value="info.arrivalDate"
 														readonly
 														@click="e => arrivalDateOnClick(e)"
 														placeholder="17 октября 2022"
@@ -120,6 +123,7 @@ const Tabs = {
 														type="text"
 														class="search__filter icon_geo_search"
 														ref="input7"
+														:value="info.departurePoint"
 														readonly
 														showmodal="geo-list"
 														inputobj="45634"
