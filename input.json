@@ -48,7 +48,8 @@
 	"feed": {
 		"standard": 1,
 		"lean": 0.8,
-		"childly": 0.5
+		"childly": 0.5,
+		"price": 500
 	},
 	"excursions": [
 		{
