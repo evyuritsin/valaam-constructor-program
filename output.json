@@ -3,14 +3,25 @@
 		"multiDay": true,
 		"arrivalDate": "03.01.2023",
 		"departureDate": "06.01.2023",
-		"peopleAmount": "Взрослых - 2",
+		"peopleAmount": {
+			"adults": 2,
+			"children_0_6": 0,
+			"children_7_12": 0
+		},
 		"departurePoint": "Санкт-Петербург"
 	},
 	"guests": [
 		{
 			"id": 1,
 			"type": "Взрослый",
-			"feed": { "graph": "Завтрак + обед + ужин", "type": 1 },
+			"feed": {
+				"graph": {
+					"breakfast": 1,
+					"lunch": 1,
+					"dinner": 1
+				},
+				"type": 1
+			},
 			"firstName": "Тигран",
 			"lastName": "Галумян",
 			"middleName": "Левонович",
@@ -29,7 +40,14 @@
 		{
 			"id": 2,
 			"type": "Взрослый",
-			"feed": { "graph": "Завтрак + обед + ужин", "type": 1 },
+			"feed": {
+				"graph": {
+					"breakfast": 1,
+					"lunch": 1,
+					"dinner": 1
+				},
+				"type": 1
+			},
 			"firstName": "Анна",
 			"lastName": "Филатова",
 			"middleName": "Александровна",
