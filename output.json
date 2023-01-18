@@ -1,120 +1,112 @@
 {
 	"mainInfo": {
 		"multiDay": true,
-		"arrivalDate": "01.01.2022",
-		"departureDate": "04.01.2022",
-		"peopleAmount": "Взрослых - 2;Дети от 0-6 - 1",
+		"arrivalDate": "03.01.2023",
+		"departureDate": "06.01.2023",
+		"peopleAmount": "Взрослых - 2",
 		"departurePoint": "Санкт-Петербург"
 	},
 	"guests": [
 		{
 			"id": 1,
 			"type": "Взрослый",
-			"feed": { "graph": "Завтрак + ужин", "type": "Постное" },
-			"info": {
-				"firstName": "Ян",
-				"lastName": "Немосторов",
-				"middleName": "Тигранович",
-				"gender": "male",
-				"birthdayDate": "21.06.2001",
-				"document": {
-					"type": "passport",
-					"issuedBy": "ОВД ОВД ОВД",
-					"issueDate": "24.06.2020"
-				},
-				"phone": "+7 999 999 99 99",
-				"comments": ""
-			}
+			"feed": { "graph": "Завтрак + обед + ужин", "type": 1 },
+			"firstName": "Тигран",
+			"lastName": "Галумян",
+			"middleName": "Левонович",
+			"gender": "male",
+			"birthdayDate": "",
+			"document": {
+				"type": "default",
+				"id": "1234 567654",
+				"issuedBy": "ОВД ОВД ОВД",
+				"issueDate": ""
+			},
+			"phone": "+7 (123) 456 76 54",
+			"privilege": "default",
+			"comment": ""
 		},
 		{
 			"id": 2,
 			"type": "Взрослый",
-			"feed": { "graph": "Завтрак + ужин", "type": "Постное" },
-			"info": {
-				"firstName": "Тигран",
-				"lastName": "Галумян",
-				"middleName": "Левонович",
-				"gender": "male",
-				"birthdayDate": "22.06.2001",
-				"document": {
-					"type": "passport",
-					"issuedBy": "ОВД ОВД ОВД",
-					"issueDate": "24.06.2020"
-				},
-				"phone": "+7 999 999 99 99",
-				"comments": ""
-			}
-		},
-		{
-			"id": 1,
-			"type": "Ребенок от 0-6",
-			"feed": { "graph": "Завтрак + ужин", "type": "Постное" },
-			"info": {
-				"firstName": "Анна",
-				"lastName": "Филатова",
-				"middleName": "Александровна",
-				"gender": "female",
-				"birthdayDate": "21.06.2018",
-				"document": {
-					"type": "passport",
-					"issuedBy": "ОВД ОВД ОВД",
-					"issueDate": "24.06.2020"
-				},
-				"phone": "+7 999 999 99 99",
-				"comments": ""
-			}
+			"feed": { "graph": "Завтрак + обед + ужин", "type": 1 },
+			"firstName": "Анна",
+			"lastName": "Филатова",
+			"middleName": "Александровна",
+			"gender": "female",
+			"birthdayDate": "",
+			"document": {
+				"type": "default",
+				"id": "1234 543234",
+				"issuedBy": "ОВД ОВД ОВД",
+				"issueDate": ""
+			},
+			"phone": "+7 (345) 678 76 54",
+			"privilege": "default",
+			"comment": ""
 		}
 	],
 	"hotelRooms": [
 		{
-			"id": 4,
-			"price": 10800,
+			"id": 3,
+			"price": 12800,
 			"name": "2х местный с удобствами в номере 1,2,3 этажи"
-		},
-		{
-			"id": 5,
-			"price": 9900,
-			"name": "2х местный в номере 1,2,3 этажи"
 		}
 	],
 	"ships": {
 		"there": {
-			"id": 4,
+			"id": 1,
 			"name": "«Северный Афон»",
 			"sailing": "09:00",
 			"arrival": "11:00",
 			"price": 2000
 		},
 		"back": {
-			"id": 8,
-			"name": "«Северный Афон»",
-			"sailing": "19:00",
-			"arrival": "21:00",
+			"id": 3,
+			"name": "«Андрей Первозванный»",
+			"sailing": "09:00",
+			"arrival": "11:00",
 			"price": 2000
 		}
 	},
-	"feedsPrice": 6240,
+	"feedsPrice": 3000,
 	"excursions": [
 		{
-			"id": 1,
 			"title": "Экскурсия 1",
-			"description": "Для православного человека Валаамская обитель, с сонмом святых подвижников и старцев, с подворьями, скитами и пустынями, необыкновенно красивой природой, отделенная от мира ладожскими водами, является настоящим «Русским Северным Афоном».",
-			"schedule": [
-				{ "date": "21.01", "time": "11:00", "id": 1 },
-				{ "date": "21.01", "time": "15:00", "id": 2 },
-				{ "date": "21.01", "time": "19:00", "id": 3 },
-				{ "date": "22.01", "time": "10:00", "id": 4 }
-			],
-			"time": "2,5 часа",
+			"date": "21.01",
+			"time": "15:00",
+			"id": 2,
 			"price": 2000,
-			"guests": {
-				"adults": 2,
-				"children": 1
-			}
+			"tourist": { "adults": 2, "children": 0 }
+		},
+		{
+			"title": "Экскурсия 2",
+			"date": "22.01",
+			"time": "10:00",
+			"id": 8,
+			"price": 1000,
+			"tourist": { "adults": 2, "children": 0 }
 		}
 	],
 	"services": [
-		{ "id": 2, "title": "Прокат велосипеда", "price": 2500 },
-		{ "id": 2, "title": "Прокат лодки", "price": 4500 }
-	]
+		{ "title": "Прокат лодки", "id": "2", "price": "5500" },
+		{ "title": "Баня на дровах", "id": "3", "price": "2000" }
+	],
+	"client": {
+		"firstName": "Иван",
+		"lastName": "Иванов",
+		"middleName": "Иванович",
+		"gender": "male",
+		"birthdayDate": "05.01.2023",
+		"document": {
+			"type": "default",
+			"id": "1234 567876",
+			"issuedBy": "ОВД ОВД ОВД",
+			"issueDate": "03.01.2023"
+		},
+		"phone": "+7 (234) 787 566 5",
+		"email": "mail@mail.ru",
+		"add": "",
+		"isPilgrim": false
+	}
 }

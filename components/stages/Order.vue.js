@@ -258,7 +258,7 @@ const Order = {
 					if (!guest[key]) return (this.validationErrors = true)
 				})
 			})
-			console.log(this.requestData)
+			console.log(JSON.stringify(this.requestData))
 		},
 		clickToPervStage() {
 			this.$emit('clickToPerv')
