@@ -19,7 +19,12 @@ const Excursion = {
 										</div>
 										<div class="find-list__footer">
 											<div class="checkbox__label mr-10" v-for="item in excursion.schedule" :key="item.id">
-												<input type="checkbox" class="checkbox" @change="e => clickToCheckbox(e, item.date, item.time, item.id)"/>
+												<input 
+													type="checkbox" 
+													class="checkbox" 
+													@change="e => clickToCheckbox(e, item.date, item.time, item.id)" 
+													:checked="isSelected(item.id)"
+												/>
 												<span class="checkbox__text">{{item.date}} | {{item.time}}</span>
 											</div>
 											<div class="find-list__date-item">
@@ -87,6 +92,9 @@ const Excursion = {
 		},
 		selectExcursions: [],
 	}),
+	mounted() {
+		this.selectExcursions = [...this.$store.getters['getExcursions']]
+	},
 	computed: {
 		guests() {
 			return this.$store.getters['getGuestsObject']
@@ -102,6 +110,13 @@ const Excursion = {
 			if (this.tourist.adults) {
 				this.tourist.adults--
 			}
+		},
+		isSelected(id) {
+			let result = false
+			this.selectExcursions.forEach(ex => {
+				if (ex.id === id) result = true
+			})
+			return result
 		},
 		addChildren() {
 			if (

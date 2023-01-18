@@ -174,6 +174,9 @@ const Habitation = {
 			if (!this.mainInfo.peopleAmount) {
 				return (this.alertSpan = 'Выберите кол-во гостей')
 			}
+			if (!this.mainInfo.departurePoint) {
+				return (this.alertSpan = 'Выберите место отправления')
+			}
 			this.$emit('clickToNext')
 		},
 		clickToShowHabitations(e) {

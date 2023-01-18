@@ -71,12 +71,6 @@ const Tabs = {
 													/>
 													<Citipicker :click="onClickCitipicker"/>
 												</div>
-												<div class="search__col flex-1 ml-20" >
-													<label for="" class="search__filter-name"></label>
-													<button @click="find" class="vp-btn pl-50 pr-50">
-														Найти
-													</button>
-												</div>
 											</div>
 										</form>
 									</div>
@@ -133,12 +127,6 @@ const Tabs = {
 														placeholder="Любое"
 													/>
 													<Citipicker :click="onClickCitipicker"/>
-												</div>
-												<div class="search__col flex-1 ml-20">
-													<label for="" class="search__filter-name"></label>
-													<button @click="find" class="vp-btn pl-50 pr-50">
-														Найти
-													</button>
 												</div>
 											</div>
 										</form>

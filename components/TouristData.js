@@ -1,7 +1,7 @@
 const TouristData = {
 	template: /*html*/ `
-		<div class="order-form__field order-form__group" v-if="copyGuest.id">
-									<div class="order-form__subtitle" >{{copyGuest.type}}</div>
+	<div class="order-form__field order-form__group" v-if="copyGuest.id">
+									<div class="order-form__subtitle">{{guest.type}}</div>
 									<div class="order-form__content-human">
 										<div class="order-form__field-contacts">
 											<div class="order-form__field-contact">
@@ -11,14 +11,12 @@ const TouristData = {
 														class="vp-input"
 														v-model="copyGuest.lastName"
 														placeholder="Фамилия*"
-														:class="{'vp-input_invalid' : !copyGuest.lastName && validationErrors}"														
 													/>
 													<input
 														type="text"
 														class="vp-input ml-20"
 														v-model="copyGuest.firstName"
 														placeholder="Имя*"
-														:class="{'vp-input_invalid' : !copyGuest.firstName && validationErrors}"														
 													/>
 												</div>
 												<div class="order-form__field-contact-col flex-1 ml-20">
@@ -27,7 +25,6 @@ const TouristData = {
 														class="vp-input flex-1"
 														v-model="copyGuest.middleName"
 														placeholder="Отчество*"
-														:class="{'vp-input_invalid' : !copyGuest.middleName && validationErrors}"
 													/>
 												</div>
 											</div>
@@ -39,17 +36,14 @@ const TouristData = {
 														placeholder="Дата рождения*"
 														:inputobj="guest.id+123453234123453"
 														showmodal="datepicker-lite"
-														ref="input1"
-														@focus="e => copyGuest.birthdayDate = e.target.value"
-														:class="{'vp-input_invalid' : !copyGuest.birthdayDate && validationErrors}"
-														readonly
 													/>
-													<select v-model="copyGuest.document.type" class="vp-input flex-1 input__icon_right icon_arrowdown ml-20" :class="{'placeholder-color' : copyGuest.document.type === 'default', 'vp-input_invalid' : !copyGuest.document.type && validationErrors}">
-														<option selected disabled hidden value="default">Тип документа*</option>
-														<option class="select__item">Паспорт РФ</option>
-														<option class="select__item">Свидетельство о рождении</option>
-														<option class="select__item">Паспорт иностранца</option>
-													</select>
+													<input
+														type="text"
+														class="vp-input flex-1 input__icon_right icon_arrowdown ml-20"
+														placeholder="Тип документа*"
+														:inputobj="guest.id+12343234345345"
+														showmodal="docs-list"
+													/>
 												</div>
 												<div class="order-form__field-contact-col flex-1 ml-20">
 													<input
@@ -58,7 +52,6 @@ const TouristData = {
 														v-model="copyGuest.document.id"
 														placeholder="Паспорт серия/номер*"
 														name="passSN"
-														:class="{'vp-input_invalid' : !copyGuest.document.id && validationErrors}"
 													/>
 												</div>
 											</div>
@@ -69,19 +62,15 @@ const TouristData = {
 														class="vp-input"
 														v-model="copyGuest.document.issuedBy"
 														placeholder="Кем выдан*"
-														:class="{'vp-input_invalid' : !copyGuest.document.issuedBy && validationErrors}"
 													/>
 												</div>
 												<div class="order-form__field-contact-col flex-1 ml-20">
 													<input
 														type="text"
-														class="vp-input input3"
+														class="vp-input"
 														placeholder="Дата выдачи*"
 														:inputobj="guest.id+5465654656456"
 														showmodal="datepicker-lite"
-														@focus="e => copyGuest.document.issueDate = e.target.value"
-														:class="{'vp-input_invalid' : !copyGuest.document.issueDate && validationErrors}"
-														readonly
 													/>
 												</div>
 											</div>
@@ -90,27 +79,26 @@ const TouristData = {
 													<input
 														type="text"
 														class="vp-input"
+														v-model="copyGuest.phone"
 														placeholder="Телефон*"
 														name="telefon"
-														v-model="copyGuest.phone"
-														:class="{'vp-input_invalid' : !copyGuest.phone && validationErrors}"
 													/>
-													<div className="vp-input ml-20 p-0 border-none">
-													<select v-model="copyGuest.privilege" class="vp-input flex-1 input__icon_right  icon_arrowdown" :class="{'placeholder-color' : copyGuest.privilege === 'default'}">
-														<option selected disabled hidden value="default">Право на льготу</option>
-														<option class="select__item">Студент</option>
-														<option class="select__item">Инвалид</option>
-														<option class="select__item">Пенсионер</option>
-													</select>
-													</div>
-													
+													<input
+														type="text"
+														class="vp-input input__icon_right icon_arrowdown ml-20"
+														value=""
+														placeholder="Право на льготы"
+														:inputobj="guest.id+12343223"
+														showmodal="benefits-list"
+													/>
+													<Privilegespicker :click="clickToPrivileges"/>
 												</div>
 												<div class="order-form__field-contact-col flex-1 ml-20">
 													<input
 														type="text"
 														class="vp-input flex-1"
-														placeholder="Комментарий"
 														v-model="copyGuest.comment"
+														placeholder="Комментарий"
 													/>
 												</div>
 											</div>
@@ -337,7 +325,13 @@ const TouristData = {
 			})
 		}, 0)
 	},
-	methods: {},
+	methods: {
+		clickToPrivileges() {
+			setTimeout(() => {
+				$('.popup__blocked').click()
+			}, 0)
+		},
+	},
 	watch: {
 		copyGuest: {
 			handler() {

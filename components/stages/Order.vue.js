@@ -50,12 +50,16 @@ const Order = {
 														readonly												
 													/>
 													<Datapicker :click="onClickDatapicker"/>
-													<select v-model="client.document.type" class="vp-input flex-1 input__icon_right icon_arrowdown ml-20" :class="{'placeholder-color' : client.document.type === 'default', 'vp-input_invalid' : !client.document.type && validationErrors}">
-														<option selected disabled hidden value="default">Тип документа*</option>
-														<option class="select__item">Паспорт РФ</option>
-														<option class="select__item">Свидетельство о рождении</option>
-														<option class="select__item">Паспорт иностранца</option>
-													</select>
+													<input 
+														type="text" 
+														readonly 
+														class="vp-input flex-1 input__icon_right icon_arrowdown ml-20" 
+														:class="{'vp-input_invalid' : !client.document.type && validationErrors}" 
+														placeholder="Тип документа*" 
+														showmodal="docs-list" 
+														inputobj="12345432134"
+													/>
+													<Documentspicker />
 												</div>
 												<div class="order-form__field-contact-col flex-1 ml-20">
 													<input
@@ -111,15 +115,8 @@ const Order = {
 													/>
 												</div>
 												<div class="order-form__field-contact-col flex-1 ml-20">
-													<select v-model="client.add" class="vp-input flex-1 input__icon_right icon_arrowdown" :class="{'placeholder-color' : client.add === 'default'}">
-															<option selected disabled hidden value="default">Откуда узнали о нас</option>
-															<option class="select__item">Новости</option>
-															<option class="select__item">Реклама</option>
-															<option class="select__item">Соцсети</option>
-															<option class="select__item">Радио</option>
-															<option class="select__item">Интернет</option>
-															<option class="select__item">Другое</option>
-													</select>
+													<input v-model="client.add" class="vp-input flex-1 input__icon_right icon_arrowdown" :class="{'placeholder-color' : client.add === 'default'}" list="add" placeholder="Откуда узнали о нас" showmodal="findout-list" inputobj="123454334345345" readonly/>
+													<Addpicker />
 												</div>
 											</div>
 										</div>
@@ -216,7 +213,7 @@ const Order = {
 			},
 			phone: '',
 			email: '',
-			add: 'default',
+			add: '',
 			isPilgrim: false,
 		},
 		validationErrors: false,
@@ -237,7 +234,7 @@ const Order = {
 			setTimeout(() => {
 				this.$refs['client-input1'].focus()
 				this.$refs['client-input2'].focus()
-				console.log($(e.target))
+				$('.popup__blocked').click()
 			}, 0)
 		},
 		clickToOrder() {
