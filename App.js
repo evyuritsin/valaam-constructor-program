@@ -19,7 +19,7 @@ const App = {
 					<div class="main__caption">Конструктор программ</div>
 					<div class="main__content">
 						<div class="program-designer__header">
-							<Tabs v-if="selectStage !== 6" :selectStage="selectStage" @goToShip="goToShipStage"/>
+							<Tabs v-if="selectStage !== 6" :selectStage="selectStage" @goToStage="goToStage"/>
 							<Stages :selectId="selectStage"/>
 						</div>
 						<div class="program-designer__content">
@@ -40,7 +40,6 @@ const App = {
 	`,
 	data: () => ({
 		selectStage: 1,
-		alertSpan: '',
 	}),
 	methods: {
 		clickToPervStage() {
@@ -51,8 +50,8 @@ const App = {
 				this.selectStage++
 			}
 		},
-		goToShipStage() {
-			this.selectStage = 2
+		goToStage(stageNumber) {
+			this.selectStage = stageNumber
 		},
 	},
 	computed: {

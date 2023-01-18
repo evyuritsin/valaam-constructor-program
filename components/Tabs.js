@@ -22,7 +22,6 @@ const Tabs = {
 														class="search__filter icon_date flatpickr-input active"
 														inputobj="12121212"
 														showmodal="datepicker-lite"
-														placeholder="17 октября 2022"
 													/>
 													<Datapicker :click="onClickDatapickerFirst" :obj="12121212"/>
 												</div>
@@ -35,7 +34,6 @@ const Tabs = {
 														readonly
 														@click="e => departureDateOnClick(e)"
 														inputobj="656222263"
-														placeholder="17 октября 2022"
 														showmodal="datepicker-lite"													
 													/>
 													<Datapicker :click="onClickDatapickerFirst" :obj="656222263"/>
@@ -48,11 +46,11 @@ const Tabs = {
 														type="text"
 														class="search__filter icon_count"
 														showmodal="count-list"
+														:value="info.peopleAmount"														
 														readonly
 														@focus="e => peopleAmountOnFocus(e)"
 														ref="input3"
 														inputobj="65663"
-														placeholder="Состав гостей"
 													/>
 													<Peoplepicker :click="onClickPeoplepicker"/>
 												</div>
@@ -69,7 +67,6 @@ const Tabs = {
 														@focus="e => departurePointOnFocus(e)"
 														showmodal="geo-list"
 														inputobj="45634"
-														placeholder="Любое"
 													/>
 													<Citipicker :click="onClickCitipicker"/>
 												</div>
@@ -94,7 +91,6 @@ const Tabs = {
 														:value="info.arrivalDate"
 														readonly
 														@click="e => arrivalDateOnClick(e)"
-														placeholder="17 октября 2022"
 														showmodal="datepicker-lite"
 													/>
 													<Datapicker :click="onClickDatapickerSecond" :obj="111111"/>
@@ -108,10 +104,10 @@ const Tabs = {
 														class="search__filter icon_count"
 														ref="input6"
 														readonly
+														:value="info.peopleAmount"
 														showmodal="count-list"
 														inputobj="65663"
 														@focus="e => peopleAmountOnFocus(e)"
-														placeholder="Состав гостей"
 													/>
 													<Peoplepicker :click="onClickPeoplepicker"/>
 												</div>
@@ -128,7 +124,6 @@ const Tabs = {
 														showmodal="geo-list"
 														inputobj="45634"
 														@focus="e => departurePointOnFocus(e)"
-														placeholder="Любое"
 													/>
 													<Citipicker :click="onClickCitipicker"/>
 												</div>
@@ -210,6 +205,31 @@ const Tabs = {
 			},
 			deep: true,
 		},
+		'info.multiDay'() {
+			if (this.selectStage > 1) {
+				if (this.info.multiDay) {
+					this.$store.commit(
+						'setAlertSpan',
+						'Необходимо выбрать номер(а) в отеле'
+					)
+					this.$store.commit('setMainInfo', {
+						multiDay: true,
+						arrivalDate: '',
+						departureDate: '',
+						peopleAmount: '',
+						departurePoint: '',
+					})
+					this.info = {
+						multiDay: true,
+						arrivalDate: '',
+						departureDate: '',
+						peopleAmount: '',
+						departurePoint: '',
+					}
+					this.$emit('goToStage', 1)
+				}
+			}
+		},
 		'info.departurePoint'() {
 			if (this.selectStage > 2) {
 				this.$store.commit(
@@ -218,54 +238,56 @@ const Tabs = {
 				)
 				this.$store.commit('setShipThere', { price: 0 })
 				this.$store.commit('setShipBack', { price: 0 })
-				this.$emit('goToShip')
+				this.$emit('goToStage', 2)
 			}
 		},
 		'info.peopleAmount'() {
-			let result = []
-			let id = 1
-			for (let i = 0; i < Object.keys(this.guestsObject).length; i++) {
-				for (
-					let j = 0;
-					j <
-					[
-						...Array(
-							Number(this.guestsObject[Object.keys(this.guestsObject)[i]])
-						),
-					].length;
-					j++
-				) {
-					result.push({
-						id: id,
-						type:
-							Object.keys(this.guestsObject)[i] === 'Взрослых'
-								? 'Взрослый'
-								: Object.keys(this.guestsObject)[i] === 'Дети от 0-6'
-								? 'Ребенок 0-6'
-								: 'Ребенок 7-12',
-						feed: {
-							graph: 'default',
-							type: 'default',
-						},
-						firstName: '',
-						lastName: '',
-						middleName: '',
-						gender: 'male',
-						birthdayDate: '',
-						document: {
-							type: 'default',
-							id: '',
-							issuedBy: '',
-							issueDate: '',
-						},
-						phone: '',
-						privilege: 'default',
-						comment: '',
-					})
-					id++
+			if (this.info.peopleAmount) {
+				let result = []
+				let id = 1
+				for (let i = 0; i < Object.keys(this.guestsObject).length; i++) {
+					for (
+						let j = 0;
+						j <
+						[
+							...Array(
+								Number(this.guestsObject[Object.keys(this.guestsObject)[i]])
+							),
+						].length;
+						j++
+					) {
+						result.push({
+							id: id,
+							type:
+								Object.keys(this.guestsObject)[i] === 'Взрослых'
+									? 'Взрослый'
+									: Object.keys(this.guestsObject)[i] === 'Дети от 0-6'
+									? 'Ребенок 0-6'
+									: 'Ребенок 7-12',
+							feed: {
+								graph: 'default',
+								type: 'default',
+							},
+							firstName: '',
+							lastName: '',
+							middleName: '',
+							gender: 'male',
+							birthdayDate: '',
+							document: {
+								type: 'default',
+								id: '',
+								issuedBy: '',
+								issueDate: '',
+							},
+							phone: '',
+							privilege: 'default',
+							comment: '',
+						})
+						id++
+					}
 				}
+				this.$store.commit('setGuests', [...result])
 			}
-			this.$store.commit('setGuests', [...result])
 		},
 	},
 }
