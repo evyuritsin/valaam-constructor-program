@@ -44,10 +44,12 @@ const App = {
 	methods: {
 		clickToPervStage() {
 			this.selectStage--
+			window.scrollTo(0, 250)
 		},
 		clickToNextStage() {
 			if (!this.alertSpan) {
 				this.selectStage++
+				window.scrollTo(0, 250)
 			}
 		},
 		goToStage(stageNumber) {
