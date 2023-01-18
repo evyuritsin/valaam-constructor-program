@@ -46,21 +46,9 @@
 		}
 	],
 	"feed": {
-		"standard": {
-			"breakfast": 200,
-			"lunch": 400,
-			"dinner": 400
-		},
-		"lean": {
-			"breakfast": 100,
-			"lunch": 300,
-			"dinner": 200
-		},
-		"childly": {
-			"breakfast": 100,
-			"lunch": 300,
-			"dinner": 300
-		}
+		"standard": 1,
+		"lean": 0.8,
+		"childly": 0.5
 	},
 	"excursions": [
 		{
