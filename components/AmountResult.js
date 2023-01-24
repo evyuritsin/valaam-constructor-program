@@ -32,7 +32,7 @@ const AmountResult = {
 											>Не выбрано</span
 										>											
 									</div>
-									<div v-if="hotelRooms" class="program-card__labels" v-if="mainInfo.multiDay">
+									<div v-if="hotelRooms && mainInfo.multiDay" class="program-card__labels">
 										<span class="program-card__label">Проживание:</span>
 										<div className="program-card__label-container">
 										<span v-for="(room, indx) in hotelRooms" :key="room.id" class="program-card__label"
@@ -88,7 +88,7 @@ const AmountResult = {
 										</div>
 										<div class="program-card__item" v-if="ships.there.price && ships.back.price">
 											<span class="program-card__label">Теплоход:</span>
-											<span v-if class="program-card__price"><b>{{shipsPrice}}</b> ₽</span>
+											<span class="program-card__price"><b>{{shipsPrice}}</b> ₽</span>
 										</div>
 										<div class="program-card__item" v-if="feedPrice">
 											<span class="program-card__label">Питание:</span>
