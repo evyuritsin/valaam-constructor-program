@@ -35,7 +35,315 @@
 		<script src="https://unpkg.com/vuex@4.0.0/dist/vuex.global.js"></script>
 	</head>
 	<body>
-		<div id="app"></div>
+		<header class="header">
+			<div class="header__row">
+				<div class="header__top">
+					<div class="header__phones">
+						<span class="header__phone">
+							<a class="header__phone-link" href="tel:+78129028611"
+								>8 (812) 902-8611</a
+							>
+						</span>
+						<span class="header__phone">
+							<a class="header__phone-link" href="tel:+74992509799"
+								>8 (499) 250-9799</a
+							>
+						</span>
+					</div>
+					<div class="header__logins">
+						<div class="header__login">
+							<img
+								class="header__login-icon"
+								src="./img/icon_login.png"
+								alt="login icon"
+							/>
+							<a class="header__login-auth" href="javascript:void(0)">Войти</a>
+							/
+							<a class="header__login-reg" href="javascript:void(0)"
+								>Зарегистрироваться</a
+							>
+						</div>
+						<div class="header__langs">
+							<ul class="header__lang">
+								<li class="header__lang-content">
+									<img
+										class="header__lang-icon"
+										src="./img/icon_langs_rus.png"
+										alt="lang list"
+									/>
+									<img
+										class="header__lang-arrow"
+										src="./img/icon_arrow_langs.png"
+										alt="lang arrow"
+									/>
+									<ul class="header__langs-list">
+										<li class="header__lang-item">
+											<img
+												class="header__lang-icon"
+												src="./img/icon_langs_rus.png"
+												alt="lang list"
+											/>
+											<img
+												class="header__lang-arrow transform-180"
+												src="./img/icon_arrow_langs.png"
+												alt="lang arrow"
+											/>
+										</li>
+										<li class="header__lang-item">
+											<a class="header__lang-link" href="#">
+												<img
+													class="header__lang-icon"
+													src="./img/icon_langs_fin.png"
+													alt="lang list"
+												/>
+												<span class="header__lang-name">fi</span>
+											</a>
+										</li>
+										<li class="header__lang-item">
+											<a class="header__lang-link" href="#">
+												<img
+													class="header__lang-icon"
+													src="./img/icon_langs_eng.png"
+													alt="lang list"
+												/>
+												<span class="header__lang-name">en</span>
+											</a>
+										</li>
+									</ul>
+								</li>
+							</ul>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="header__row">
+				<div class="header-bottom">
+					<img class="header-bottom__logo" src="./img/logo.svg" alt="logo" />
+					<ul class="header-bottom__nav">
+						<li class="header-bottom__submenu">
+							<a class="header-bottom__link" href="#">Программы</a>
+							<ul class="header-bottom__sub-menu">
+								<li class="header-bottom__sub-item">
+									<a class="header-bottom__sub-link" href="#">Расписание</a>
+								</li>
+								<li class="header-bottom__sub-item">
+									<a class="header-bottom__sub-link" href="#">Однодневные</a>
+								</li>
+								<li class="header-bottom__sub-item">
+									<a class="header-bottom__sub-link" href="#">Многодневные</a>
+								</li>
+								<li class="header-bottom__sub-item">
+									<a class="header-bottom__sub-link" href="#">Индивидуальные</a>
+								</li>
+								<li class="header-bottom__sub-item">
+									<a class="header-bottom__sub-link" href="#">Приходам</a>
+								</li>
+								<li class="header-bottom__sub-item">
+									<a class="header-bottom__sub-link" href="#"
+										>Организованным группам</a
+									>
+								</li>
+								<li class="header-bottom__sub-item">
+									<a class="header-bottom__sub-link" href="#">Услуги</a>
+								</li>
+								<li class="header-bottom__sub-item">
+									<a class="header-bottom__sub-link" href="#"
+										>Оставить заявку</a
+									>
+								</li>
+							</ul>
+						</li>
+						<li class="header-bottom__submenu">
+							<a class="header-bottom__link" href="#">На валааме</a>
+							<ul class="header-bottom__sub-menu">
+								<li class="header-bottom__sub-item">
+									<a class="header-bottom__sub-link" href="#">Экскурсии</a>
+								</li>
+								<li class="header-bottom__sub-item">
+									<a class="header-bottom__sub-link" href="#">Размещение</a>
+								</li>
+								<li class="header-bottom__sub-item">
+									<a class="header-bottom__sub-link" href="#">Теплоходы</a>
+								</li>
+								<li class="header-bottom__sub-item">
+									<a class="header-bottom__sub-link" href="#"
+										>Правила поведения в монастыре</a
+									>
+								</li>
+							</ul>
+						</li>
+						<li class="header-bottom__submenu">
+							<a class="header-bottom__link" href="#">Информация</a>
+							<ul class="header-bottom__sub-menu">
+								<li class="header-bottom__sub-item">
+									<a class="header-bottom__sub-link" href="#"
+										>Условия оплаты
+									</a>
+								</li>
+								<li class="header-bottom__sub-item">
+									<a class="header-bottom__sub-link" href="#">Реквизиты </a>
+								</li>
+								<li class="header-bottom__sub-item">
+									<a class="header-bottom__sub-link" href="#"
+										>Возврат денежных средств
+									</a>
+								</li>
+								<li class="header-bottom__sub-item">
+									<a class="header-bottom__sub-link" href="#"
+										>Обучение экскурсоводов
+									</a>
+								</li>
+								<li class="header-bottom__sub-item">
+									<a class="header-bottom__sub-link" href="#">
+										Волонтёром на Валаам
+									</a>
+								</li>
+								<li class="header-bottom__sub-item">
+									<a class="header-bottom__sub-link" href="#">
+										Часто задаваемые вопросы
+									</a>
+								</li>
+							</ul>
+						</li>
+						<li class="header-bottom__submenu">
+							<a class="header-bottom__link" href="#">О нас</a>
+							<ul class="header-bottom__sub-menu">
+								<li class="header-bottom__sub-item">
+									<a class="header-bottom__sub-link" href="#">
+										Паломническая служба
+									</a>
+								</li>
+								<li class="header-bottom__sub-item">
+									<a class="header-bottom__sub-link" href="#"> Статьи </a>
+								</li>
+								<li class="header-bottom__sub-item">
+									<a class="header-bottom__sub-link" href="#"> Новости </a>
+								</li>
+								<li class="header-bottom__sub-item">
+									<a class="header-bottom__sub-link" href="#"> Подписка </a>
+								</li>
+								<li class="header-bottom__sub-item">
+									<a class="header-bottom__sub-link" href="#"> Вакансии </a>
+								</li>
+								<li class="header-bottom__sub-item">
+									<a class="header-bottom__sub-link" href="#"> Отзывы </a>
+								</li>
+								<li class="header-bottom__sub-item">
+									<a class="header-bottom__sub-link" href="#"> Контакты </a>
+								</li>
+							</ul>
+						</li>
+						<li class="header-bottom__menu header-bottom_order">
+							<a class="header-bottom__link" href="#">Заказ</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</header>
+		<main class="main">
+			<div class="crumbs">
+				<div class="crumbs__row">
+					<ul class="crumbs__list">
+						<li class="crumbs__item">
+							<a class="crumbs__link" href="#main">Главная</a>
+						</li>
+						<li class="crumbs__item">
+							<a class="crumbs__link" href="#">Теплоходы</a>
+						</li>
+						<li class="crumbs__item">Теплоход</li>
+					</ul>
+				</div>
+			</div>
+			<section class="section program-designer-habitation">
+				<div class="main__caption">Конструктор программ</div>
+				<div id="app"></div>
+			</section>
+		</main>
+		<footer class="footer">
+			<div class="footer__content">
+				<div class="footer__col">
+					<img src="./img/logo_footer.svg" alt="logo" />
+					<p class="footer__adress">
+						191124, г. Санкт-Петербург, Синопская наб., д. 34/36
+					</p>
+					<p class="footer__dev">
+						Разработка сайта —
+						<a class="footer__dev-link" href="#dev">Фабрика турсайтов</a>
+					</p>
+				</div>
+				<div class="footer__col">
+					<span class="footer__phone">
+						<a class="footer__phone-link" href="tel:+78129028611"
+							>8 (812) 902-8611</a
+						>
+					</span>
+					<span class="footer__phone">
+						<a class="footer__phone-link" href="tel:+74992509799"
+							>8 (499) 250-9799</a
+						>
+					</span>
+					<span class="footer__email"
+						>E-mail:
+						<a class="footer__email-link" href="mailto:vp@vp.valaam.ru"
+							>vp@vp.valaam.ru</a
+						>
+					</span>
+					<div class="footer__icons">
+						<a class="footer__icons-link" href="#vk">
+							<img class="footer__icon" src="./img/vk_footer.png" alt="vk" />
+						</a>
+						<a class="footer__icons-link" href="#ok">
+							<img class="footer__icon" src="./img/ok_footer.png" alt="ok" />
+						</a>
+						<a class="footer__icons-link" href="#telegram">
+							<img
+								class="footer__icon"
+								src="./img/telegram_footer.png"
+								alt="telegram"
+							/>
+						</a>
+						<a class="footer__icons-link" href="#viber">
+							<img
+								class="footer__icon"
+								src="./img/viber_footer.png"
+								alt="viber"
+							/>
+						</a>
+					</div>
+				</div>
+				<div class="footer__col">
+					<ul class="footer__menu">
+						<li class="footer__item">
+							<a class="footer__item-link" href="#">Посетить</a>
+						</li>
+						<li class="footer__item">
+							<a class="footer__item-link" href="#">На Валааме</a>
+						</li>
+						<li class="footer__item">
+							<a class="footer__item-link" href="#">Информация</a>
+						</li>
+						<li class="footer__item">
+							<a class="footer__item-link" href="#">О нас</a>
+						</li>
+						<li class="footer__item">
+							<a class="footer__item-link" href="#">Заказ</a>
+						</li>
+					</ul>
+					<div class="footer__widgets">
+						<div class="footer__weather"></div>
+						<div class="footer__pay">
+							<img class="footer__card" src="./img/pay-mir.png" alt="mir" />
+							<img
+								class="footer__card"
+								src="./img/pay-mastercard.png"
+								alt="mastercard"
+							/>
+							<img class="footer__card" src="./img/pay-visa.png" alt="visa" />
+						</div>
+					</div>
+				</div>
+			</div>
+		</footer>
 
 		<script src="./components/pickers/Datapicker.js"></script>
 		<script src="./components/pickers/Citipicker.js"></script>

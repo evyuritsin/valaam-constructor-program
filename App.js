@@ -1,22 +1,5 @@
 const App = {
 	template: /*html*/ `
-		<MyHeader />
-		<main class="main">
-			<div class="crumbs">
-				<div class="crumbs__row">
-					<ul class="crumbs__list">
-						<li class="crumbs__item">
-							<a class="crumbs__link" href="#main">Главная</a>
-						</li>
-						<li class="crumbs__item">
-							<a class="crumbs__link" href="#">Теплоходы</a>
-						</li>
-						<li class="crumbs__item">Теплоход</li>
-					</ul>
-				</div>
-			</div>
-			<section class="section program-designer-habitation">
-					<div class="main__caption">Конструктор программ</div>
 					<div class="main__content">
 						<div class="program-designer__header">
 							<Tabs v-if="selectStage !== 6" :selectStage="selectStage" @goToStage="goToStage"/>
@@ -33,9 +16,6 @@ const App = {
 							<Ship @clickToNext="clickToNextStage" @clickToPerv="clickToPervStage"/>
 						</div>
 					</div>
-			</section>			
-		</main>
-		<MyFooter />
 		<Else />
 	`,
 	data: () => ({
@@ -63,8 +43,6 @@ const App = {
 	},
 	components: {
 		AmountResult,
-		MyHeader,
-		MyFooter,
 		Habitation,
 		Ship,
 		Feed,
