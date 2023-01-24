@@ -2,8 +2,8 @@ const Tabs = {
 	template: /*html*/ `
 							<div class="vp-tabs-content">
 								<div class="vp-tabs">
-									<div id-tab="tab-1" class="vp-tab" @click.prevent="info.multiDay = true">Многодневные</div>
-									<div id-tab="tab-2" class="vp-tab vp-tab_active" @click.prevent="info.multiDay = false">
+									<div id-tab="tab-1" class="vp-tab" @click.prevent="onClickToMultiDay">Многодневные</div>
+									<div id-tab="tab-2" class="vp-tab vp-tab_active" @click.prevent="onClickToSingleDay">
 										Однодневные
 									</div>
 								</div>
@@ -145,6 +145,14 @@ const Tabs = {
 	methods: {
 		find() {
 			console.log(this.$data)
+		},
+		onClickToMultiDay() {
+			this.info.multiDay = true
+			$('.popup__blocked').click()
+		},
+		onClickToSingleDay() {
+			this.info.multiDay = false
+			$('.popup__blocked').click()
 		},
 		arrivalDateOnClick(e) {
 			this.info.arrivalDate = e.target.value
