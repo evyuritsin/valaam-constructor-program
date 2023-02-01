@@ -80,7 +80,7 @@ const Habitation = {
 								</div>
 							</div>
 						</div>
-						<div class="list" v-bind:class="[!showHabitations && 'hidden']">
+						<div class="list-grid" v-bind:class="[!showHabitations && 'hidden']">
 								<HotelRoom v-for="room in rooms" :key="room.id" :addRoom='addRoom' :room="room" :allRooms="selectRooms"/>
 						</div>
 						<div class="program-designer__footer">
