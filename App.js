@@ -6,11 +6,13 @@ const App = {
 							<Stages :selectId="selectStage"/>
 						</div>
 						<div class="program-designer__content">
-							<Habitation v-if="selectStage === 1" @clickToNext="clickToNextStage"/>
 							<Feed v-if="selectStage === 3" @clickToNext="clickToNextStage" @clickToPerv="clickToPervStage"/>
 							<Excursions v-if="selectStage === 4" @clickToNext="clickToNextStage" @clickToPerv="clickToPervStage"/>
 							<Services v-if="selectStage === 5" @clickToNext="clickToNextStage" @clickToPerv="clickToPervStage"/>
 							<Order v-if="selectStage === 6" @clickToPerv="clickToPervStage"/>
+						</div>
+						<div class="program-designer__content" :class='[selectStage !== 1 && "hidden"]'>
+							<Habitation  @clickToNext="clickToNextStage"/>
 						</div>
 						<div class="program-designer__content" :class='[selectStage !== 2 && "hidden"]'>
 							<Ship @clickToNext="clickToNextStage" @clickToPerv="clickToPervStage"/>
