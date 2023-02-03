@@ -5,7 +5,6 @@ const TouristData = {
 									<div class="order-form__content-human">
 										<div class="order-form__field-contacts">
 											<div class="order-form__field-contact">
-												<div class="order-form__field-contact-col flex-2">
 													<input
 														type="text"
 														class="vp-input"
@@ -14,38 +13,32 @@ const TouristData = {
 													/>
 													<input
 														type="text"
-														class="vp-input ml-20"
+														class="vp-input"
 														v-model="copyGuest.firstName"
 														placeholder="Имя*"
 													/>
-												</div>
-												<div class="order-form__field-contact-col flex-1 ml-20">
 													<input
 														type="text"
-														class="vp-input flex-1"
+														class="vp-input"
 														v-model="copyGuest.middleName"
 														placeholder="Отчество*"
 													/>
-												</div>
 											</div>
 											<div class="order-form__field-contact mt-20">
-												<div class="order-form__field-contact-col flex-2">
 													<input
 														type="text"
-														class="vp-input flex-1"
+														class="vp-input"
 														placeholder="Дата рождения*"
 														:inputobj="guest.id+123453234123453"
 														showmodal="datepicker-lite"
 													/>
 													<input
 														type="text"
-														class="vp-input flex-1 input__icon_right icon_arrowdown ml-20"
+														class="vp-input input__icon_right icon_arrowdown"
 														placeholder="Тип документа*"
 														:inputobj="guest.id+12343234345345"
 														showmodal="docs-list"
 													/>
-												</div>
-												<div class="order-form__field-contact-col flex-1 ml-20">
 													<input
 														type="text"
 														class="vp-input flex-1"
@@ -53,18 +46,14 @@ const TouristData = {
 														placeholder="Паспорт серия/номер*"
 														name="passSN"
 													/>
-												</div>
 											</div>
 											<div class="order-form__field-contact mt-20">
-												<div class="order-form__field-contact-col flex-2">
 													<input
 														type="text"
 														class="vp-input"
 														v-model="copyGuest.document.issuedBy"
 														placeholder="Кем выдан*"
 													/>
-												</div>
-												<div class="order-form__field-contact-col flex-1 ml-20">
 													<input
 														type="text"
 														class="vp-input"
@@ -72,10 +61,8 @@ const TouristData = {
 														:inputobj="guest.id+5465654656456"
 														showmodal="datepicker-lite"
 													/>
-												</div>
 											</div>
 											<div class="order-form__field-contact mt-20">
-												<div class="order-form__field-contact-col flex-2">
 													<input
 														type="text"
 														class="vp-input"
@@ -85,25 +72,22 @@ const TouristData = {
 													/>
 													<input
 														type="text"
-														class="vp-input input__icon_right icon_arrowdown ml-20"
+														class="vp-input input__icon_right icon_arrowdown"
 														value=""
 														placeholder="Право на льготы"
 														:inputobj="guest.id+12343223"
 														showmodal="benefits-list"
 													/>
 													<Privilegespicker :click="clickToPrivileges"/>
-												</div>
-												<div class="order-form__field-contact-col flex-1 ml-20">
 													<input
 														type="text"
-														class="vp-input flex-1"
+														class="vp-input"
 														v-model="copyGuest.comment"
 														placeholder="Комментарий"
 													/>
-												</div>
 											</div>
 										</div>
-										<div class="order-form__fields-gender ml-20">
+										<div class="order-form__fields-gender">
 											<div
 												class="order-form__field-gender order-form_field-active"
 												@click="copyGuest.gender = 'male'"
