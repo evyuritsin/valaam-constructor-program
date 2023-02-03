@@ -4122,6 +4122,9 @@ option::after {
 	.find-list__body-price {
 		flex-direction: column;
 	}
+	.vp-tabs-content {
+		height: fit-content;
+	}
 }
 /*-----------media----------------------*/
 /*-----------модификаторы глобальные----*/
