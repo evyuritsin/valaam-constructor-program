@@ -3608,7 +3608,6 @@ option::after {
 }
 .program-designer__calc {
 	width: 100%;
-	height: 340px;
 	display: flex;
 	flex-direction: column;
 	align-items: flex-start;
@@ -3622,7 +3621,6 @@ option::after {
 }
 .program-designer__calc-title {
 	width: 100%;
-	height: 40px;
 	line-height: 40px;
 	font-style: normal;
 	font-weight: 700;
