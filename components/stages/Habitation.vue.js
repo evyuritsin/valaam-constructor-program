@@ -183,7 +183,6 @@ const Habitation = {
 			if (e.target.dataset.id !== this.activeHotel) {
 				this.showHabitations = true
 			} else {
-				console.log(11)
 				this.showHabitations = !this.showHabitations
 			}
 			this.activeHotel = e.target.dataset.id

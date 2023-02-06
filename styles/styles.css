@@ -686,7 +686,6 @@ option::after {
 /*--tabs--*/
 .vp-tabs-content {
 	width: 100%;
-	height: 167px;
 	display: flex;
 	flex-direction: column;
 	align-items: flex-start;
@@ -1043,7 +1042,8 @@ option::after {
 .section {
 	display: flex;
 	flex-direction: column;
-	width: var(--width-page) !important;
+	/*width: calc(var(--width-page) - 20px) !important;*/
+	width: var(--width-page);
 	height: fit-content;
 	margin: 20px 0px 20px 0px;
 }
@@ -1295,13 +1295,15 @@ option::after {
 .find-list {
 	position: relative;
 	width: 100%;
-	height: 251px;
 	margin-top: 20px;
 	margin-bottom: 20px;
 	background: #fff;
 	box-shadow: 0px 0px 20px rgba(5, 68, 88, 0.2);
 	border-radius: 20px;
 	display: flex;
+	height: 251px;
+	max-height: 251px;
+	overflow-y: hidden;
 }
 
 .list[count='two'] > .find-list:nth-child(n + 3) {
@@ -1521,6 +1523,7 @@ option::after {
 	display: flex;
 	justify-content: space-between;
 	flex-wrap: wrap;
+	width: 100%;
 }
 .list-grid {
 	display: grid;
@@ -1769,7 +1772,6 @@ option::after {
 .placement-item {
 	position: relative;
 	display: flex;
-	box-sizing: content-box;
 	flex-direction: column;
 	align-items: center;
 	padding: 0px;
@@ -1781,43 +1783,9 @@ option::after {
 	border-radius: 20px;
 }
 .placement-item_selected {
-	/* border: 3px solid #ff8a00; */
+	border: 3px solid #ff8a00;
+	//box-shadow: 0px 0px 20px rgba(5, 68, 88, 0.2);
 }
-
-.placement-item_selected .placement-item__gallery-item {
-	border-radius: 20px 20px 0 0;
-	border-top: 3px solid rgb(255, 138, 0);
-	border-left: 3px solid rgb(255, 138, 0);
-	border-right: 3px solid rgb(255, 138, 0);
-}
-
-.placement-item_selected .placement-item__geo {
-	border-left: 3px solid rgb(255, 138, 0);
-	border-right: 3px solid rgb(255, 138, 0);
-}
-
-.placement-item_selected .placement-item__title {
-	border-left: 3px solid rgb(255, 138, 0);
-	border-right: 3px solid rgb(255, 138, 0);
-}
-
-.placement-item_selected .placement-item__desc {
-	border-left: 3px solid rgb(255, 138, 0);
-	border-right: 3px solid rgb(255, 138, 0);
-}
-
-.placement-item_selected .placement-item__prices {
-	border-left: 3px solid rgb(255, 138, 0);
-	border-right: 3px solid rgb(255, 138, 0);
-}
-
-.placement-item_selected .placement-item__btn {
-	border-bottom: 3px solid rgb(255, 138, 0);
-	border-left: 3px solid rgb(255, 138, 0);
-	border-right: 3px solid rgb(255, 138, 0);
-	background-color: rgb(255, 138, 0);
-}
-
 .placement-item__gallery {
 	width: 100%;
 	height: 270px;
@@ -1941,6 +1909,40 @@ option::after {
 }
 .placement-item__icon {
 	margin-left: 20px;
+}
+
+.placement-item_selected .placement-item__gallery-item {
+	border-radius: 20px 20px 0 0;
+	border-top: 3px solid rgb(255, 138, 0);
+	border-left: 3px solid rgb(255, 138, 0);
+	border-right: 3px solid rgb(255, 138, 0);
+}
+
+.placement-item_selected .placement-item__geo {
+	border-left: 3px solid rgb(255, 138, 0);
+	border-right: 3px solid rgb(255, 138, 0);
+}
+
+.placement-item_selected .placement-item__title {
+	border-left: 3px solid rgb(255, 138, 0);
+	border-right: 3px solid rgb(255, 138, 0);
+}
+
+.placement-item_selected .placement-item__desc {
+	border-left: 3px solid rgb(255, 138, 0);
+	border-right: 3px solid rgb(255, 138, 0);
+}
+
+.placement-item_selected .placement-item__prices {
+	border-left: 3px solid rgb(255, 138, 0);
+	border-right: 3px solid rgb(255, 138, 0);
+}
+
+.placement-item_selected .placement-item__btn {
+	border-bottom: 3px solid rgb(255, 138, 0);
+	border-left: 3px solid rgb(255, 138, 0);
+	border-right: 3px solid rgb(255, 138, 0);
+	background-color: rgb(255, 138, 0);
 }
 /*--------placement-list-------------*/
 /*-----------map---------------------*/
@@ -2403,16 +2405,18 @@ option::after {
 	width: 100%;
 	display: flex;
 	justify-content: space-between;
+	flex-wrap: wrap;
+	gap: 20px;
 }
 .search__col {
-	width: 300px;
+	min-width: 200px;
 	height: 80px;
 	display: flex;
 	flex-direction: column;
 }
 .search__filter-name {
 	width: 100%;
-	height: 30px;
+	margin-bottom: 10px;
 }
 .search__filter {
 	width: 100%;
@@ -2919,6 +2923,7 @@ option::after {
 	width: 100%;
 	height: fit-content;
 	display: flex;
+	gap: 20px;
 	margin-top: 20px;
 }
 .order-form__fields-gender {
@@ -2957,11 +2962,12 @@ option::after {
 }
 .order-form__field-contact {
 	display: flex;
-	justify-content: space-between;
+	gap: 20px;
 }
-.order-form__field-contact-col {
-	display: flex;
+.order-form__field-contact .vp-input {
+	flex: 1;
 }
+
 .order-form__pay-group {
 	width: calc(50% - 10px);
 }
@@ -3214,7 +3220,6 @@ option::after {
 .timing__item {
 	position: relative;
 	width: 100%;
-	height: 251px;
 	margin-top: 20px;
 	margin-bottom: 20px;
 	background: #fff;
@@ -3629,9 +3634,11 @@ option::after {
 }
 .program-designer__calc-item {
 	width: 100%;
-	height: 60px;
 	display: flex;
 	align-items: flex-start;
+	flex-wrap: wrap;
+	gap: 20px;
+	padding-bottom: 20px;
 }
 .program-designer_calc-header {
 	border-bottom: 1px solid rgba(29, 48, 84, 0.5);
@@ -3640,6 +3647,7 @@ option::after {
 	flex: 1;
 	height: 40px;
 	display: flex;
+	min-width: 200px;
 	align-items: center;
 	justify-content: flex-end;
 }
@@ -4669,4 +4677,668 @@ select {
 	-webkit-appearance: none;
 	-moz-appearance: none;
 	appearance: none;
+}
+
+@media screen and (max-width: 1200px) {
+	:root {
+		--width-page: calc(100% - 20px);
+	}
+	.header-bottom {
+		flex-direction: column;
+	}
+	.header__filter {
+		width: 100%;
+	}
+	.main__search {
+		width: calc(100% - 40px);
+	}
+
+	.main__poster {
+		width: 100%;
+	}
+	.index-form {
+		padding: 0;
+		height: auto;
+		flex-direction: column;
+	}
+	.map__location {
+		font-size: 16px;
+	}
+	.footer {
+		height: fit-content;
+		padding-top: 20px;
+		box-sizing: border-box;
+	}
+	.footer__content {
+		height: fit-content;
+		flex-direction: column;
+		align-items: center;
+		padding-bottom: 10px;
+	}
+	.footer__col {
+		min-width: 100%;
+		height: fit-content;
+	}
+	.footer__col:last-child {
+		width: 100%;
+		height: fit-content;
+	}
+	.footer__col:first-child .footer__dev {
+		display: none;
+	}
+	.footer__col:last-child .footer__dev {
+		display: block;
+	}
+	.footer__pay {
+		display: flex;
+		justify-content: center;
+	}
+	.search__submits {
+		justify-content: space-evenly;
+	}
+
+	.main__content {
+		flex-direction: column;
+		align-items: center;
+	}
+
+	.options {
+		margin-left: 0;
+	}
+	.timing .main__content {
+		flex-direction: column;
+		gap: 1rem;
+	}
+	.timing__list {
+		padding: 0;
+		overflow: hidden;
+	}
+	.buy-tickets-form .index-form {
+		flex-direction: row;
+	}
+	.buy-tickets-form {
+		gap: 1rem;
+	}
+}
+@media screen and (max-width: 1024px) {
+	.search__col {
+		margin-right: 0px;
+	}
+	.main__poster {
+		width: 100%;
+	}
+	.find-programs__title {
+		font-size: 46px;
+	}
+	.find-programs__form {
+		width: 100%;
+	}
+	.find-list__footer {
+		justify-content: space-between;
+	}
+	.reviews__header {
+		flex-direction: column;
+		gap: 1rem;
+	}
+	.reviews__create {
+		margin-left: 0;
+	}
+	.search-program .find-list {
+		max-height: 100%;
+		height: auto;
+	}
+	.find-list__price-value {
+		font-size: 20px;
+	}
+	.find-list {
+		flex-direction: column;
+		max-width: 300px;
+		height: auto;
+		max-height: 700px;
+	}
+	.find-list__desc {
+		display: none;
+	}
+	.find-list__header {
+		width: auto;
+		padding: 0;
+		height: auto;
+		flex-direction: column;
+	}
+	.find-list__footer {
+		display: none;
+	}
+	.find-list__img {
+		width: 100%;
+		min-height: 250px;
+		border-radius: 20px 20px 0 0;
+	}
+	.find-list__price {
+		width: 100%;
+		flex-direction: row;
+	}
+	.find-list__body-price {
+		flex-direction: row;
+		border-bottom-left-radius: 20px;
+		border-top-right-radius: 0;
+		height: 50px;
+	}
+	.find-list__col:last-child {
+		border-left: 0;
+		padding: 10px 20px 10px 15px;
+		gap: 12px;
+		height: auto;
+	}
+	.find-list__content {
+		max-height: fit-content;
+	}
+	.find-list__col:first-child {
+		padding: 10px 20px 10px 15px;
+		background-color: #1d3054;
+	}
+	.find-list__link {
+		color: #fff;
+	}
+	.find-list__footer-price {
+		width: fit-content;
+		padding-left: 10px;
+		padding-right: 10px;
+	}
+	.order-form__footer {
+		width: 100%;
+		margin-left: 0;
+		justify-content: space-between;
+	}
+	.order-form__footer .vp-btn {
+		flex: 0;
+	}
+	.timing__item {
+		flex-direction: column;
+		margin-bottom: 10px;
+		max-height: fit-content;
+		height: auto;
+	}
+
+	.timing__item .find-list__col {
+		border-radius: 20px 20px 0 0;
+	}
+
+	.program-designer-excursions .find-list__price {
+		flex-direction: column;
+	}
+
+	.program-designer-excursions .find-list__body-price {
+		flex-direction: column;
+		max-height: 200px;
+	}
+
+	.program-designer-excursions .index-form {
+		flex-direction: row;
+	}
+
+	.program-designer-excursions .find-list__footer-price {
+		width: 300px;
+		padding: 0;
+		border-bottom-left-radius: 20px;
+	}
+
+	.program-designer-excursions .list {
+		margin-bottom: 3rem;
+	}
+}
+@media screen and (max-width: 890px) {
+	.search__filters {
+		justify-content: center;
+	}
+	.program-card {
+		flex-direction: column;
+	}
+	.program-card__footer {
+		width: auto;
+		gap: 10px;
+	}
+	.program-card__info {
+		height: auto;
+	}
+	.main__poster {
+		width: 100%;
+	}
+	.main__title {
+		font-size: 60px;
+		line-height: 60px;
+		text-align: center;
+	}
+	.main__search {
+		width: calc(100% - 20px);
+		height: fit-content;
+		flex-direction: column;
+	}
+	.main__search .vp-input {
+		flex: unset !important;
+		margin-bottom: 15px;
+	}
+	.header-bottom__nav {
+		width: 100%;
+		padding: 0;
+	}
+	.map__location {
+		font-size: 14px;
+	}
+	.find-programs__title {
+		font-size: 40px;
+	}
+
+	.find-list__price-value {
+		grid-column: 1/3;
+		text-align: center;
+	}
+
+	.checkbox__label {
+		min-width: fit-content;
+	}
+	.login,
+	.register {
+		width: calc(100% - 100px);
+		left: 50px;
+		top: 85px;
+	}
+	.login .modal__info {
+		width: 100%;
+		border-top-right-radius: 0;
+		border-bottom-left-radius: 20px;
+		padding: 30px;
+	}
+	.register .modal__info {
+		width: 100%;
+		border-top-left-radius: 0;
+		border-bottom-right-radius: 20px;
+		padding: 30px;
+	}
+	.login .modal__title,
+	.register .modal__title {
+		line-height: 36px;
+	}
+	.login .modal__forms {
+		width: 100%;
+	}
+	.login .modal__form {
+		flex-direction: column;
+	}
+	.register .modal__form {
+		flex-direction: column-reverse;
+	}
+	.login .modal__options,
+	.register .modal__options {
+		height: fit-content;
+	}
+
+	.motorShips-list__footer-value,
+	.motorShips-list__footer-text {
+		font-size: 12px;
+	}
+	.order-form__pay-group {
+		max-width: 100%;
+		width: auto;
+	}
+	.order-form__agreement {
+		display: flex;
+		gap: 1rem;
+	}
+	.checkbox__text {
+		max-width: 200px;
+	}
+	.excursion-list {
+		width: 300px;
+	}
+
+	.service__img {
+		float: none;
+		margin: 0;
+		max-width: 100%;
+		width: 100%;
+	}
+	.register__col {
+		gap: 2rem;
+	}
+
+	.list {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+	}
+
+	.main__donations {
+		flex-direction: column;
+		align-items: center;
+	}
+
+	.main__content-mini {
+		width: 100%;
+	}
+
+	.order-form__content-human {
+		flex-direction: column-reverse;
+	}
+
+	.program-designer-order .order-form__group.order-form__pay-group {
+		width: 48%;
+		margin-left: 0;
+	}
+
+	.reg-order .order-form__group.order-form__pay-group {
+		width: 48%;
+		margin-left: 0;
+	}
+
+	.reg-order .order-form__field-footer {
+		flex-direction: column;
+	}
+
+	.find-list__price-value {
+		font-size: 18px;
+	}
+
+	.order-form__field-contact {
+		flex-wrap: wrap;
+	}
+}
+@media screen and (max-width: 780px) {
+	/*Начало мобильной версии*/
+	.section {
+		width: calc(100% - 20px);
+	}
+	.header {
+		flex-direction: column-reverse;
+	}
+	.placement-footer {
+		flex-direction: column;
+		gap: 10px;
+		align-items: normal;
+	}
+	.header__top {
+		max-width: 100%;
+		padding: 0 20px;
+		box-sizing: border-box;
+	}
+	.header__btn-mob {
+		display: block;
+	}
+	.header__phones {
+		display: none;
+	}
+	.header__login-icon {
+		display: none;
+	}
+	.header__langs {
+		display: none;
+	}
+	.header-bottom__nav {
+		display: none;
+	}
+	.service-list {
+		flex-direction: column;
+		height: auto;
+		width: 300px;
+	}
+	.service-list__arrow {
+		display: none;
+	}
+	.service-list__arrow img {
+		transform: rotate(90deg);
+	}
+	.service-list__img {
+		width: 100%;
+		height: 200px;
+		border-radius: 20px 20px 0 0;
+	}
+	.reviews__desc {
+		margin-left: 0;
+	}
+
+	.search__submits button {
+		margin-left: 0;
+	}
+	.main__poster {
+		max-width: 100%;
+	}
+	.main__title {
+		font-size: 46px;
+		line-height: 46px;
+		height: 50px;
+		text-align: center;
+	}
+	.header__search {
+		top: 40px;
+		bottom: unset;
+	}
+	.search__submits {
+		max-width: 100%;
+		flex-wrap: wrap;
+		gap: 10px;
+		align-items: flex-start;
+		height: auto;
+		padding-top: 10px;
+		margin-bottom: 10px;
+	}
+
+	.search__submits button {
+		width: 100%;
+	}
+
+	.main__search {
+		width: calc(100% - 20px);
+	}
+	.header__filter {
+		width: 100%;
+	}
+	.map__footer {
+		height: 360px;
+		flex-direction: column;
+	}
+	.map__geo {
+		width: 100%;
+		height: 90px !important;
+	}
+	.map__geo:first-child {
+		border-bottom-left-radius: 0;
+	}
+	.map__geo:last-child {
+		border-bottom-left-radius: 20px;
+	}
+	.map__location {
+		font-size: 20px;
+		justify-content: flex-start;
+	}
+	.find-programs {
+		height: fit-content;
+		min-height: 400px;
+	}
+	.find-programs__title {
+		font-size: 32px;
+	}
+	.find-programs__construct {
+		flex-direction: column;
+		height: fit-content;
+	}
+	.find-programs__label {
+		height: fit-content;
+		line-height: 38px;
+	}
+	.find-programs__link {
+		margin-left: unset !important;
+	}
+	.pagination {
+		width: calc(100% - 20px);
+		height: fit-content;
+		justify-content: space-between;
+	}
+	.pagination__item {
+		width: unset;
+		flex: 1;
+	}
+	.pagination a:nth-last-child(n + 2) {
+		margin-right: unset;
+	}
+	.find-programs {
+		padding: 10px;
+	}
+	.find-programs__link {
+		font-size: 16px;
+	}
+	.header__login,
+	.header__login a {
+		font-size: 12px;
+	}
+	.populars .list {
+		flex-wrap: nowrap;
+		overflow-x: scroll;
+	}
+	.populars .list > .popular-list {
+		margin-left: 20px;
+		min-width: 300px;
+	}
+
+	.reviews__item {
+		flex-direction: column;
+	}
+	.reviews__info {
+		border: 0;
+	}
+	.program-designer__calc-item {
+		align-items: center;
+	}
+}
+@media screen and (max-width: 660px) {
+	.main__title {
+		font-size: 40px;
+		line-height: 40px;
+	}
+	.order-form__agreement {
+		flex-direction: column;
+	}
+	.order-form__footer {
+		padding-top: 10px;
+	}
+	.excursion-list__duration {
+		width: 80px;
+	}
+	.find-programs__title {
+		font-size: 26px;
+		line-height: 36px;
+		height: fit-content;
+	}
+
+	.find-programs__form {
+		flex-direction: column;
+	}
+	.find-programs__form .vp-input,
+	.find-programs__form .vp-btn {
+		flex: unset;
+		margin: 0;
+		margin-top: 20px;
+	}
+	.checkbox__label {
+		margin-top: 10px;
+	}
+
+	.register__col {
+		gap: 2rem;
+	}
+
+	.options {
+		width: 100%;
+	}
+
+	.list {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+	}
+	.reviews__ratings {
+		flex-direction: column;
+		height: auto;
+		align-items: normal;
+		padding: 30px;
+	}
+
+	.reviews__ratings-total {
+		width: auto;
+		border-right: 0;
+	}
+
+	.reviews__sort {
+		flex-direction: column;
+		width: fit-content;
+		margin: 0 auto;
+	}
+
+	.reviews__sort-date {
+		margin: 0;
+	}
+
+	.reviews__sort-useful {
+		margin: 0;
+	}
+	.program-designer__total-details {
+		align-items: flex-start;
+	}
+	.program-designer__total {
+		flex-direction: column;
+	}
+}
+@media screen and (max-width: 560px) {
+	.search__col {
+		width: 100%;
+	}
+
+	.order-form__footer {
+		margin-bottom: 3rem;
+	}
+
+	.find-list__footer {
+		max-width: 100%;
+		overflow-x: auto;
+	}
+
+	.main__title {
+		font-size: 30px;
+		line-height: 40px;
+		height: fit-content;
+	}
+	.footer__col:last-child {
+		flex-direction: column;
+		align-items: center;
+	}
+
+	.recovery-password {
+		width: calc(100% - 100px);
+		left: 50px;
+	}
+	.order-form__footer {
+		flex-direction: column;
+		gap: 1rem;
+	}
+
+	.order-form__footer .vp-btn {
+		width: 100%;
+	}
+}
+@media screen and (max-width: 420px) {
+	.main__caption {
+		font-size: 28px;
+	}
+}
+@media screen and (max-width: 340px) {
+	.main__caption {
+		font-size: 26px;
+	}
+	.popular-list {
+		margin-right: 0;
+	}
+	.motorShips-list {
+		width: 300px;
+	}
+	.list-grid {
+		grid-template-columns: repeat(auto-fill, 300px);
+	}
 }

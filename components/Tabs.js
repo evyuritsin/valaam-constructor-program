@@ -25,7 +25,7 @@ const Tabs = {
 													/>
 													<Datapicker :click="onClickDatapickerFirst" :obj="12121212"/>
 												</div>
-												<div class="search__col flex-2 ml-20">
+												<div class="search__col flex-2">
 													<label for="" class="search__filter-name">Дата отъезда</label>
 													<input
 														type="text"
@@ -38,7 +38,7 @@ const Tabs = {
 													/>
 													<Datapicker :click="onClickDatapickerFirst" :obj="656222263"/>
 												</div>
-												<div class="search__col flex-2 ml-20" >
+												<div class="search__col flex-2" >
 													<label for="" class="search__filter-name"
 														>Количество человек</label
 													>
@@ -54,7 +54,7 @@ const Tabs = {
 													/>
 													<Peoplepicker :click="onClickPeoplepicker"/>
 												</div>
-												<div class="search__col flex-2 ml-20" >
+												<div class="search__col flex-2" >
 													<label for="" class="search__filter-name"
 														>Место отправления</label
 													>
@@ -95,7 +95,7 @@ const Tabs = {
 													/>
 													<Datapicker :click="onClickDatapickerSecond" :obj="111111"/>
 												</div>
-												<div class="search__col flex-2 ml-20" >
+												<div class="search__col flex-2" >
 													<label for="" class="search__filter-name"
 														>Количество человек</label
 													>
@@ -111,7 +111,7 @@ const Tabs = {
 													/>
 													<Peoplepicker :click="onClickPeoplepicker"/>
 												</div>
-												<div class="search__col flex-2 ml-20">
+												<div class="search__col flex-2">
 													<label for="" class="search__filter-name"
 														>Место отправления</label
 													>

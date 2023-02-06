@@ -10,7 +10,6 @@ const Order = {
 									<div class="order-form__content-human">
 										<div class="order-form__field-contacts">
 											<div class="order-form__field-contact">
-												<div class="order-form__field-contact-col flex-2">
 													<input
 														type="text"
 														class="vp-input"
@@ -20,13 +19,11 @@ const Order = {
 													/>
 													<input
 														type="text"
-														class="vp-input ml-20"
+														class="vp-input"
 														v-model="client.firstName"
 														placeholder="Имя*"
 														:class="{'vp-input_invalid' : !client.firstName && validationErrors}"
 													/>
-												</div>
-												<div class="order-form__field-contact-col flex-1 ml-20">
 													<input
 														type="text"
 														class="vp-input flex-1"
@@ -34,10 +31,8 @@ const Order = {
 														placeholder="Отчество*"
 														:class="{'vp-input_invalid' : !client.middleName && validationErrors}"														
 													/>
-												</div>
 											</div>
 											<div class="order-form__field-contact mt-20">
-												<div class="order-form__field-contact-col flex-2">
 													<input
 														type="text"
 														class="vp-input flex-1 flatpickr-input"
@@ -53,15 +48,13 @@ const Order = {
 													<input 
 														type="text" 
 														readonly 
-														class="vp-input flex-1 input__icon_right icon_arrowdown ml-20" 
+														class="vp-input flex-1 input__icon_right icon_arrowdown" 
 														:class="{'vp-input_invalid' : !client.document.type && validationErrors}" 
 														placeholder="Тип документа*" 
 														showmodal="docs-list" 
 														inputobj="12345432134"
 													/>
 													<Documentspicker />
-												</div>
-												<div class="order-form__field-contact-col flex-1 ml-20">
 													<input
 														type="text"
 														class="vp-input flex-1"
@@ -70,10 +63,8 @@ const Order = {
 														name="passSN"
 														:class="{'vp-input_invalid' : !client.document.id && validationErrors}"															
 													/>
-												</div>
 											</div>
 											<div class="order-form__field-contact mt-20">
-												<div class="order-form__field-contact-col flex-2">
 													<input
 														type="text"
 														class="vp-input"
@@ -81,8 +72,6 @@ const Order = {
 														placeholder="Кем выдан*"
 														:class="{'vp-input_invalid' : !client.document.issuedBy && validationErrors}"	
 													/>
-												</div>
-												<div class="order-form__field-contact-col flex-1 ml-20">
 													<input
 														type="text"
 														class="vp-input input-datedocp"
@@ -94,10 +83,8 @@ const Order = {
 														:class="{'vp-input_invalid' : !client.document.issueDate && validationErrors}"						
 														readonly									
 													/>
-												</div>
 											</div>
 											<div class="order-form__field-contact mt-20">
-												<div class="order-form__field-contact-col flex-2">
 													<input
 														type="text"
 														class="vp-input"
@@ -108,19 +95,16 @@ const Order = {
 													/>
 													<input
 														type="text"
-														class="vp-input ml-20"
+														class="vp-input"
 														v-model="client.email"
 														placeholder="E-mail*"
 														:class="{'vp-input_invalid' : !client.email && validationErrors}"														
 													/>
-												</div>
-												<div class="order-form__field-contact-col flex-1 ml-20">
 													<input v-model="client.add" class="vp-input flex-1 input__icon_right icon_arrowdown" :class="{'placeholder-color' : client.add === 'default'}" list="add" placeholder="Откуда узнали о нас" showmodal="findout-list" inputobj="123454334345345" readonly/>
 													<Addpicker />
-												</div>
 											</div>
 										</div>
-										<div class="order-form__fields-gender ml-20">
+										<div class="order-form__fields-gender">
 											<div
 												class="order-form__field-gender order-form_field-active"
 												@click='client.gender = "male"'

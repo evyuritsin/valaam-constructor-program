@@ -44,13 +44,13 @@ const Feed = {
 											>Задать всем гостям</span
 										>
 									</div>
-									<div class="program-designer__calc-col ml-20">
+									<div class="program-designer__calc-col">
 										<select class="custom-select custom-select__body" v-model="toAllFeed.type">
 											<option selected disabled hidden value="default">Тип меню</option>
 											<option class="custom-select__item" v-for="type in menuTypes" :key="type.id" :value="type.ratio">{{type.title}}</option>
 										</select>									
 									</div>
-									<div class="program-designer__calc-col ml-20">
+									<div class="program-designer__calc-col">
 										<select class="custom-select custom-select__body" v-model="toAllFeed.graph">
 											<option selected disabled hidden value="default">График питания</option>
 											<option class="custom-select__item">Завтрак</option>
@@ -61,11 +61,11 @@ const Feed = {
 										</select>
 									</div>									
 									<div
-										class="program-designer__calc-col program-designer__calc-subtitle ml-20"
+										class="program-designer__calc-col program-designer__calc-subtitle"
 										
 									>
 										Сумма:
-										<span class="program-designer__calc-price ml-20" 
+										<span class="program-designer__calc-price" 
 											><b v-if="feedPrice">{{feedPrice}}</b> ₽</span
 										>
 									</div>
@@ -79,13 +79,13 @@ const Feed = {
 											>{{guest.id}}. {{guest.type}}</span
 										>
 									</div>
-									<div class="program-designer__calc-col ml-20" >
+									<div class="program-designer__calc-col" >
 										<select class="custom-select custom-select__body" v-model="guest.feed.type">
 											<option selected disabled hidden value="default">Тип меню</option>
 											<option class="custom-select__item" v-for="type in menuTypes" :key="type.id" :value="type.ratio">{{type.title}}</option>
 										</select>									
 									</div>
-									<div class="program-designer__calc-col ml-20">
+									<div class="program-designer__calc-col">
 										<select class="custom-select custom-select__body" v-model="guest.feed.graph">
 											<option selected disabled hidden value="default">График питания</option>
 											<option class="custom-select__item">Завтрак</option>
@@ -96,9 +96,9 @@ const Feed = {
 										</select>
 									</div>
 									<div
-										class="program-designer__calc-col program-designer__calc-subtitle ml-20"
+										class="program-designer__calc-col program-designer__calc-subtitle"
 									>
-										<span class="program-designer__calc-price ml-20"
+										<span class="program-designer__calc-price"
 											><b v-if='guest.feed.graph !== "default" && guest.feed.type !== "default"'>{{menuPrice(guest)}}</b> ₽</span
 										>
 									</div>
