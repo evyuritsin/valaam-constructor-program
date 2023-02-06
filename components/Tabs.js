@@ -11,7 +11,7 @@ const Tabs = {
 									<div id-tab-content="tab-1" class="vp-tab-content">
 										<form action="">
 											<div class="search__filters">
-												<div class="search__col flex-2">
+												<div class="search__col">
 													<label for="" class="search__filter-name">Дата заезда</label>
 													<input
 														type="text"
