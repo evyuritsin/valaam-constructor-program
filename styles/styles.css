@@ -24,10 +24,6 @@ body {
 	outline-offset: 0;
 }
 
-#app {
-	min-width: 100%;
-}
-
 .hidden {
 	height: 0px !important;
 	overflow-y: hidden;
@@ -4134,6 +4130,9 @@ option::after {
 	}
 	.find-list__body-price {
 		flex-direction: column;
+	}
+	.program-designer-excursions .find-list__body-price {
+		padding: 0 10px 0 10px;
 	}
 	.vp-tabs-content {
 		height: fit-content;
