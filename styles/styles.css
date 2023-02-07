@@ -2754,8 +2754,6 @@ option::after {
 	display: flex;
 }
 .program-card__labels {
-	/*width: 210px;
-	height: 100%;*/
 	display: grid;
 	grid-template-columns: 210px 1fr;
 	align-items: start;

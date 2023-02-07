@@ -192,6 +192,7 @@ const Habitation = {
 		selectRooms: {
 			handler() {
 				this.$store.commit('setHotelRooms', this.selectRooms)
+				this.$store.commit('setAlertSpan', '')
 			},
 			deep: true,
 		},
