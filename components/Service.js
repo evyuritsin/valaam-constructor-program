@@ -25,18 +25,10 @@ const Service = {
 									</div>
 								</div>
 	`,
-	data: () => ({
-		isSelected: false,
-	}),
 	props: ['title', 'id', 'price'],
 	methods: {
 		clickToSelect() {
-			this.isSelected = !this.isSelected
-		},
-	},
-	watch: {
-		isSelected() {
-			if (this.isSelected) {
+			if (!this.isSelected) {
 				this.$store.commit('addService', {
 					title: this.title,
 					id: this.id,
@@ -45,6 +37,14 @@ const Service = {
 			} else {
 				this.$store.commit('removeService', this.id)
 			}
+		},
+	},
+	computed: {
+		services() {
+			return this.$store.getters['getServices']
+		},
+		isSelected() {
+			return this.$store.getters.isSelectedService(this.id)
 		},
 	},
 }

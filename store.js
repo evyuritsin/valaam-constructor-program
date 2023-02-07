@@ -105,6 +105,13 @@ const store = createStore({
 		getServices(state) {
 			return state.services
 		},
+		isSelectedService: state => id => {
+			let result = false
+			state.services.forEach(service => {
+				if (service.id === id) result = true
+			})
+			return result
+		},
 		getClient(state) {
 			return state.client
 		},
