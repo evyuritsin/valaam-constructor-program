@@ -24,6 +24,7 @@ const Excursion = {
 													class="checkbox" 
 													@change="e => clickToCheckbox(e, item.date, item.time, item.id)" 
 													:checked="isSelected(item.id)"
+													:disabled="!tourist.adults && !tourist.children"
 												/>
 												<span class="checkbox__text">{{item.date}} | {{item.time}}</span>
 											</div>
