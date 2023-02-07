@@ -23,7 +23,7 @@ const Excursion = {
 													type="checkbox" 
 													class="checkbox" 
 													@change="e => clickToCheckbox(e, item.date, item.time, item.id)" 
-													:checked="isSelected(item.id)"
+													:checked="!tourist.adults && !tourist.children ? false : isSelected(item.id)"
 													:disabled="!tourist.adults && !tourist.children"
 												/>
 												<span class="checkbox__text">{{item.date}} | {{item.time}}</span>
@@ -179,6 +179,12 @@ const Excursion = {
 				this.selectExcursions.forEach(ex =>
 					this.$store.commit('addExcursion', { ...ex, tourist: this.tourist })
 				)
+				if (!this.tourist.adults && !this.tourist.children) {
+					this.selectExcursions.forEach(e =>
+						this.$store.commit('deleteExcursion', e.id)
+					)
+					this.selectExcursions = []
+				}
 			},
 			deep: true,
 		},
