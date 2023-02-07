@@ -2,10 +2,10 @@ const Tabs = {
 	template: /*html*/ `
 							<div class="vp-tabs-content">
 								<div class="vp-tabs">
-									<div id-tab="tab-1" class="vp-tab" @click.prevent="onClickToMultiDay">Многодневные</div>
 									<div id-tab="tab-2" class="vp-tab vp-tab_active" @click.prevent="onClickToSingleDay">
 										Однодневные
 									</div>
+									<div id-tab="tab-1" class="vp-tab" @click.prevent="onClickToMultiDay">Многодневные</div>
 								</div>
 								<div class="vp-tab-contents">
 									<div id-tab-content="tab-1" class="vp-tab-content">
