@@ -25,27 +25,39 @@ const TouristData = {
 													/>
 											</div>
 											<div class="order-form__field-contact mt-20">
+												<div className="flex-1">
 													<input
 														type="text"
-														class="vp-input"
+														class="vp-input flatpickr-input"
 														placeholder="Дата рождения*"
-														:inputobj="guest.id+123453234123453"
+														ref="client-input1"
+														inputobj="515151515151"
 														showmodal="datepicker-lite"
+														:class="{'vp-input_invalid' : !copyGuest.birthdayDate && validationErrors}"		
+														readonly												
 													/>
-													<input
-														type="text"
-														class="vp-input input__icon_right icon_arrowdown"
-														placeholder="Тип документа*"
-														:inputobj="guest.id+12343234345345"
-														showmodal="docs-list"
+												</div>
+												<div className="relative flex-1" 	@click="openDocumentsPicker">
+													<input 
+														type="text" 
+														readonly 
+														class="vp-input w-100 input__icon_right icon_arrowdown" 
+														:class="{'vp-input_invalid' : !copyGuest.document.type && validationErrors}" 
+														placeholder="Тип документа*" 
+														v-model="copyGuest.document.type"
 													/>
+													<Documentspicker v-if="isDocumentsOpen" @selectDoc="selectDoc" @close="closeDocumentsPicker"/>
+												</div>
+												<div className="flex-1">
 													<input
 														type="text"
 														class="vp-input flex-1"
 														v-model="copyGuest.document.id"
 														placeholder="Паспорт серия/номер*"
 														name="passSN"
+														:class="{'vp-input_invalid' : !copyGuest.document.id && validationErrors}"															
 													/>
+												</div>
 											</div>
 											<div class="order-form__field-contact mt-20">
 													<input
@@ -63,28 +75,32 @@ const TouristData = {
 													/>
 											</div>
 											<div class="order-form__field-contact mt-20">
+												<div className="flex-1">
 													<input
 														type="text"
 														class="vp-input"
 														v-model="copyGuest.phone"
 														placeholder="Телефон*"
 														name="telefon"
-													/>
+													/>												
+												</div>
+												<div className="flex-1 relative" @click="openPrivilegesPicker">
 													<input
 														type="text"
 														class="vp-input input__icon_right icon_arrowdown"
-														value=""
 														placeholder="Право на льготы"
-														:inputobj="guest.id+12343223"
-														showmodal="benefits-list"
+														v-model="copyGuest.privilege"
 													/>
-													<Privilegespicker :click="clickToPrivileges"/>
+													<Privilegespicker v-if="isPrivilegesOpen" @selectPrivilege="selectPrivilege" @close="closePrivilegesPicker"/>													
+												</div>
+												<div className="flex-1">
 													<input
 														type="text"
 														class="vp-input"
 														v-model="copyGuest.comment"
 														placeholder="Комментарий"
-													/>
+													/>												
+												</div>
 											</div>
 										</div>
 										<div class="order-form__fields-gender">
@@ -102,6 +118,8 @@ const TouristData = {
 	props: ['validationErrors', 'guest', 'index'],
 	data: () => ({
 		copyGuest: {},
+		isDocumentsOpen: false,
+		isPrivilegesOpen: false,
 	}),
 	components: {
 		Privilegespicker,
@@ -307,10 +325,23 @@ const TouristData = {
 		}, 0)
 	},
 	methods: {
-		clickToPrivileges() {
-			setTimeout(() => {
-				$('.popup__blocked').click()
-			}, 0)
+		openDocumentsPicker() {
+			this.isDocumentsOpen = true
+		},
+		closeDocumentsPicker() {
+			this.isDocumentsOpen = false
+		},
+		selectDoc(doc) {
+			this.copyGuest.document.type = doc
+		},
+		openPrivilegesPicker() {
+			this.isPrivilegesOpen = true
+		},
+		closePrivilegesPicker() {
+			this.isPrivilegesOpen = false
+		},
+		selectPrivilege(p) {
+			this.copyGuest.privilege = p
 		},
 	},
 	watch: {

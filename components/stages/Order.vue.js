@@ -33,9 +33,10 @@ const Order = {
 													/>
 											</div>
 											<div class="order-form__field-contact mt-20">
+												<div className="flex-1">
 													<input
 														type="text"
-														class="vp-input flex-1 flatpickr-input"
+														class="vp-input flatpickr-input"
 														placeholder="Дата рождения*"
   													@focus="client.birthdayDate = $event.target.value"
 														ref="client-input1"
@@ -44,17 +45,19 @@ const Order = {
 														:class="{'vp-input_invalid' : !client.birthdayDate && validationErrors}"		
 														readonly												
 													/>
-													<Datapicker :click="onClickDatapicker"/>
+												</div>
+												<div className="relative flex-1" 	@click="openDocumentsPicker">
 													<input 
 														type="text" 
 														readonly 
-														class="vp-input flex-1 input__icon_right icon_arrowdown" 
+														class="vp-input w-100 input__icon_right icon_arrowdown" 
 														:class="{'vp-input_invalid' : !client.document.type && validationErrors}" 
 														placeholder="Тип документа*" 
-														showmodal="docs-list" 
-														inputobj="12345432134"
+														v-model="client.document.type"
 													/>
-													<Documentspicker />
+													<Documentspicker v-if="isDocumentsOpen" @selectDoc="selectDoc" @close="closeDocumentsPicker"/>
+												</div>
+												<div className="flex-1">
 													<input
 														type="text"
 														class="vp-input flex-1"
@@ -63,6 +66,7 @@ const Order = {
 														name="passSN"
 														:class="{'vp-input_invalid' : !client.document.id && validationErrors}"															
 													/>
+												</div>
 											</div>
 											<div class="order-form__field-contact mt-20">
 													<input
@@ -85,6 +89,7 @@ const Order = {
 													/>
 											</div>
 											<div class="order-form__field-contact mt-20">
+												<div className="flex-1">
 													<input
 														type="text"
 														class="vp-input"
@@ -93,6 +98,8 @@ const Order = {
 														v-model="client.phone"
 														:class="{'vp-input_invalid' : !client.phone && validationErrors}"														
 													/>
+												</div>
+												<div className="flex-1">
 													<input
 														type="text"
 														class="vp-input"
@@ -100,8 +107,16 @@ const Order = {
 														placeholder="E-mail*"
 														:class="{'vp-input_invalid' : !client.email && validationErrors}"														
 													/>
-													<input v-model="client.add" class="vp-input flex-1 input__icon_right icon_arrowdown" :class="{'placeholder-color' : client.add === 'default'}" list="add" placeholder="Откуда узнали о нас" showmodal="findout-list" inputobj="123454334345345" readonly/>
-													<Addpicker />
+												</div>
+												<div className="flex-1 relative" @click="openAddsPicker">
+													<input 
+														v-model="client.add" 
+														class="vp-input input__icon_right icon_arrowdown" 
+														placeholder="Откуда узнали о нас" 
+														readonly
+													/>
+													<Addpicker v-if="isAddsOpen" @selectAdd="selectAdd" @close="closeAddsPicker"/>
+												</div>
 											</div>
 										</div>
 										<div class="order-form__fields-gender">
@@ -120,7 +135,7 @@ const Order = {
 									>
 								</div>
 								<div class="order-form__title">Данные туристов</div>
-									<TouristData v-for="(guest, index) in copyGuests" :key="guest.id" :guest="guest" :validationErrors="validationErrors" :index="index"/>
+								<TouristData v-for="(guest, index) in copyGuests" :key="guest.id" :guest="guest" :validationErrors="validationErrors" :index="index"/>
 								<TotalResult />
 								<div class="order-form__title">Способ оплаты</div>
 								<div class="order-form__field pos-h">
@@ -187,7 +202,7 @@ const Order = {
 			gender: 'male',
 			birthdayDate: '',
 			document: {
-				type: 'default',
+				type: '',
 				id: '',
 				issuedBy: '',
 				issueDate: '',
@@ -197,6 +212,8 @@ const Order = {
 			add: '',
 			isPilgrim: false,
 		},
+		isDocumentsOpen: false,
+		isAddsOpen: false,
 		validationErrors: false,
 	}),
 	computed: {
@@ -215,6 +232,24 @@ const Order = {
 			setTimeout(() => {
 				$('.popup__blocked').click()
 			}, 0)
+		},
+		openDocumentsPicker() {
+			this.isDocumentsOpen = true
+		},
+		closeDocumentsPicker() {
+			this.isDocumentsOpen = false
+		},
+		selectDoc(doc) {
+			this.client.document.type = doc
+		},
+		openAddsPicker() {
+			this.isAddsOpen = true
+		},
+		closeAddsPicker() {
+			this.isAddsOpen = false
+		},
+		selectAdd(add) {
+			this.client.add = add
 		},
 		clickToOrder() {
 			if (

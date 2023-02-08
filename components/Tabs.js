@@ -282,13 +282,13 @@ const Tabs = {
 							gender: 'male',
 							birthdayDate: '',
 							document: {
-								type: 'default',
+								type: '',
 								id: '',
 								issuedBy: '',
 								issueDate: '',
 							},
 							phone: '',
-							privilege: 'default',
+							privilege: '',
 							comment: '',
 						})
 						id++

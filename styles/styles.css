@@ -5346,3 +5346,17 @@ select {
 .align-items-center {
 	align-items: center;
 }
+
+.relative {
+	position: relative;
+}
+
+.picker {
+	position: absolute;
+	border: 1px solid #dddddd;
+	height: fit-content;
+	box-sizing: border-box;
+	background-color: #fff;
+	border-radius: 0 0 5px 5px;
+	border-width: 0px 1px 1px 1px;
+}

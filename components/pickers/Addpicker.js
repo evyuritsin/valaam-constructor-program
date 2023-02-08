@@ -1,13 +1,23 @@
 const Addpicker = {
 	template: /*html*/ `
-		<div class="popup popup__select findout-list hide" popupobject="" obj="" @click.prevent='click'>
-			<div class="select__item">Новости</div>
-			<div class="select__item">Реклама</div>
-			<div class="select__item">Соцсети</div>
-			<div class="select__item">Радио</div>
-			<div class="select__item">Интернет</div>
-			<div class="select__item">Другое</div>
+		<div class="picker w-100">
+			<div class="select__item" v-for='add in adds' :key='add.id'  @click.stop="onClickToAdd(add.name)">{{add.name}}</div>
 		</div>
 	`,
-	props: ['click'],
+	data: () => ({
+		adds: [
+			{ id: 1, name: 'Новости' },
+			{ id: 2, name: 'Реклама' },
+			{ id: 3, name: 'Соцсети' },
+			{ id: 4, name: 'Радио' },
+			{ id: 5, name: 'Интернет' },
+			{ id: 6, name: 'Другое' },
+		],
+	}),
+	methods: {
+		onClickToAdd(add) {
+			this.$emit('selectAdd', add)
+			this.$emit('close')
+		},
+	},
 }

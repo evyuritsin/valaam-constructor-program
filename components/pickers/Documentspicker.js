@@ -1,10 +1,20 @@
 const Documentspicker = {
 	template: /*html*/ `
-		<div class="popup popup__select docs-list hide" popupobject="" obj="" @click.prevent='click'>
-			<div class="select__item">Паспорт РФ</div>
-			<div class="select__item">Свидетельство о рождении</div>
-			<div class="select__item">Паспорт иностранца</div>
+		<div class="picker w-100">
+			<div class="select__item" v-for='type in types' :key="type.id" @click.stop="onClickToDoc(type.name)">{{type.name}}</div>
 		</div>	
 	`,
-	props: ['click'],
+	data: () => ({
+		types: [
+			{ id: 1, name: 'Паспорт РФ' },
+			{ id: 2, name: 'Свидетельство о рождении' },
+			{ id: 3, name: 'Паспорт иностранца' },
+		],
+	}),
+	methods: {
+		onClickToDoc(type) {
+			this.$emit('selectDoc', type)
+			this.$emit('close')
+		},
+	},
 }

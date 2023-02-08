@@ -1,10 +1,20 @@
 const Privilegespicker = {
 	template: /*html*/ `
-		<div class="popup popup__select benefits-list hide" popupobject="" obj="" @click.prevent="click">
-			<div class="select__item">Студент</div>
-			<div class="select__item">Инвалид</div>
-			<div class="select__item">Пенсионер</div>
+		<div class="picker w-100">
+			<div class="select__item" v-for="p in privileges" :key="p.id" @click.stop="onClickToPrivilege(p.name)">{{p.name}}</div>
 		</div>
 	`,
-	props: ['click'],
+	data: () => ({
+		privileges: [
+			{ id: 1, name: 'Студент' },
+			{ id: 2, name: 'Инвалид' },
+			{ id: 3, name: 'Пенсионер' },
+		],
+	}),
+	methods: {
+		onClickToPrivilege(p) {
+			this.$emit('selectPrivilege', p)
+			this.$emit('close')
+		},
+	},
 }
