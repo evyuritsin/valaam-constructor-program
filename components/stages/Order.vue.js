@@ -213,8 +213,6 @@ const Order = {
 	methods: {
 		onClickDatapicker(e) {
 			setTimeout(() => {
-				this.$refs['client-input1'].focus()
-				this.$refs['client-input2'].focus()
 				$('.popup__blocked').click()
 			}, 0)
 		},
@@ -246,9 +244,6 @@ const Order = {
 		},
 	},
 	mounted() {
-		//add masks
-		$('[name=passSN]').mask('9999 999999')
-		$('[name=telefon]').mask('+7 (999) 999 99 99')
 		//coping guests
 		this.copyGuests = [...this.$store.getters['getGuests']]
 		//jq

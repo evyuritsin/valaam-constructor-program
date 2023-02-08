@@ -112,9 +112,6 @@ const TouristData = {
 		this.copyGuest = { ...this.$store.getters.getGuestById(this.guest.id)[0] }
 
 		setTimeout(() => {
-			//add masks
-			$('[name=passSN]').mask('9999 999999')
-			$('[name=telefon]').mask('+7 (999) 999 99 99')
 			//jq
 			//jq
 			function getDaysInMonth(month, year) {
