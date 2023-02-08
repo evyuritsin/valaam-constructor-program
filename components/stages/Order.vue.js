@@ -154,30 +154,27 @@ const Order = {
 										</div>
 									</div>
 								</div>
-								<div class="order-form__field pos-h">
-								<div className=" d-flex justify-between items-center w-full">
-								<button class="vp-btn-inline mr-20" @click="clickToPervStage">Назад</button>
-								<div class="order-form__pay-group">
-										<div class="order-form__footer">
-											<div class="order-form__agreement">
-												<div class="checkbox__label">
-													<input type="checkbox" class="checkbox" checked />
-													<span class="checkbox__text"
-														>Я согласен с условиями передачи информации</span
-													>
+								<div class="order-form__field pos-h align-items-center">
+									<button class="vp-btn-inline mr-20" @click="clickToPervStage">Назад</button>
+									<div class="order-form__pay-group">
+											<div class="order-form__footer">
+												<div class="order-form__agreement">
+													<div class="checkbox__label">
+														<input type="checkbox" class="checkbox" checked />
+														<span class="checkbox__text"
+															>Я согласен с условиями передачи информации</span
+														>
+													</div>
+													<div class="checkbox__label">
+														<input type="checkbox" class="checkbox" />
+														<span class="checkbox__text"
+															>Подписаться на рассылку новостей</span
+														>
+													</div>
 												</div>
-												<div class="checkbox__label">
-													<input type="checkbox" class="checkbox" />
-													<span class="checkbox__text"
-														>Подписаться на рассылку новостей</span
-													>
-												</div>
+												<button class="vp-btn flex-1" @click="clickToOrder">Оплатить</button>
 											</div>
-											<button class="vp-btn flex-1" @click="clickToOrder">Оплатить</button>
-										</div>
 									</div>
-								</div>
-									
 								</div>
 							</div>
 						</div>`,
