@@ -1,10 +1,8 @@
 const Services = {
 	template: /*html*/ `
-						<div class="program-designer__content">
+						<div class="program-designer__content" v-if='loaded'>
 							<div class="list-grid">
-								<Service title="Прокат велосипеда" id="1" price="2500"/>
-								<Service title="Прокат лодки" id="2" price='5500'/>
-								<Service title="Баня на дровах" id="3" price="2000"/>
+								<Service v-for="service in services" :key="service.id" :service="service"/>
 							</div>
 						</div>
 						<div class="program-designer__footer">
@@ -15,6 +13,10 @@ const Services = {
 							<button class="vp-btn" @click="clickToNextStage">Дальше</button>
 						</div>						
 					`,
+	data: () => ({
+		services: [],
+		loaded: false,
+	}),
 	methods: {
 		clickToPervStage() {
 			if (this.services.length) {
@@ -30,6 +32,13 @@ const Services = {
 		services() {
 			return this.$store.getters['getServices']
 		},
+	},
+	async mounted() {
+		const { data } = await fetch(
+			'http://valaamskiy-polomnik.directpr.beget.tech/api/constructor/'
+		).then(response => response.json())
+		this.services = data.services
+		this.loaded = true
 	},
 	components: {
 		Tabs,

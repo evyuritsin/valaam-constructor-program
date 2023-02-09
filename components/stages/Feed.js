@@ -47,17 +47,20 @@ const Feed = {
 									<div class="program-designer__calc-col">
 										<select class="custom-select custom-select__body" v-model="toAllFeed.type">
 											<option selected disabled hidden value="default">Тип меню</option>
-											<option class="custom-select__item" v-for="type in menuTypes" :key="type.id" :value="type.ratio">{{type.title}}</option>
+											<option class="custom-select__item" v-for="type in menuTypes" :key="type.id" :value="type">{{type.title}}</option>
 										</select>									
 									</div>
 									<div class="program-designer__calc-col">
 										<select class="custom-select custom-select__body" v-model="toAllFeed.graph">
 											<option selected disabled hidden value="default">График питания</option>
-											<option class="custom-select__item">Завтрак</option>
-											<option class="custom-select__item">Завтрак + обед</option>
-											<option class="custom-select__item">Завтрак + ужин</option>
-											<option class="custom-select__item">Обед + ужин</option>
-											<option class="custom-select__item">Завтрак + обед + ужин</option>
+											<option 
+												class="custom-select__item" 
+												v-for="item in toAllFeed.type['meals_schedules']" 
+												:key="item.id" 
+												:value="item"
+											>
+												{{item.formatted}}
+											</option>
 										</select>
 									</div>									
 									<div
@@ -66,7 +69,7 @@ const Feed = {
 									>
 										Сумма:
 										<span class="program-designer__calc-price" 
-											><b v-if="feedPrice">{{feedPrice}}</b> ₽</span
+											><b v-if="toAllFeed.graph !== 'default'">{{toAllFeed.graph.amount * peopleAmount}}</b> ₽</span
 										>
 									</div>
 								</div>
@@ -82,24 +85,27 @@ const Feed = {
 									<div class="program-designer__calc-col" >
 										<select class="custom-select custom-select__body" v-model="guest.feed.type">
 											<option selected disabled hidden value="default">Тип меню</option>
-											<option class="custom-select__item" v-for="type in menuTypes" :key="type.id" :value="type.ratio">{{type.title}}</option>
+											<option class="custom-select__item" v-for="type in menuTypes" :key="type.id" :value="type">{{type.title}}</option>
 										</select>									
 									</div>
 									<div class="program-designer__calc-col">
 										<select class="custom-select custom-select__body" v-model="guest.feed.graph">
 											<option selected disabled hidden value="default">График питания</option>
-											<option class="custom-select__item">Завтрак</option>
-											<option class="custom-select__item">Завтрак + обед</option>
-											<option class="custom-select__item">Завтрак + ужин</option>
-											<option class="custom-select__item">Обед + ужин</option>
-											<option class="custom-select__item">Завтрак + обед + ужин</option>
+											<option 
+												class="custom-select__item" 
+												v-for="item in guest.feed.type['meals_schedules']"
+												:key="item.id"
+												:value="item"
+											>
+												{{item.formatted}}
+											</option>
 										</select>
 									</div>
 									<div
 										class="program-designer__calc-col program-designer__calc-subtitle"
 									>
 										<span class="program-designer__calc-price"
-											><b v-if='guest.feed.graph !== "default" && guest.feed.type !== "default"'>{{menuPrice(guest)}}</b> ₽</span
+											><b v-if="guest.feed.graph !== 'default' && guest.feed.graph">{{guest.feed.graph.amount}}</b> ₽</span
 										>
 									</div>
 								</div>
@@ -149,6 +155,7 @@ const Feed = {
 			{ id: 2, title: 'Постное', ratio: 0.7 },
 			{ id: 3, title: 'Детское', ratio: 0.5 },
 		],
+		loaded: false,
 	}),
 	computed: {
 		guests() {
@@ -169,34 +176,31 @@ const Feed = {
 		breakfastAmount() {
 			let result = 0
 			this.guests.forEach(guest => {
-				if (guest.feed.graph.split(' + ').includes('Завтрак')) result++
+				console.log(guest.feed.graph.formatted.split('+'))
+				if (guest.feed.graph.formatted.split('+').includes('Завтрак')) result++
 			})
 			return result
 		},
 		lunchAmount() {
 			let result = 0
 			this.guests.forEach(guest => {
-				if (
-					guest.feed.graph.split(' + ').includes('Обед') ||
-					guest.feed.graph.split(' + ').includes('обед')
-				)
-					result++
+				if (guest.feed.graph.formatted.split('+').includes('Обед')) result++
 			})
 			return result
 		},
 		dinnerAmount() {
 			let result = 0
 			this.guests.forEach(guest => {
-				if (guest.feed.graph.split(' + ').includes('ужин')) result++
+				if (guest.feed.graph.formatted.split('+').includes('Ужин')) result++
 			})
 			return result
 		},
 		feedPrice() {
 			let result = 0
 			this.guests.forEach(guest => {
-				result += guest.feed.graph.split(' + ').length * guest.feed.type * 500
+				result += guest.feed.graph.amount
 			})
-			return Math.floor(result)
+			return result
 		},
 	},
 	methods: {
@@ -206,17 +210,14 @@ const Feed = {
 		clickToNextStage() {
 			this.$emit('clickToNext')
 		},
-		graphToUpper(g) {
-			return g.charAt(0).toUpperCase() + g.slice(1)
-		},
-		menuPrice(guest) {
-			return Math.floor(
-				guest.feed.graph.split(' + ').length * guest.feed.type * 500
-			)
-		},
 	},
-	mounted() {
+	async mounted() {
 		this.copyGuests = [...this.$store.getters['getGuests']]
+		const { data } = await fetch(
+			'http://valaamskiy-polomnik.directpr.beget.tech/api/constructor/'
+		).then(response => response.json())
+		this.menuTypes = data.feeds
+		this.loaded = true
 	},
 	watch: {
 		toAllFeed: {

@@ -1,7 +1,7 @@
 const Excursions = {
 	template: /*html*/ `	
 						<div class="program-designer__content">
-							<div class="list">
+							<div class="list" v-if="loaded">
 								<Excursion v-for="excursion in excursions" :key="excursion.id" :excursion="excursion"/>
 							</div>
 						</div>
@@ -14,37 +14,16 @@ const Excursions = {
 						</div>
 `,
 	data: () => ({
-		excursions: [
-			{
-				id: 1,
-				title: 'Экскурсия 1',
-				description:
-					'Для православного человека Валаамская обитель, с сонмом святых подвижников и старцев, с подворьями, скитами и пустынями, необыкновенно красивой природой, отделенная от мира ладожскими водами, является настоящим «Русским Северным Афоном».',
-				schedule: [
-					{ date: '21.01', time: '11:00', id: 1 },
-					{ date: '21.01', time: '15:00', id: 2 },
-					{ date: '21.01', time: '19:00', id: 3 },
-					{ date: '22.01', time: '10:00', id: 4 },
-				],
-				time: '2,5 часа',
-				price: 2000,
-			},
-			{
-				id: 2,
-				title: 'Экскурсия 2',
-				description:
-					'Для православного человека Валаамская обитель, с сонмом святых подвижников и старцев, с подворьями, скитами и пустынями, необыкновенно красивой природой, отделенная от мира ладожскими водами, является настоящим «Русским Северным Афоном».',
-				schedule: [
-					{ date: '21.01', time: '11:00', id: 5 },
-					{ date: '21.01', time: '15:00', id: 6 },
-					{ date: '21.01', time: '19:00', id: 7 },
-					{ date: '22.01', time: '10:00', id: 8 },
-				],
-				time: '1,5 часа',
-				price: 1000,
-			},
-		],
+		excursions: [],
+		loaded: false,
 	}),
+	async mounted() {
+		const { data } = await fetch(
+			'http://valaamskiy-polomnik.directpr.beget.tech/api/constructor/'
+		).then(response => response.json())
+		this.excursions = data.excursions
+		this.loaded = true
+	},
 	computed: {
 		selectExcursions() {
 			return this.$store.getters['getExcursions']

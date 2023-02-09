@@ -3,20 +3,20 @@ const Service = {
 								<div class="popular-list list-3 h-fit">
 									<div class="popular-list__header">
 										<img
-											src="./img/popular_item_1.png"
-											alt=""
+											:src="service.images[0]['sg_image']"
+											:alt="service.images[0]['sg_title']"
 											class="popular-list__img"
 										/>
 										<div class="popular-list__link">
 											<div class="popular-list__title bg-while blue ta-center">
-												{{title}}
+												{{service.pagetitle}}
 											</div>
 										</div>
 									</div>
 									<div class="popular-list__footer">
 										<div class="popular-list__price flex-1 bg-blue">
 											<span class="popular-list__price-value while"
-												>{{price}} ₽</span
+												>{{service.price}} ₽</span
 											>
 										</div>
 										<div class="popular-list__link flex-1" @click="clickToSelect">
@@ -25,17 +25,15 @@ const Service = {
 									</div>
 								</div>
 	`,
-	props: ['title', 'id', 'price'],
+	props: ['service'],
 	methods: {
 		clickToSelect() {
 			if (!this.isSelected) {
 				this.$store.commit('addService', {
-					title: this.title,
-					id: this.id,
-					price: this.price,
+					...this.service,
 				})
 			} else {
-				this.$store.commit('removeService', this.id)
+				this.$store.commit('removeService', this.service.id)
 			}
 		},
 	},
@@ -44,7 +42,7 @@ const Service = {
 			return this.$store.getters['getServices']
 		},
 		isSelected() {
-			return this.$store.getters.isSelectedService(this.id)
+			return this.$store.getters.isSelectedService(this.service.id)
 		},
 	},
 }

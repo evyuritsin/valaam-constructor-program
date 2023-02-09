@@ -1,32 +1,32 @@
 const Excursion = {
 	template: /*html*/ `
-								<div class="find-list">
+								<div class="find-list" v-if='excursion.schedules[0]'>
 									<img
 										class="find-list__img"
-										src="./img/list_img_1.png"
-										alt="list img"
+										:src="excursion.images[0]['sg_image']"
+										:alt="excursion.images[0]['sg_image']"
 									/>
 									<div class="find-list__content">
 										<div class="find-list__header">
 											<div class="find-list__col border-none">
 												<div class="find-list__title">
-													<a class="find-list__link" href="#">{{excursion.title}}</a>
+													<a class="find-list__link" href="#">{{excursion.pagetitle}}</a>
 												</div>
 												<div class="find-list__desc mt-10">
-													{{excursion.description}}
+													{{excursion.introtext}}
 												</div>
 											</div>
 										</div>
 										<div class="find-list__footer">
-											<div class="checkbox__label mr-10" v-for="item in excursion.schedule" :key="item.id">
+											<div class="checkbox__label mr-10" v-for="item in schedules" :key="item.id">
 												<input 
 													type="checkbox" 
 													class="checkbox" 
-													@change="e => clickToCheckbox(e, item.date, item.time, item.id)" 
+													@change="e => clickToCheckbox(e, item)" 
 													:checked="!tourist.adults && !tourist.children ? false : isSelected(item.id)"
 													:disabled="!tourist.adults && !tourist.children"
 												/>
-												<span class="checkbox__text">{{item.date}} | {{item.time}}</span>
+												<span class="checkbox__text">{{item.day}}.{{item.month.length === 2 ? item.month : '0' + item.month}} | {{item.hour}}:{{item.minute}}</span>
 											</div>
 											<div class="find-list__date-item">
 												<span class="find-list__date-item-last"
@@ -69,7 +69,7 @@ const Excursion = {
 													<div class="index-form__btn-plus" @click="addChildren"></div>
 												</div>
 											</div>
-											<span class="find-list__price-value mt-40">{{excursion.price}} ₽</span>
+											<span class="find-list__price-value mt-40">{{this.excursion.schedules[0].amount}} ₽</span>
 										</div>
 										<div class="find-list__footer-price">
 											<button class="find-list__footer-link">Смотреть</button>
@@ -81,7 +81,7 @@ const Excursion = {
 											alt="icon clock"
 											class="excursion-list__icon"
 										/>
-										<span class="excursion-list__time">{{excursion.time}}</span>
+										<span class="excursion-list__time">{{excursion.duration.formatted}}</span>
 									</div>
 								</div>
 	`,
@@ -99,6 +99,9 @@ const Excursion = {
 	computed: {
 		guests() {
 			return this.$store.getters['getGuestsObject']
+		},
+		schedules() {
+			return Object.values(this.excursion.featureSchedules).slice(0, 4)
 		},
 	},
 	methods: {

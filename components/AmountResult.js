@@ -76,7 +76,7 @@ const AmountResult = {
 									<div class="program-card__labels" v-if="services.length">
 										<span class="program-card__label">Дополнительно:</span>
 										<div className="program-card__label-container">
-											<span class="program-card__label" v-for="service in services">{{service.title}}</span>
+											<span class="program-card__label" v-for="service in services">{{service.pagetitle}}</span>
 										</div>
 									</div>
 								</div>
@@ -137,32 +137,28 @@ const AmountResult = {
 		feedPrice() {
 			let result = 0
 			this.guests.forEach(guest => {
-				result += guest.feed.graph.split(' + ').length * guest.feed.type * 500
+				result += guest.feed.graph.amount
 			})
 			return result ? Math.floor(result) : 0
 		},
 		breakfastAmount() {
 			let result = 0
 			this.guests.forEach(guest => {
-				if (guest.feed.graph.split(' + ').includes('Завтрак')) result++
+				if (guest.feed.graph.formatted.split('+').includes('Завтрак')) result++
 			})
 			return result
 		},
 		lunchAmount() {
 			let result = 0
 			this.guests.forEach(guest => {
-				if (
-					guest.feed.graph.split(' + ').includes('Обед') ||
-					guest.feed.graph.split(' + ').includes('обед')
-				)
-					result++
+				if (guest.feed.graph.formatted.split('+').includes('Обед')) result++
 			})
 			return result
 		},
 		dinnerAmount() {
 			let result = 0
 			this.guests.forEach(guest => {
-				if (guest.feed.graph.split(' + ').includes('ужин')) result++
+				if (guest.feed.graph.formatted.split('+').includes('Ужин')) result++
 			})
 			return result
 		},
@@ -180,7 +176,7 @@ const AmountResult = {
 			return this.$store.getters['getServices']
 		},
 		servicesPrice() {
-			return this.services.reduce((sum, v) => sum + Number(v.price), 0)
+			return this.services.reduce((sum, v) => sum + Number(v.price.slice), 0)
 		},
 		totalPrice() {
 			return (

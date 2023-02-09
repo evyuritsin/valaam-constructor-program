@@ -143,6 +143,7 @@ const Habitation = {
 		activeHotel: null,
 		selectRooms: [],
 		alertSpan: '',
+		hotels: [],
 	}),
 	components: { HotelRoom, Tabs, AmountResult, Stages },
 	computed: {
