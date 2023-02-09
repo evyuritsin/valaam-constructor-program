@@ -8,7 +8,7 @@ const Datapicker = {
 			@click="e => click(e)"
 		>
 			<div class="datepicker__header bg-while" @click.stop>
-				<div class="datepicker_prev-btn datepicker-lite__prev-btn" ></div>
+				<div class="datepicker_prev-btn datepicker-lite__prev-btn"></div>
 				<div
 					class="datepicker_label datepicker-lite__header-label"
 					month="11"

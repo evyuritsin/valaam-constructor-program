@@ -1,5 +1,3 @@
-const { createApp } = Vue
-
 const main = Vue.createApp({
 	template: /*html*/ `
 		<App />

@@ -5359,4 +5359,27 @@ select {
 	background-color: #fff;
 	border-radius: 0 0 5px 5px;
 	border-width: 0px 1px 1px 1px;
+	z-index: 20;
+}
+
+.datepicker-date {
+	/*width: 30px;*/
+	width: calc(100% / 7);
+	height: 30px;
+	line-height: 30px;
+	text-align: center;
+	font-style: normal;
+	font-weight: 400;
+	font-size: 18px;
+	color: #4f4f4f;
+	margin-left: 0px;
+	cursor: pointer;
+}
+.datepicker-date:first-child,
+.datepicker-date:nth-child(7n + 1) {
+	/*margin-left: 0px;*/
+}
+.datepicker-date:nth-child(7n + 6),
+.datepicker-date:nth-child(7n + 7) {
+	color: #ff8a00 !important;
 }

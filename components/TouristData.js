@@ -25,17 +25,17 @@ const TouristData = {
 													/>
 											</div>
 											<div class="order-form__field-contact mt-20">
-												<div className="flex-1">
+												<div className="flex-1 relative">
 													<input
 														type="text"
 														class="vp-input flatpickr-input"
 														placeholder="Дата рождения*"
-														ref="client-input1"
-														inputobj="515151515151"
-														showmodal="datepicker-lite"
 														:class="{'vp-input_invalid' : !copyGuest.birthdayDate && validationErrors}"		
-														readonly												
+														readonly							
+														v-model="copyGuest.birthdayDate"	
+														@click="openBdDatepicker"				
 													/>
+													<Datepicker v-if="isBdDatepicker" @selectDate="selectBirthday" @close="closeBdDatepicker"/>
 												</div>
 												<div className="relative flex-1" 	@click="openDocumentsPicker">
 													<input 
@@ -60,19 +60,24 @@ const TouristData = {
 												</div>
 											</div>
 											<div class="order-form__field-contact mt-20">
+												<div className="flex-1">
 													<input
 														type="text"
 														class="vp-input"
 														v-model="copyGuest.document.issuedBy"
 														placeholder="Кем выдан*"
-													/>
+													/>												
+												</div>
+												<div className="flex-1 relative">
 													<input
 														type="text"
 														class="vp-input"
 														placeholder="Дата выдачи*"
-														:inputobj="guest.id+5465654656456"
-														showmodal="datepicker-lite"
-													/>
+														v-model="copyGuest.document.issueDate"
+														@click="openIssueDate"
+													/>				
+													<Datepicker v-if="isIssueDate" @selectDate="selectIssueDate" @close="closeIssueDate"/>								
+												</div>
 											</div>
 											<div class="order-form__field-contact mt-20">
 												<div className="flex-1">
@@ -120,10 +125,12 @@ const TouristData = {
 		copyGuest: {},
 		isDocumentsOpen: false,
 		isPrivilegesOpen: false,
+		isBdDatepicker: false,
+		isIssueDate: false,
 	}),
 	components: {
 		Privilegespicker,
-		Datapicker,
+		Datepicker,
 		Documentspicker,
 	},
 	mounted() {
@@ -342,6 +349,24 @@ const TouristData = {
 		},
 		selectPrivilege(p) {
 			this.copyGuest.privilege = p
+		},
+		openBdDatepicker() {
+			this.isBdDatepicker = true
+		},
+		closeBdDatepicker() {
+			this.isBdDatepicker = false
+		},
+		selectBirthday(date) {
+			this.copyGuest.birthdayDate = date
+		},
+		openIssueDate() {
+			this.isIssueDate = true
+		},
+		closeIssueDate() {
+			this.isIssueDate = false
+		},
+		selectIssueDate(date) {
+			this.copyGuest.document.issueDate = date
 		},
 	},
 	watch: {
