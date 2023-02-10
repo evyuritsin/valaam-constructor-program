@@ -1,32 +1,26 @@
 const Habitation = {
 	template: /* html */ `
-						<div class="program-designer__content" v-if="mainInfo.multiDay">
+						<div class="program-designer__content" v-if="mainInfo.multiDay && mainInfo.arrivalDate && mainInfo.departureDate && loaded">
 							<div class="main__introtext">
 								Выберите понравившийся Вам вариант размещения
 							</div>
 							<div class="list">
-								<div class="find-list">
+								<div class="find-list" v-for="hotel in hotels" :key="hotel.id">
 									<img
 										class="find-list__img"
-										src="./img/list_img_1.png"
-										alt="list img"
+										:src="hotel.images[0]['sg_image']"
+										:alt="hotel.images[0]['sg_title']"
 									/>
 									<div class="find-list__content">
 										<div class="find-list__header">
 											<div class="find-list__col border-none">
 												<div class="find-list__title">
 													<a class="find-list__link" href="#"
-														>ДОМ ПАЛОМНИКА «ВАЛААМ»</a
+														>{{hotel.pagetitle}}</a
 													>
 												</div>
 												<div class="find-list__desc">
-													Дом паломника "Валаам" располагается в пяти минутах
-													ходьбы от Спасо-Преображенского собора монастыря в
-													историческом здании Зимней гостиницы. Оно было
-													построено в середине XIX века для многочисленных
-													путешественников. В наши дни после пятилетней
-													реконструкции двери Дома паломника вновь открыты для
-													всех гостей острова. Добро пожаловать!
+													{{hotel.introtext}}
 												</div>
 											</div>
 										</div>
@@ -34,55 +28,20 @@ const Habitation = {
 									<div class="find-list__price">
 										<div class="find-list__body-price">
 											от
-											<span class="find-list__price-value">5 849 ₽</span>
+											<span class="find-list__price-value">{{hotel['price_from']}} ₽</span>
 											/сут.
 										</div>
 										<div class="find-list__footer-price">
-											<button class="find-list__footer-link" data-id="1" @click="e => clickToShowHabitations(e)">Показать</button>
-										</div>
-									</div>
-								</div>
-								<div class="find-list">
-									<img
-										class="find-list__img"
-										src="./img/list_img_1.png"
-										alt="list img"
-									/>
-									<div class="find-list__content">
-										<div class="find-list__header">
-											<div class="find-list__col border-none">
-												<div class="find-list__title">
-													<a class="find-list__link" href="#"
-														>Паломнический дом «Игуменский»</a
-													>
-												</div>
-												<div class="find-list__desc">
-													Дом паломника "Игуменский" располагается во внешнем
-													каре келейных корпусов Центральной усадьбы монастыря,
-													что в непосредственной близости от
-													Спасо-Преображенского собора. Бывшие монашеские келии,
-													переделанные в уютные номера, сохранили следы строгого
-													монастырского быта.
-												</div>
-											</div>
-										</div>
-									</div>
-									<div class="find-list__price">
-										<div class="find-list__body-price">
-											от
-											<span class="find-list__price-value">5 849 ₽</span>
-											/сут.
-										</div>
-										<div class="find-list__footer-price">
-											<button class="find-list__footer-link" data-id="2" @click="e => clickToShowHabitations(e)">Показать</button>
+											<button class="find-list__footer-link" @click="clickToShowHabitations(hotel)">{{hotel.id === activeHotel.id ? 'Скрыть' : 'Показать'}}</button>
 										</div>
 									</div>
 								</div>
 							</div>
 						</div>
 						<div class="list-grid" v-bind:class="[!showHabitations && 'hidden']">
-								<HotelRoom v-for="room in rooms" :key="room.id" :addRoom='addRoom' :room="room" :allRooms="selectRooms"/>
+								<HotelRoom v-for="room in showingRooms" :key="room.id" :addRoom='addRoom' :room="room" :allRooms="selectRooms" :hotel="activeHotel"/>
 						</div>
+						<h2 v-if="!showingRooms.length && showHabitations">Нет номеров в выбранной вами дате</h2>
 						<div class="program-designer__footer">
 							<AmountResult />
 						</div>
@@ -93,62 +52,45 @@ const Habitation = {
 	`,
 	data: () => ({
 		showHabitations: false,
-		rooms: [
-			{
-				id: 1,
-				price: 25800,
-				name: '4х местный в номере 1,2,3 этажи',
-			},
-			{
-				id: 2,
-				price: 5890,
-				name: '1 местный с удобствами в номере 1,2,3 этажи',
-			},
-			{
-				id: 3,
-				price: 12800,
-				name: '2х местный с удобствами в номере 1,2,3 этажи',
-			},
-			{
-				id: 4,
-				price: 10800,
-				name: '2х местный с удобствами в номере 1,2,3 этажи',
-			},
-			{
-				id: 5,
-				price: 9900,
-				name: '2х местный в номере 1,2,3 этажи',
-			},
-			{
-				id: 6,
-				price: 11000,
-				name: '2х местный с удобствами в номере 1,2,3 этажи',
-			},
-			{
-				id: 7,
-				price: 15000,
-				name: '3х местный с удобствами в номере 1,2,3 этажи',
-			},
-			{
-				id: 8,
-				price: 13000,
-				name: '1х местный с удобствами в номере 1,2,3 этажи',
-			},
-			{
-				id: 9,
-				price: 13490,
-				name: '2х местный с удобствами в номере 1,2,3 этажи',
-			},
-		],
-		activeHotel: null,
+		activeHotel: { id: null, rooms: [] },
 		selectRooms: [],
 		alertSpan: '',
 		hotels: [],
+		loaded: false,
 	}),
 	components: { HotelRoom, Tabs, AmountResult, Stages },
+	async mounted() {
+		const { data } = await fetch(
+			'http://valaamskiy-polomnik.directpr.beget.tech/api/constructor/'
+		).then(response => response.json())
+		this.hotels = data.hotels
+		this.loaded = true
+	},
 	computed: {
 		mainInfo() {
 			return this.$store.getters['getMainInfo']
+		},
+		showingRooms() {
+			let rooms = []
+			this.activeHotel.rooms.forEach(room => {
+				room.schedules.forEach(time => {
+					if (
+						moment(this.mainInfo.arrivalDate, 'DD-MM-YYYY').valueOf() >=
+							moment(time.date_from, 'YYYY-MM-DD').valueOf() &&
+						moment(this.mainInfo.departureDate, 'DD-MM-YYYY').valueOf() <=
+							moment(time.date_to, 'YYYY-MM-DD').valueOf()
+					) {
+						rooms.push({ ...room })
+					}
+				})
+			})
+			let result = []
+			rooms.forEach(room => {
+				if (!result.some(item => item.id === room.id)) {
+					result.push({ ...room })
+				}
+			})
+			return result
 		},
 	},
 	methods: {
@@ -180,13 +122,14 @@ const Habitation = {
 			}
 			this.$emit('clickToNext')
 		},
-		clickToShowHabitations(e) {
-			if (e.target.dataset.id !== this.activeHotel) {
+		clickToShowHabitations(hotel) {
+			if (hotel.id !== this.activeHotel.id) {
 				this.showHabitations = true
+				this.activeHotel = hotel
 			} else {
-				this.showHabitations = !this.showHabitations
+				this.showHabitations = false
+				this.activeHotel = { id: null, rooms: [] }
 			}
-			this.activeHotel = e.target.dataset.id
 		},
 	},
 	watch: {

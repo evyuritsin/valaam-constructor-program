@@ -1899,6 +1899,7 @@ option::after {
 	height: 45px;
 	background: rgba(255, 255, 255, 0.9);
 	border-radius: 0px 0px 20px 20px;
+	z-index: 10;
 }
 .placement-item__icon:first-child {
 	margin-left: 0px;

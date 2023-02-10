@@ -36,7 +36,7 @@ const AmountResult = {
 										<span class="program-card__label">Проживание:</span>
 										<div className="program-card__label-container">
 										<span v-for="(room, indx) in hotelRooms" :key="room.id" class="program-card__label"
-											>{{room.name}}
+											>{{room.pagetitle}}
 											<span v-if="indx !== hotelRooms.length-1">, </span>		
 											</span
 										>												

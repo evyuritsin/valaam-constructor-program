@@ -76,6 +76,15 @@ const store = createStore({
 		getMainInfo(state) {
 			return state.mainInfo
 		},
+		getDaysInTrip(state) {
+			return moment(state.mainInfo.arrivalDate, 'DD-MM-YYY')
+				.to(moment(state.mainInfo.departureDate, 'DD-MM-YYY'), true)
+				.split(' ')[0] === 'a'
+				? 1
+				: moment(state.mainInfo.arrivalDate, 'DD-MM-YYY')
+						.to(moment(state.mainInfo.departureDate, 'DD-MM-YYY'), true)
+						.split(' ')[0]
+		},
 		getGuests(state) {
 			return state.guests
 		},
@@ -90,7 +99,7 @@ const store = createStore({
 		},
 		getAccommodationsPrice(state) {
 			let result = 0
-			state.hotelRooms.forEach(r => (result += Number(r.price)))
+			state.hotelRooms.forEach(r => (result += Number(r.schedules[0].amount)))
 			return result
 		},
 		getShips(state) {
