@@ -1,6 +1,6 @@
 const HotelRoom = {
 	template: /*html*/ `
-<div class="placement-item" :class="[isSelectRoom && 'placement-item_selected']" >
+<div class="placement-item" :class="[isSelectRoom && 'hotel-room_selected']" >
 	<div class="placement-item__gallery slider-for swiper">
 		<div className="swiper-wrapper">
 			<img

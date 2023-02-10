@@ -1908,34 +1908,34 @@ option::after {
 	margin-left: 20px;
 }
 
-.placement-item_selected .placement-item__gallery-item {
+.hotel-room_selected .placement-item__gallery-item {
 	border-radius: 20px 20px 0 0;
 	border-top: 3px solid rgb(255, 138, 0);
 	border-left: 3px solid rgb(255, 138, 0);
 	border-right: 3px solid rgb(255, 138, 0);
 }
 
-.placement-item_selected .placement-item__geo {
+.hotel-room_selected .placement-item__geo {
 	border-left: 3px solid rgb(255, 138, 0);
 	border-right: 3px solid rgb(255, 138, 0);
 }
 
-.placement-item_selected .placement-item__title {
+.hotel-room_selected .placement-item__title {
 	border-left: 3px solid rgb(255, 138, 0);
 	border-right: 3px solid rgb(255, 138, 0);
 }
 
-.placement-item_selected .placement-item__desc {
+.hotel-room_selected .placement-item__desc {
 	border-left: 3px solid rgb(255, 138, 0);
 	border-right: 3px solid rgb(255, 138, 0);
 }
 
-.placement-item_selected .placement-item__prices {
+.hotel-room_selected .placement-item__prices {
 	border-left: 3px solid rgb(255, 138, 0);
 	border-right: 3px solid rgb(255, 138, 0);
 }
 
-.placement-item_selected .placement-item__btn {
+.hotel-room_selected .placement-item__btn {
 	border-bottom: 3px solid rgb(255, 138, 0);
 	border-left: 3px solid rgb(255, 138, 0);
 	border-right: 3px solid rgb(255, 138, 0);
