@@ -176,7 +176,7 @@ const AmountResult = {
 			return this.$store.getters['getServices']
 		},
 		servicesPrice() {
-			return this.services.reduce((sum, v) => sum + Number(v.price.slice), 0)
+			return this.services.reduce((sum, v) => sum + Number(v.price), 0)
 		},
 		totalPrice() {
 			return (

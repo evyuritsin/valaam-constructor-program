@@ -1,6 +1,6 @@
 const Excursion = {
 	template: /*html*/ `
-								<div class="find-list" v-if='excursion.schedules[0]'>
+								<div class="find-list" v-if='schedules.length'>
 									<img
 										class="find-list__img"
 										:src="'http://valaamskiy-polomnik.directpr.beget.tech' + excursion.images[0]['sg_image']"
@@ -26,9 +26,9 @@ const Excursion = {
 													:checked="!tourist.adults && !tourist.children ? false : isSelected(item.id)"
 													:disabled="!tourist.adults && !tourist.children"
 												/>
-												<span class="checkbox__text">{{item.day}}.{{item.month.length === 2 ? item.month : '0' + item.month}} | {{item.hour}}:{{item.minute}}</span>
+												<span class="checkbox__text">{{item.day}}.{{item.month.length === 2 ? item.month : '0' + item.month}}</span>
 											</div>
-											<div class="find-list__date-item">
+											<div class="find-list__date-item" v-if="schedules.length > 6">
 												<span class="find-list__date-item-last"
 													>Ещё время</span
 												>
@@ -100,8 +100,33 @@ const Excursion = {
 		guests() {
 			return this.$store.getters['getGuestsObject']
 		},
+		mainInfo() {
+			return this.$store.getters['getMainInfo']
+		},
 		schedules() {
-			return Object.values(this.excursion.featureSchedules).slice(0, 4)
+			let result = []
+			if (!this.mainInfo.multiDay) {
+				Object.values(this.excursion.featureSchedules).forEach(e => {
+					if (
+						moment(e.formatted_date).valueOf() ===
+						moment(this.mainInfo.arrivalDate).valueOf()
+					) {
+						result.push({ ...e })
+					}
+				})
+			} else {
+				Object.values(this.excursion.featureSchedules).forEach(e => {
+					if (
+						moment(e.formatted_date, 'DD-MM-YYY').valueOf() >=
+							moment(this.mainInfo.arrivalDate, 'DD-MM-YYY').valueOf() &&
+						moment(e.formatted_date, 'DD-MM-YYY').valueOf() <=
+							moment(this.mainInfo.departureDate, 'DD-MM-YYY').valueOf()
+					) {
+						result.push({ ...e })
+					}
+				})
+			}
+			return result
 		},
 	},
 	methods: {

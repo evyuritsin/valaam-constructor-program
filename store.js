@@ -98,9 +98,17 @@ const store = createStore({
 			return state.hotelRooms
 		},
 		getAccommodationsPrice(state) {
+			const days =
+				moment(state.mainInfo.arrivalDate, 'DD-MM-YYY')
+					.to(moment(state.mainInfo.departureDate, 'DD-MM-YYY'), true)
+					.split(' ')[0] === 'a'
+					? 1
+					: moment(state.mainInfo.arrivalDate, 'DD-MM-YYY')
+							.to(moment(state.mainInfo.departureDate, 'DD-MM-YYY'), true)
+							.split(' ')[0]
 			let result = 0
 			state.hotelRooms.forEach(r => (result += Number(r.schedules[0].amount)))
-			return result
+			return result * days
 		},
 		getShips(state) {
 			return state.ships
