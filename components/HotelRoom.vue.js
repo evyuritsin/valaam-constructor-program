@@ -6,13 +6,13 @@ const HotelRoom = {
 			<img
 				v-for="image in room.images"
 				:key="image.id"
-				:src="image['sg_image']"
+				:src="'http://valaamskiy-polomnik.directpr.beget.tech' + image['sg_image']"
 				:alt="image['sg_title']"
-				class="placement-item__gallery-item"
+				class="placement-item__gallery-item swiper-slide"
 			/>
 		</div>
-		<img src="../img/arrow_prev_slider.png" alt="btn prev" class="gallery__btn-prev">
-		<img src="../img/arrow_next_slider.png" alt="btn next" class="gallery__btn-next">
+		<img src="../img/arrow_prev_slider.png" alt="btn prev" class="gallery__btn-prev" v-if="room.images.length > 1">
+		<img src="../img/arrow_next_slider.png" alt="btn next" class="gallery__btn-next" v-if="room.images.length > 1">
 	</div>
 	<div class="placement-item__geo">
 		<div class="icon-list pt-0">
@@ -64,10 +64,10 @@ const HotelRoom = {
 	>
 		{{isSelectRoom ? 'ОТМЕНИТЬ' : 'ДОБАВИТЬ В ЗАЯВКУ'}}
 	</div>
-	<div class="placement-item__included">
+	<div class="placement-item__included" v-if="room.facilities.length">
 		<img
 			v-for="item in room.facilities"
-			:src="item.iconPath"
+			:src="'http://valaamskiy-polomnik.directpr.beget.tech' +  item.iconPath"
 			:alt="item.title"
 			class="placement-item__icon"
 		/>

@@ -8,7 +8,7 @@ const Habitation = {
 								<div class="find-list" v-for="hotel in hotels" :key="hotel.id">
 									<img
 										class="find-list__img"
-										:src="hotel.images[0]['sg_image']"
+										:src="'http://valaamskiy-polomnik.directpr.beget.tech' + hotel.images[0]['sg_image']"
 										:alt="hotel.images[0]['sg_title']"
 									/>
 									<div class="find-list__content">

@@ -3,7 +3,7 @@ const Excursion = {
 								<div class="find-list" v-if='excursion.schedules[0]'>
 									<img
 										class="find-list__img"
-										:src="excursion.images[0]['sg_image']"
+										:src="'http://valaamskiy-polomnik.directpr.beget.tech' + excursion.images[0]['sg_image']"
 										:alt="excursion.images[0]['sg_image']"
 									/>
 									<div class="find-list__content">

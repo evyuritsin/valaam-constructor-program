@@ -3,7 +3,7 @@ const Service = {
 								<div class="popular-list list-3 h-fit">
 									<div class="popular-list__header">
 										<img
-											:src="service.images[0]['sg_image']"
+											:src="'http://valaamskiy-polomnik.directpr.beget.tech' + service.images[0]['sg_image']"
 											:alt="service.images[0]['sg_title']"
 											class="popular-list__img"
 										/>
