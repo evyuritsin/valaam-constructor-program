@@ -4,6 +4,7 @@ const Excursions = {
 							<div class="list" v-if="loaded">
 								<Excursion v-for="excursion in excursions" :key="excursion.id" :excursion="excursion"/>
 							</div>
+							<h2 v-if="!excursions.length && loaded">В выбранные вами даты нет экскурсий</h2>
 						</div>
 						<div class="program-designer__footer">
 							<AmountResult />

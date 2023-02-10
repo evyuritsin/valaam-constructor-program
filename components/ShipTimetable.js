@@ -1,6 +1,6 @@
 const ShipTimetable = {
 	template: /*html*/ `
-							<div class="program-designer__direction">
+							<div class="program-designer__direction" v-if="loaded">
 								<div class="program-designer__direction-title" v-if="!mainInfo.departurePoint">
 									{{direction}}
 								</div>
@@ -11,7 +11,7 @@ const ShipTimetable = {
 									{{direction}}: Валаам — {{mainInfo.departurePoint}} 
 								</div>								
 								<div class="program-designer__direction-content">
-									<CalendarSlider :direction="direction"/>
+								<!-- <CalendarSlider :direction="direction"/> -->
 									<table class="direction-table">
 										<thead class="direction-table__head">
 											<tr>
@@ -25,35 +25,47 @@ const ShipTimetable = {
 										</thead>
 										<tbody class="direction-table__body" v-show="!showDetails">
 											<tr v-for="(ship, index) in [...Array(3)]" :key="index" :class="{'direction-table__tr-active' : ships[index].id === selectShip.id}">
-												<th class="ta-left">{{ships[index].sailing}}</th>
-												<th class="ta-left">{{ships[index].arrival}}</th>
-												<th class="ta-left">{{ships[index].name}}</th>
+												<th class="ta-left">{{ships[index].departureAndArrivalTime.departure}}</th>
+												<th class="ta-left">{{ships[index].departureAndArrivalTime.arrival}}</th>
+												<th class="ta-left">{{ships[index].pagetitle}}</th>
 												<th class="ta-left">
 													<div class="find-list__date-item ml-0">
 														<div class="find-list__point find-list_green"></div>
-														<span class="find-list__date">много мест</span>
+														<span class="find-list__date">{{ships[index].shipPlaces}}</span>
 													</div>
 												</th>
-												<th class="fw-700">{{ships[index].price}} ₽</th>
-												<th class="direction-table__select-ship" @click.prevent="clickToSelectShip(ships[index])" :class="{'direction-table_select-ship-active' : ships[index].id === selectShip.id}">ВЫБРАТЬ</th>
+												<th class="fw-700">{{ships[index].departureAndArrivalTime.price}} ₽</th>
+												<th 
+													class="direction-table__select-ship" 
+													@click.prevent="clickToSelectShip(ships[index])" 
+													:class="{'direction-table_select-ship-active' : ships[index].id === selectShip.id}"
+												>
+													ВЫБРАТЬ
+												</th>
 											</tr>
 										</tbody>
 										<tbody class="direction-table__body" v-show="showDetails">
 											<tr v-for="ship in ships" :key="ship.id" :class="{'direction-table__tr-active' : ship.id === selectShip.id}">
-												<th class="ta-left">{{ship.sailing}}</th>
-												<th class="ta-left">{{ship.arrival}}</th>
-												<th class="ta-left">{{ship.name}}</th>
+												<th class="ta-left">{{ship.departureAndArrivalTime.departure}}</th>
+												<th class="ta-left">{{ship.departureAndArrivalTime.arrival}}</th>
+												<th class="ta-left">{{ship.pagetitle}}</th>
 												<th class="ta-left">
 													<div class="find-list__date-item ml-0">
 														<div class="find-list__point find-list_green"></div>
-														<span class="find-list__date">много мест</span>
+														<span class="find-list__date">{{ship.shipPlaces}}</span>
 													</div>
 												</th>
-												<th class="fw-700">{{ship.price}}</th>
-												<th class="direction-table__select-ship" @click.prevent="clickToSelectShip(ship)" :class="{'direction-table_select-ship-active' : ship.id === selectShip.id}">ВЫБРАТЬ</th>
+												<th class="fw-700">{{ship.departureAndArrivalTime.price}} ₽</th>
+												<th 
+													class="direction-table__select-ship" 
+													@click.prevent="clickToSelectShip(ship)" 
+													:class="{'direction-table_select-ship-active' : ship.id === selectShip.id}"
+												>
+													ВЫБРАТЬ
+												</th>
 											</tr>
 										</tbody>
-									</table>
+									</table>									
 									<button  class="btn-more-show" @click="clickToShow">{{!showDetails ? 'Показать еще' : 'Скрыть'}}</button>
 								</div>
 							</div>
@@ -61,58 +73,67 @@ const ShipTimetable = {
 	props: ['direction'],
 	data: () => ({
 		showDetails: false,
-		selectShip: { id: 0 },
-		ships: [
-			{
-				id: 1,
-				name: '«Северный Афон»',
-				sailing: '09:00',
-				arrival: '11:00',
-				price: 2000,
-			},
-			{
-				id: 2,
-				name: '«Преподобный Серафим»',
-				sailing: '09:00',
-				arrival: '11:00',
-				price: 2000,
-			},
-			{
-				id: 3,
-				name: '«Андрей Первозванный»',
-				sailing: '09:00',
-				arrival: '11:00',
-				price: 2000,
-			},
-			{
-				id: 4,
-				name: '«Северный Афон»',
-				sailing: '09:00',
-				arrival: '11:00',
-				price: 2000,
-			},
-			{
-				id: 5,
-				name: '«Преподобный Серафим»',
-				sailing: '09:00',
-				arrival: '11:00',
-				price: 2000,
-			},
-			{
-				id: 6,
-				name: '«Андрей Первозванный»',
-				sailing: '09:00',
-				arrival: '11:00',
-				price: 2000,
-			},
-		],
+		selectShip: { id: null },
+		dates: [],
+		schedules: [],
+		loaded: false,
 	}),
+	async mounted() {
+		const { data } = await fetch(
+			'http://valaamskiy-polomnik.directpr.beget.tech/api/constructor/'
+		).then(response => response.json())
+		this.dates = data.dates
+		this.loaded = true
+		if (this.direction === 'ТУДА') {
+			this.dates.forEach(date => {
+				this.schedules.push([...date.ships_schedule_there])
+			})
+		} else {
+			this.dates.forEach(date => {
+				this.schedules.push([...date.ships_schedule_back])
+			})
+		}
+		this.schedules = [].concat(...this.schedules)
+	},
 	computed: {
 		mainInfo() {
 			return this.$store.getters['getMainInfo']
 		},
 		alertSpan() {
 			return this.$store.getters['getAlertSpan']
+		},
+		ships() {
+			let result = []
+			if (this.direction === 'ТУДА') {
+				this.schedules.forEach(s => {
+					if (
+						moment(s.departureAndArrivalTime.date, 'DD-MM-YYYY').valueOf() ===
+							moment(this.mainInfo.arrivalDate, 'DD-MM-YYYY').valueOf() &&
+						s.route_id[0].start_dock.title === this.mainInfo.departurePoint
+					) {
+						s.shipType.ships.forEach(ship => {
+							result.push({ ...s, ...ship })
+						})
+					}
+				})
+			} else {
+				this.schedules.forEach(s => {
+					if (
+						moment(s.departureAndArrivalTime.date, 'DD-MM-YYYY').valueOf() ===
+						moment(
+							this.mainInfo.multiDay
+								? this.mainInfo.departureDate
+								: this.mainInfo.arrivalDate,
+							'DD-MM-YYYY'
+						).valueOf()
+					) {
+						s.shipType.ships.forEach(ship => {
+							result.push({ ...s, ...ship })
+						})
+					}
+				})
+			}
+			return result
 		},
 	},
 	methods: {
@@ -124,7 +145,7 @@ const ShipTimetable = {
 				return (this.selectShip = ship)
 			}
 			if (this.selectShip.id === ship.id) {
-				this.selectShip = null
+				this.selectShip = { id: null }
 			} else {
 				this.selectShip = ship
 			}

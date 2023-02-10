@@ -7,6 +7,7 @@ const App = {
 							<Stages :selectId="selectStage"/>
 						</div>
 						<div class="program-designer__content">
+							<Ship  v-if="selectStage === 2" @clickToNext="clickToNextStage" @clickToPerv="clickToPervStage"/>
 							<Feed v-if="selectStage === 3" @clickToNext="clickToNextStage" @clickToPerv="clickToPervStage"/>
 							<Excursions v-if="selectStage === 4" @clickToNext="clickToNextStage" @clickToPerv="clickToPervStage"/>
 							<Services v-if="selectStage === 5" @clickToNext="clickToNextStage" @clickToPerv="clickToPervStage"/>
@@ -14,9 +15,6 @@ const App = {
 						</div>
 						<div class="program-designer__content" :class='[selectStage !== 1 && "hidden"]'>
 							<Habitation  @clickToNext="clickToNextStage"/>
-						</div>
-						<div class="program-designer__content" :class='[selectStage !== 2 && "hidden"]'>
-							<Ship @clickToNext="clickToNextStage" @clickToPerv="clickToPervStage"/>
 						</div>
 					</div>
 				</section>	

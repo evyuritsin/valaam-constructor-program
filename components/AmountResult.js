@@ -43,19 +43,19 @@ const AmountResult = {
 										<span v-if="!hotelRooms.length">Не выбрано</span>						
 										</div>
 									</div>
-									<div v-if="ships.there.name" class="program-card__labels">
+									<div v-if="ships.there.pagetitle" class="program-card__labels">
 										<span class="program-card__label">Проезд туда:</span>
 										<div className="program-card__label-container">
 										<span class="program-card__label"
-											>{{ships.there.name}} отправление {{ships.there.sailing}}
+											>{{ships.there.pagetitle}} отправление {{ships.there.departureAndArrivalTime.arrival}}
 										</span>																	
 										</div>
 									</div>
-									<div v-if="ships.back.name" class="program-card__labels">
+									<div v-if="ships.back.pagetitle" class="program-card__labels">
 										<span class="program-card__label">Проезд обратно:</span>
 										<div className="program-card__label-container">
 										<span class="program-card__label"
-											>{{ships.back.name}} отправление {{ships.back.sailing}}
+											>{{ships.back.pagetitle}} отправление {{ships.back.departureAndArrivalTime.arrival}}
 										</span>																	
 										</div>
 									</div>
@@ -70,7 +70,7 @@ const AmountResult = {
 									<div class="program-card__labels" v-if="excursions.length">
 										<span class="program-card__label">Экскурсии:</span>
 										<div className="program-card__label-container">
-											<span class="program-card__label" v-for="excursion in excursions">{{excursion.title}} | {{excursion.date}} {{excursion.time}} | {{excursion.tourist.adults}} взрослых и {{excursion.tourist.children}} детей</span>
+											<span class="program-card__label" v-for="excursion in excursions">{{excursion.pagetitle}} | {{excursion.date.formatted}} | {{excursion.tourist.adults}} взрослых и {{excursion.tourist.children}} детей</span>
 										</div>
 									</div>
 									<div class="program-card__labels" v-if="services.length">
@@ -82,11 +82,11 @@ const AmountResult = {
 								</div>
 								<div class="program-card__footer">
 									<div class="program-card__info">
-										<div class="program-card__item" v-if="mainInfo.multiDay">
+										<div class="program-card__item" v-if="mainInfo.multiDay && accommodationsPrice">
 											<span class="program-card__label">Проживание:</span>
 											<span class="program-card__price"><b>{{accommodationsPrice}}</b> ₽</span>
 										</div>
-										<div class="program-card__item" v-if="ships.there.price && ships.back.price">
+										<div class="program-card__item" v-if="shipsPrice">
 											<span class="program-card__label">Теплоход:</span>
 											<span class="program-card__price"><b>{{shipsPrice}}</b> ₽</span>
 										</div>
@@ -129,7 +129,12 @@ const AmountResult = {
 			return this.$store.getters['getShips']
 		},
 		shipsPrice() {
-			return this.ships.there.price + this.ships.back.price
+			return (
+				this.ships.there.departureAndArrivalTime &&
+				this.ships.back.departureAndArrivalTime &&
+				this.ships.there.departureAndArrivalTime.price +
+					this.ships.back.departureAndArrivalTime.price
+			)
 		},
 		guests() {
 			return this.$store.getters['getGuests']
@@ -168,7 +173,7 @@ const AmountResult = {
 		excursionsPrice() {
 			return this.excursions.reduce(
 				(sum, v) =>
-					sum + Number(v.price) * (v.tourist.adults + v.tourist.children),
+					sum + Number(v.date.amount) * (v.tourist.adults + v.tourist.children),
 				0
 			)
 		},

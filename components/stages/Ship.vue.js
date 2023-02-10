@@ -29,7 +29,7 @@ const Ship = {
 			this.$emit('clickToPerv')
 		},
 		clickToNextStage() {
-			if (!this.ships.there.name || !this.ships.back.name) {
+			if (!this.ships.there.pagetitle || !this.ships.back.pagetitle) {
 				return (this.alertSpan = 'Выберите теплоходы')
 			}
 			this.$emit('clickToNext')
