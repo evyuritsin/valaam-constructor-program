@@ -130,10 +130,10 @@ const AmountResult = {
 		},
 		shipsPrice() {
 			return (
-				this.ships.there.departureAndArrivalTime &&
-				this.ships.back.departureAndArrivalTime &&
-				this.ships.there.departureAndArrivalTime.price +
-					this.ships.back.departureAndArrivalTime.price
+				(this.ships.there.departureAndArrivalTime &&
+					this.ships.back.departureAndArrivalTime &&
+					this.ships.there.departureAndArrivalTime.price +
+						this.ships.back.departureAndArrivalTime.price) * this.guests.length
 			)
 		},
 		guests() {
@@ -184,13 +184,14 @@ const AmountResult = {
 			return this.services.reduce((sum, v) => sum + Number(v.price), 0)
 		},
 		totalPrice() {
-			return (
-				this.accommodationsPrice +
-				this.shipsPrice +
-				this.feedPrice +
-				this.excursionsPrice +
-				this.servicesPrice
-			)
+			let result = 0
+			if (this.accommodationsPrice) result += this.accommodationsPrice
+			if (this.shipsPrice) result += this.shipsPrice
+			if (this.feedPrice) result += this.feedPrice
+			if (this.excursionsPrice) result += this.excursionsPrice
+			if (this.servicesPrice) result += this.servicesPrice
+
+			return result
 		},
 	},
 }

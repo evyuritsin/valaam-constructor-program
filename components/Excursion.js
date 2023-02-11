@@ -177,14 +177,16 @@ const Excursion = {
 		clickToCheckbox(e, date) {
 			if (e.target.checked) {
 				this.$store.commit('addExcursion', {
-					id: `${this.excursion.id}${date.timestamp}`,
-					...this.excursion,
+					idEx: `${this.excursion.id}${date.timestamp}`,
+					id: this.excursion.id,
+					pagetitle: this.excursion.pagetitle,
 					date,
 					tourist: { ...this.tourist },
 				})
 				this.selectExcursions.push({
-					id: `${this.excursion.id}${date.timestamp}`,
-					...this.excursion,
+					idEx: `${this.excursion.id}${date.timestamp}`,
+					id: this.excursion.id,
+					pagetitle: this.excursion.pagetitle,
 					date,
 					tourist: { ...this.tourist },
 				})
@@ -194,7 +196,7 @@ const Excursion = {
 					`${this.excursion.id}${date.timestamp}`
 				)
 				this.selectExcursions = this.selectExcursion.filter(
-					e => e.id !== `${this.excursion.id}${date.timestamp}`
+					e => e.idEx !== `${this.excursion.id}${date.timestamp}`
 				)
 			}
 		},

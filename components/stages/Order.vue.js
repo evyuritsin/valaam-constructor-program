@@ -146,10 +146,10 @@ const Order = {
 											<input name="categorypay" type="radio" class="radiobox" />
 											<span class="radiobox__text">Стандартная</span>
 										</div>
-										<div class="radiobox__label mt-20">
+							<!--  <div class="radiobox__label mt-20">
 											<input name="categorypay" type="radio" class="radiobox" />
 											<span class="radiobox__text">Пожертвование</span>
-										</div>
+										</div> -->
 										<div class="order-form__help mt-20">
 											<a href="#" class="order-form__help-link">Справка</a>
 										</div>
@@ -160,14 +160,14 @@ const Order = {
 											<input name="typepay" type="radio" class="radiobox" />
 											<span class="radiobox__text">Картой он-лайн</span>
 										</div>
-										<div class="radiobox__label mt-20">
+									<!-- 	<div class="radiobox__label mt-20">
 											<input name="typepay" type="radio" class="radiobox" />
 											<span class="radiobox__text">По счету</span>
 										</div>
 										<div class="radiobox__label mt-20">
 											<input name="typepay" type="radio" class="radiobox" />
 											<span class="radiobox__text">Наличными в офисе</span>
-										</div>
+										</div> -->
 									</div>
 								</div>
 								<div class="order-form__field pos-h align-items-center">
@@ -307,6 +307,11 @@ const Order = {
 		client: {
 			handler() {
 				this.$store.commit('setClient', { ...this.client })
+				if (this.client.isPilgrim) {
+					this.$store.commit('changeGuest', { ...this.client, id: 1 })
+				} else {
+					this.$store.commit('changeGuest', { id: 1 })
+				}
 			},
 			deep: true,
 		},

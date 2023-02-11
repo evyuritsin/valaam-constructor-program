@@ -20,6 +20,13 @@ const store = createStore({
 			excursions: [],
 			services: [],
 			client: {},
+			totalPrice: 0,
+			payments: [
+				{
+					payment_type: 1,
+					payment_method: 3,
+				},
+			],
 			alertSpan: '',
 		}
 	},
@@ -46,7 +53,7 @@ const store = createStore({
 			state.excursions.push(action)
 		},
 		deleteExcursion(state, action) {
-			state.excursions = state.excursions.filter(ex => ex.id !== action)
+			state.excursions = state.excursions.filter(ex => ex.idEx !== action)
 		},
 		setExcursions(state, action) {
 			state.excursions = action
@@ -65,11 +72,14 @@ const store = createStore({
 		},
 		changeGuest(state, action) {
 			state.guests = state.guests.map(client =>
-				client.id === action.id ? { ...action } : { ...client }
+				client.id === action.id ? { ...client, ...action } : { ...client }
 			)
 		},
 		setAlertSpan(state, action) {
 			state.alertSpan = action
+		},
+		setTotalPrice(state, action) {
+			state.totalPrice = action
 		},
 	},
 	getters: {

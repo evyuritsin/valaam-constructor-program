@@ -1,14 +1,10 @@
 {
 	"mainInfo": {
-		"multiDay": true,
-		"arrivalDate": "03.01.2023",
-		"departureDate": "06.01.2023",
-		"peopleAmount": {
-			"adults": 2,
-			"children_0_6": 0,
-			"children_7_12": 0
-		},
-		"departurePoint": "Санкт-Петербург"
+		"multiDay": false,
+		"arrivalDate": "11.02.2023",
+		"departureDate": "",
+		"peopleAmount": "Взрослых - 2",
+		"departurePoint": "Приозерск"
 	},
 	"guests": [
 		{
@@ -16,25 +12,80 @@
 			"type": "Взрослый",
 			"feed": {
 				"graph": {
-					"breakfast": 1,
-					"lunch": 1,
-					"dinner": 1
+					"id": 1,
+					"type_id": 1,
+					"amount": 1420,
+					"amount_type_id": "1",
+					"formatted": "Завтрак+Обед+Ужин",
+					"meal_items": [
+						{
+							"id": 1,
+							"schedule_id": 1,
+							"meal_id": 1,
+							"meal": { "id": 1, "title": "Завтрак", "time": "11:00" }
+						},
+						{
+							"id": 2,
+							"schedule_id": 1,
+							"meal_id": 2,
+							"meal": { "id": 2, "title": "Обед", "time": "16:00" }
+						},
+						{
+							"id": 3,
+							"schedule_id": 1,
+							"meal_id": 4,
+							"meal": { "id": 4, "title": "Ужин", "time": "22:00" }
+						}
+					]
 				},
-				"type": 1
+				"type": {
+					"id": 1,
+					"title": "Основное меню",
+					"description": "Основное меню",
+					"meals_schedules": [
+						{
+							"id": 1,
+							"type_id": 1,
+							"amount": 1420,
+							"amount_type_id": "1",
+							"formatted": "Завтрак+Обед+Ужин",
+							"meal_items": [
+								{
+									"id": 1,
+									"schedule_id": 1,
+									"meal_id": 1,
+									"meal": { "id": 1, "title": "Завтрак", "time": "11:00" }
+								},
+								{
+									"id": 2,
+									"schedule_id": 1,
+									"meal_id": 2,
+									"meal": { "id": 2, "title": "Обед", "time": "16:00" }
+								},
+								{
+									"id": 3,
+									"schedule_id": 1,
+									"meal_id": 4,
+									"meal": { "id": 4, "title": "Ужин", "time": "22:00" }
+								}
+							]
+						}
+					]
+				}
 			},
-			"firstName": "Тигран",
-			"lastName": "Галумян",
-			"middleName": "Левонович",
+			"firstName": "21312312",
+			"lastName": "123123",
+			"middleName": "3123123",
 			"gender": "male",
-			"birthdayDate": "",
+			"birthdayDate": "09.02.2023",
 			"document": {
-				"type": "default",
-				"id": "1234 567654",
-				"issuedBy": "ОВД ОВД ОВД",
-				"issueDate": ""
+				"type": "Свидетельство о рождении",
+				"id": "123123123",
+				"issuedBy": "123123123",
+				"issueDate": "07.02.2023"
 			},
-			"phone": "+7 (123) 456 76 54",
-			"privilege": "default",
+			"phone": "12321312312321",
+			"privilege": "",
 			"comment": ""
 		},
 		{
@@ -42,89 +93,192 @@
 			"type": "Взрослый",
 			"feed": {
 				"graph": {
-					"breakfast": 1,
-					"lunch": 1,
-					"dinner": 1
+					"id": 1,
+					"type_id": 1,
+					"amount": 1420,
+					"amount_type_id": "1",
+					"formatted": "Завтрак+Обед+Ужин",
+					"meal_items": [
+						{
+							"id": 1,
+							"schedule_id": 1,
+							"meal_id": 1,
+							"meal": { "id": 1, "title": "Завтрак", "time": "11:00" }
+						},
+						{
+							"id": 2,
+							"schedule_id": 1,
+							"meal_id": 2,
+							"meal": { "id": 2, "title": "Обед", "time": "16:00" }
+						},
+						{
+							"id": 3,
+							"schedule_id": 1,
+							"meal_id": 4,
+							"meal": { "id": 4, "title": "Ужин", "time": "22:00" }
+						}
+					]
 				},
-				"type": 1
+				"type": {
+					"id": 1,
+					"title": "Основное меню",
+					"description": "Основное меню",
+					"meals_schedules": [
+						{
+							"id": 1,
+							"type_id": 1,
+							"amount": 1420,
+							"amount_type_id": "1",
+							"formatted": "Завтрак+Обед+Ужин",
+							"meal_items": [
+								{
+									"id": 1,
+									"schedule_id": 1,
+									"meal_id": 1,
+									"meal": { "id": 1, "title": "Завтрак", "time": "11:00" }
+								},
+								{
+									"id": 2,
+									"schedule_id": 1,
+									"meal_id": 2,
+									"meal": { "id": 2, "title": "Обед", "time": "16:00" }
+								},
+								{
+									"id": 3,
+									"schedule_id": 1,
+									"meal_id": 4,
+									"meal": { "id": 4, "title": "Ужин", "time": "22:00" }
+								}
+							]
+						}
+					]
+				}
 			},
-			"firstName": "Анна",
-			"lastName": "Филатова",
-			"middleName": "Александровна",
-			"gender": "female",
-			"birthdayDate": "",
+			"firstName": "3213213123",
+			"lastName": "12321312",
+			"middleName": "123123123",
+			"gender": "male",
+			"birthdayDate": "09.02.2023",
 			"document": {
-				"type": "default",
-				"id": "1234 543234",
-				"issuedBy": "ОВД ОВД ОВД",
-				"issueDate": ""
+				"type": "Паспорт РФ",
+				"id": "12312321321",
+				"issuedBy": "312312312",
+				"issueDate": "08.02.2023"
 			},
-			"phone": "+7 (345) 678 76 54",
-			"privilege": "default",
+			"phone": "32132131231",
+			"privilege": "",
 			"comment": ""
 		}
 	],
-	"hotelRooms": [
-		{
-			"id": 3,
-			"price": 12800,
-			"name": "2х местный с удобствами в номере 1,2,3 этажи"
-		}
-	],
+	"hotelRooms": [],
 	"ships": {
 		"there": {
-			"id": 1,
-			"name": "«Северный Афон»",
-			"sailing": "09:00",
-			"arrival": "11:00",
-			"price": 2000
+			"id": "1003",
+			"route_id": [
+				{
+					"id": 2,
+					"title": "Приозерск - Валаам",
+					"start_dock_id": "1",
+					"end_dock_id": "3",
+					"distance": 60,
+					"start_dock": {
+						"id": 1,
+						"title": "Приозерск",
+						"address": "Причал в Приозерске ул. Заозёрная, 12"
+					},
+					"end_dock": {
+						"id": 3,
+						"title": "Никоновская бухта",
+						"address": "Причал о. Валаам, Никоновская бухта"
+					}
+				}
+			],
+			"pagetitle": "«ИГУМЕН НАЗАРИЙ»",
+			"departureAndArrivalTime": {
+				"date": "11-02-2023",
+				"departure": "15:00",
+				"arrival": "16:15",
+				"duration": 75,
+				"price": 1950
+			}
 		},
 		"back": {
-			"id": 3,
-			"name": "«Андрей Первозванный»",
-			"sailing": "09:00",
-			"arrival": "11:00",
-			"price": 2000
+			"id": "1005",
+			"route_id": [
+				{
+					"id": 3,
+					"title": "Валаам - Сортавала",
+					"start_dock_id": "3",
+					"end_dock_id": "4",
+					"distance": 40,
+					"start_dock": {
+						"id": 3,
+						"title": "Никоновская бухта",
+						"address": "Причал о. Валаам, Никоновская бухта"
+					},
+					"end_dock": {
+						"id": 4,
+						"title": "Сортавала",
+						"address": "Причал в Сортавала 2-я Пристанская улица, 1"
+					}
+				}
+			],
+			"pagetitle": "«АНДРЕЙ ПЕРВОЗВАННЫЙ»",
+			"departureAndArrivalTime": {
+				"date": "11-02-2023",
+				"departure": "15:00",
+				"arrival": "15:45",
+				"duration": 45,
+				"price": 1400
+			}
 		}
 	},
-	"feedsPrice": 3000,
+	"feedsPrice": 2840,
 	"excursions": [
 		{
-			"title": "Экскурсия 1",
-			"date": "21.01",
-			"time": "15:00",
-			"id": 2,
-			"price": 2000,
-			"tourist": { "adults": 2, "children": 0 }
-		},
-		{
-			"title": "Экскурсия 2",
-			"date": "22.01",
-			"time": "10:00",
-			"id": 8,
-			"price": 1000,
+			"idEx": "10401676108879",
+			"id": 1040,
+			"pagetitle": "Святой остров",
+			"date": {
+				"year": 2023,
+				"month": 2,
+				"day": 11,
+				"dayOfWeek": 6,
+				"dayOfYear": 42,
+				"hour": 12,
+				"minute": 47,
+				"second": 59,
+				"micro": 885343,
+				"timestamp": 1676108879,
+				"formatted": "2023-02-11 12:47:59",
+				"timezone": { "timezone_type": 3, "timezone": "Europe/Moscow" },
+				"formatted_date": "11-02-2023",
+				"amount": 1400
+			},
 			"tourist": { "adults": 2, "children": 0 }
 		}
 	],
 	"services": [
-		{ "title": "Прокат лодки", "id": "2", "price": "5500" },
-		{ "title": "Баня на дровах", "id": "3", "price": "2000" }
+		{ "id": 1019, "price": 500, "pagetitle": "Прокат электровелосипедов" },
+		{ "id": 1021, "price": 6000, "pagetitle": "Прокат микроавтобусов" }
 	],
 	"client": {
-		"firstName": "Иван",
-		"lastName": "Иванов",
-		"middleName": "Иванович",
+		"firstName": "12312312",
+		"lastName": "123123123",
+		"middleName": "312312312",
 		"gender": "male",
-		"birthdayDate": "05.01.2023",
+		"birthdayDate": "09.02.2023",
 		"document": {
-			"type": "default",
-			"id": "1234 567876",
-			"issuedBy": "ОВД ОВД ОВД",
-			"issueDate": "03.01.2023"
+			"type": "Свидетельство о рождении",
+			"id": "12312312312312",
+			"issuedBy": "312312312312",
+			"issueDate": "07.02.2023"
 		},
-		"phone": "+7 (234) 787 566 5",
-		"email": "mail@mail.ru",
+		"phone": "123123123",
+		"email": "123123123123",
 		"add": "",
 		"isPilgrim": false
-	}
+	},
+	"totalPrice": 18840,
+	"alertSpan": ""
 }

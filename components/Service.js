@@ -30,7 +30,9 @@ const Service = {
 		clickToSelect() {
 			if (!this.isSelected) {
 				this.$store.commit('addService', {
-					...this.service,
+					id: this.service.id,
+					price: this.service.price,
+					pagetitle: this.service.pagetitle,
 				})
 			} else {
 				this.$store.commit('removeService', this.service.id)

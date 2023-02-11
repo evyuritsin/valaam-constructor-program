@@ -1,6 +1,6 @@
 const Feed = {
 	template: /*html*/ `
-						<div class="program-designer__content">
+						<div class="program-designer__content" v-if="loaded">
 							<div class="program-designer__block">
 								<div class="program-designer__menu-title">Питание</div>
 								<div class="program-designer__menu-subtitle">
@@ -150,11 +150,7 @@ const Feed = {
 		},
 		copyGuests: [],
 		alertSpan: '',
-		menuTypes: [
-			{ id: 1, title: 'Стандартное', ratio: 1 },
-			{ id: 2, title: 'Постное', ratio: 0.7 },
-			{ id: 3, title: 'Детское', ratio: 0.5 },
-		],
+		menuTypes: [],
 		loaded: false,
 	}),
 	computed: {

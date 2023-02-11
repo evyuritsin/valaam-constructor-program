@@ -1,6 +1,6 @@
 const ShipTimetable = {
 	template: /*html*/ `
-							<div class="program-designer__direction" v-if="loaded">
+							<div class="program-designer__direction" >
 								<div class="program-designer__direction-title" v-if="!mainInfo.departurePoint">
 									{{direction}}
 								</div>
@@ -12,7 +12,7 @@ const ShipTimetable = {
 								</div>								
 								<div class="program-designer__direction-content">
 								<!-- <CalendarSlider :direction="direction"/> -->
-									<table class="direction-table">
+									<table class="direction-table" v-if="loaded && ships.length">
 										<thead class="direction-table__head">
 											<tr>
 												<th class="ta-left">Отправление</th>
@@ -65,8 +65,9 @@ const ShipTimetable = {
 												</th>
 											</tr>
 										</tbody>
-									</table>									
-									<button  class="btn-more-show" @click="clickToShow">{{!showDetails ? 'Показать еще' : 'Скрыть'}}</button>
+									</table>		
+									<h2 v-if="loaded && !ships.length">На выбранную дату нет доступных теплоходов</h2>							
+									<button v-if="loaded && ships.length > 3" class="btn-more-show" @click="clickToShow">{{!showDetails ? 'Показать еще' : 'Скрыть'}}</button>
 								</div>
 							</div>
 	`,
@@ -155,9 +156,19 @@ const ShipTimetable = {
 	watch: {
 		selectShip() {
 			if (this.direction === 'ОБРАТНО') {
-				this.$store.commit('setShipBack', { ...this.selectShip })
+				this.$store.commit('setShipBack', {
+					id: this.selectShip.id,
+					route_id: this.selectShip.route_id,
+					pagetitle: this.selectShip.pagetitle,
+					departureAndArrivalTime: this.selectShip.departureAndArrivalTime,
+				})
 			} else {
-				this.$store.commit('setShipThere', { ...this.selectShip })
+				this.$store.commit('setShipThere', {
+					id: this.selectShip.id,
+					route_id: this.selectShip.route_id,
+					pagetitle: this.selectShip.pagetitle,
+					departureAndArrivalTime: this.selectShip.departureAndArrivalTime,
+				})
 			}
 		},
 		alertSpan() {
