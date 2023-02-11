@@ -36,11 +36,11 @@ const TouristData = {
 														:class="{'vp-input_invalid' : !copyGuest.birthdayDate && validationErrors}"		
 														readonly							
 														v-model="copyGuest.birthdayDate"	
-														@click="openBdDatepicker"				
+														@click.stop="openBdDatepicker"				
 													/>
 													<Datepicker v-if="isBdDatepicker" @selectDate="selectBirthday" @close="closeBdDatepicker"/>
 												</div>
-												<div className="relative flex-1" 	@click="openDocumentsPicker">
+												<div className="relative flex-1" 	@click.stop="openDocumentsPicker">
 													<input 
 														type="text" 
 														readonly 
@@ -79,7 +79,7 @@ const TouristData = {
 														:class="{'vp-input_invalid' : !copyGuest.document.id && validationErrors}"															
 														placeholder="Дата выдачи*"
 														v-model="copyGuest.document.issueDate"
-														@click="openIssueDate"
+														@click.stop="openIssueDate"
 														readonly
 													/>				
 													<Datepicker v-if="isIssueDate" @selectDate="selectIssueDate" @close="closeIssueDate"/>								
@@ -96,7 +96,7 @@ const TouristData = {
 														name="telefon"
 													/>												
 												</div>
-												<div className="flex-1 relative" @click="openPrivilegesPicker">
+												<div className="flex-1 relative" @click.stop="openPrivilegesPicker">
 													<input
 														type="text"
 														class="vp-input input__icon_right icon_arrowdown"
@@ -142,6 +142,13 @@ const TouristData = {
 	},
 	mounted() {
 		this.copyGuest = { ...this.$store.getters.getGuestById(this.id)[0] }
+		const vm = this
+		document.addEventListener('click', function () {
+			vm.closeDocumentsPicker()
+			vm.closePrivilegesPicker()
+			vm.closeBdDatepicker()
+			vm.closeIssueDate()
+		})
 	},
 	methods: {
 		openDocumentsPicker() {
@@ -189,8 +196,9 @@ const TouristData = {
 	watch: {
 		copyGuest: {
 			handler() {
-				if (this.copyGuest.name !== this.guest.name) {
+				if (this.copyGuest.firstName !== this.guest.firstName) {
 					this.$store.commit('changeGuest', { ...this.copyGuest })
+					console.log('что то тут не так')
 				}
 			},
 			deep: true,
@@ -198,7 +206,7 @@ const TouristData = {
 		guest: {
 			handler() {
 				this.copyGuest = { ...this.guest }
-				console.log('copy', this.copyGuest, this.guest)
+				console.log({ ...this.guest })
 			},
 			deep: true,
 		},

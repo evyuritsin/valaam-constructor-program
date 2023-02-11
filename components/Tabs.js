@@ -63,7 +63,7 @@ const Tabs = {
 														class="search__filter icon_geo_search"
 														v-model="info.departurePoint"
 														readonly
-														@click="openCitypicker"
+														@click.stop="openCitypicker"
 													/>
 													<Citipicker v-if='isCitypicker' :cities="departurePoints" @close="closeCitypicker" @selectCity="selectCity"/>
 												</div>
@@ -117,7 +117,7 @@ const Tabs = {
 														class="search__filter icon_geo_search"
 														v-model="info.departurePoint"
 														readonly
-														@click="openCitypicker"
+														@click.stop="openCitypicker"
 													/>
 													<Citipicker v-if='isCitypicker' :cities="departurePoints" @close="closeCitypicker" @selectCity="selectCity"/>
 												</div>
@@ -205,6 +205,10 @@ const Tabs = {
 			})
 		})
 		this.loaded = true
+		const vm = this
+		document.addEventListener('click', function () {
+			vm.closeCitypicker()
+		})
 	},
 	components: {
 		Datapicker,

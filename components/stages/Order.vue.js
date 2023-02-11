@@ -39,12 +39,12 @@ const Order = {
 														class="vp-input flatpickr-input"
 														v-model="client.birthdayDate"
 														placeholder="Дата рождения*"
-														@click="openBdDatepicker"
+														@click.stop="openBdDatepicker"
 														:class="{'vp-input_invalid' : !client.birthdayDate && validationErrors}"		
 													/>
 													<Datepicker v-if="isBdDatepicker" @selectDate="selectBirthday" @close="closeBdDatepicker"/>
 												</div>
-												<div className="relative flex-1" 	@click="openDocumentsPicker">
+												<div className="relative flex-1" 	@click.stop="openDocumentsPicker">
 													<input 
 														type="text" 
 														readonly 
@@ -84,7 +84,7 @@ const Order = {
 														v-model="client.document.issueDate"
 														:class="{'vp-input_invalid' : !client.document.issueDate && validationErrors}"						
 														readonly									
-														@click="openIssueDate"
+														@click.stop="openIssueDate"
 													/>									
 													<Datepicker v-if="isIssueDate" @selectDate="selectIssueDate" @close="closeIssueDate"/>			
 												</div>
@@ -109,7 +109,7 @@ const Order = {
 														:class="{'vp-input_invalid' : !client.email && validationErrors}"														
 													/>
 												</div>
-												<div className="flex-1 relative" @click="openAddsPicker">
+												<div className="flex-1 relative" @click.stop="openAddsPicker">
 													<input 
 														v-model="client.add" 
 														class="vp-input input__icon_right icon_arrowdown" 
@@ -309,6 +309,13 @@ const Order = {
 	mounted() {
 		//coping guests
 		this.copyGuests = [...this.$store.getters['getGuests']]
+		const vm = this
+		document.addEventListener('click', function () {
+			vm.closeDocumentsPicker()
+			vm.closeAddsPicker()
+			vm.closeBdDatepicker()
+			vm.closeIssueDate()
+		})
 	},
 	watch: {
 		client: {
