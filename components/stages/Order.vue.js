@@ -136,7 +136,7 @@ const Order = {
 									>
 								</div>
 								<div class="order-form__title">Данные туристов</div>
-								<TouristData v-for="(guest, index) in copyGuests" :key="guest.id" :guest="guest" :validationErrors="validationErrors" :index="index"/>
+								<TouristData v-for="(guest, index) in copyGuests" :key="guest.id" :id="guest.id" :validationErrors="validationErrors" :index="index"/>
 								<TotalResult />
 								<div class="order-form__title">Способ оплаты</div>
 								<div class="order-form__field pos-h">
@@ -308,10 +308,30 @@ const Order = {
 			handler() {
 				this.$store.commit('setClient', { ...this.client })
 				if (this.client.isPilgrim) {
-					this.$store.commit('changeGuest', { ...this.client, id: 1 })
+					this.$store.commit('changeGuest', { id: 1, ...this.client })
 				} else {
-					this.$store.commit('changeGuest', { id: 1 })
+					this.$store.commit('changeGuest', {
+						id: 1,
+						firstName: '',
+						lastName: '',
+						middleName: '',
+						gender: 'male',
+						birthdayDate: '',
+						document: {
+							type: '',
+							id: '',
+							issuedBy: '',
+							issueDate: '',
+						},
+						phone: '',
+					})
 				}
+			},
+			deep: true,
+		},
+		guests: {
+			handler() {
+				this.copyGuests = [...this.$store.getters['getGuests']]
 			},
 			deep: true,
 		},

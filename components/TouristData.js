@@ -127,7 +127,7 @@ const TouristData = {
 									</div>
 								</div>
 	`,
-	props: ['validationErrors', 'guest', 'index'],
+	props: ['validationErrors', 'id', 'index'],
 	data: () => ({
 		copyGuest: {},
 		isDocumentsOpen: false,
@@ -141,7 +141,7 @@ const TouristData = {
 		Documentspicker,
 	},
 	mounted() {
-		this.copyGuest = { ...this.$store.getters.getGuestById(this.guest.id)[0] }
+		this.copyGuest = { ...this.$store.getters.getGuestById(this.id)[0] }
 	},
 	methods: {
 		openDocumentsPicker() {
@@ -180,22 +180,25 @@ const TouristData = {
 		selectIssueDate(date) {
 			this.copyGuest.document.issueDate = date
 		},
+	},
+	computed: {
 		guest() {
-			return this.$store.getters.getGuestById(this.guest.id)[0]
+			return this.$store.getters.getGuestById(this.id)[0]
 		},
 	},
 	watch: {
 		copyGuest: {
 			handler() {
-				this.$store.commit('changeGuest', { ...this.copyGuest })
+				if (this.copyGuest.name !== this.guest.name) {
+					this.$store.commit('changeGuest', { ...this.copyGuest })
+				}
 			},
 			deep: true,
 		},
 		guest: {
 			handler() {
-				this.copyGuest = {
-					...this.$store.getters.getGuestById(this.guest.id)[0],
-				}
+				this.copyGuest = { ...this.guest }
+				console.log('copy', this.copyGuest, this.guest)
 			},
 			deep: true,
 		},
