@@ -277,6 +277,7 @@ body {
 	box-sizing: border-box;
 	border-top: unset;
 	z-index: 10;
+	top: 100%;
 }
 .datepicker-lite__prev-btn {
 	display: flex;

@@ -11,32 +11,29 @@ const Tabs = {
 									<div id-tab-content="tab-1" class="vp-tab-content">
 										<form action="">
 											<div class="search__filters">
-												<div class="search__col">
+												<div class="search__col flex-2 relative">
 													<label for="" class="search__filter-name">Дата заезда</label>
 													<input
 														type="text"
 														ref="input1"
 														readonly
-														:value="info.arrivalDate"
-														@click="e => arrivalDateOnClick(e)"
+														v-model="info.arrivalDate"
+														@click.stop="openArrivalDate"
 														class="search__filter icon_date flatpickr-input active"
-														inputobj="12121212"
-														showmodal="datepicker-lite"
 													/>
-													<Datapicker :click="onClickDatapickerFirst" :obj="12121212"/>
+													<Datepicker v-if="isArrivalDate" @close="closeArrivalDate" @selectDate="setArrivalDate" />
 												</div>
-												<div class="search__col flex-2">
+												<div class="search__col flex-2 relative">
 													<label for="" class="search__filter-name">Дата отъезда</label>
 													<input
 														type="text"
-														class="search__filter icon_date flatpickr-input active"
-														ref="input2"
+														ref="input1"
 														readonly
-														@click="e => departureDateOnClick(e)"
-														inputobj="656222263"
-														showmodal="datepicker-lite"		
+														v-model="info.departureDate"
+														@click.stop="openDepartureDate"
+														class="search__filter icon_date flatpickr-input active"
 													/>
-													<Datapicker :click="onClickDatapickerFirst" :obj="656222263"/>
+													<Datepicker v-if="isDepartureDate" @close="closeDepartureDate" @selectDate="setDepartureDate" />
 												</div>
 												<div class="search__col flex-2" >
 													<label for="" class="search__filter-name"
@@ -76,21 +73,17 @@ const Tabs = {
 									>
 										<form action="">
 											<div class="search__filters">
-												<div class="search__col flex-2" >
-													<label for="" class="search__filter-name"
-														>Дата заезда</label
-													>
+												<div class="search__col flex-2 relative">
+													<label for="" class="search__filter-name">Дата заезда</label>
 													<input
 														type="text"
-														class="search__filter icon_date flatpickr-input active"
-														ref="input5"
-														inputobj="111111"
-														:value="info.arrivalDate"
+														ref="input1"
 														readonly
-														@click="e => arrivalDateOnClick(e)"
-														showmodal="datepicker-lite"
+														v-model="info.arrivalDate"
+														@click.stop="openArrivalDate"
+														class="search__filter icon_date flatpickr-input active"
 													/>
-													<Datapicker :click="onClickDatapickerSecond" :obj="111111"/>
+													<Datepicker v-if="isArrivalDate" @close="closeArrivalDate" @selectDate="setArrivalDate" />
 												</div>
 												<div class="search__col flex-2" >
 													<label for="" class="search__filter-name"
@@ -138,6 +131,8 @@ const Tabs = {
 		departurePoints: [],
 		loaded: false,
 		isCitypicker: false,
+		isArrivalDate: false,
+		isDepartureDate: false,
 	}),
 	methods: {
 		find() {
@@ -191,6 +186,24 @@ const Tabs = {
 		selectCity(city) {
 			this.info.departurePoint = city
 		},
+		openDepartureDate() {
+			this.isDepartureDate = true
+		},
+		closeDepartureDate() {
+			this.isDepartureDate = false
+		},
+		setDepartureDate(date) {
+			this.info.departureDate = date
+		},
+		openArrivalDate() {
+			this.isArrivalDate = true
+		},
+		closeArrivalDate() {
+			this.isArrivalDate = false
+		},
+		setArrivalDate(date) {
+			this.info.arrivalDate = date
+		},
 	},
 	async mounted() {
 		const { data } = await fetch(
@@ -208,10 +221,12 @@ const Tabs = {
 		const vm = this
 		document.addEventListener('click', function () {
 			vm.closeCitypicker()
+			vm.closeDepartureDate()
+			vm.closeArrivalDate()
 		})
 	},
 	components: {
-		Datapicker,
+		Datepicker,
 		Citipicker,
 		Peoplepicker,
 	},
