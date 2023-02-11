@@ -54,7 +54,7 @@ const Tabs = {
 													/>
 													<Peoplepicker :click="onClickPeoplepicker"/>
 												</div>
-												<div class="search__col flex-2" >
+												<div class="search__col flex-2 relative"  >
 													<label for="" class="search__filter-name"
 														>Место отправления</label
 													>

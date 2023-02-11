@@ -272,7 +272,7 @@ const Order = {
 		selectIssueDate(date) {
 			this.client.document.issueDate = date
 		},
-		clickToOrder() {
+		async clickToOrder() {
 			if (
 				!this.originalClient.firstName ||
 				!this.originalClient.lastName ||
@@ -294,6 +294,13 @@ const Order = {
 				})
 			})
 			console.log(JSON.stringify(this.requestData))
+			await fetch(
+				'http://valaamskiy-polomnik.directpr.beget.tech/api/constructor/',
+				{
+					method: 'POST',
+					body: JSON.stringify(this.requestData),
+				}
+			)
 		},
 		clickToPervStage() {
 			this.$emit('clickToPerv')

@@ -3289,6 +3289,7 @@ option::after {
 }
 .program-designer_active-line {
 	border-bottom: 4px solid #31b404;
+	box-sizing: content-box;
 }
 .program-designer__stage-label {
 	width: 100%;
@@ -3479,7 +3480,6 @@ option::after {
 .direction-table {
 	width: 100%;
 	height: fit-content;
-	margin-top: 40px;
 	border-collapse: collapse;
 }
 .direction-table__head {
