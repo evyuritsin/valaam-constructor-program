@@ -23,8 +23,8 @@ const ShipTimetable = {
 												<th></th>
 											</tr>
 										</thead>
-										<tbody class="direction-table__body" v-show="!showDetails">
-											<tr v-for="(ship, index) in [...Array(3)]" :key="index" :class="{'direction-table__tr-active' : ships[index].id === selectShip.id}">
+										<tbody class="direction-table__body" v-show="!showDetails && ships.length > 3">
+											<tr v-for="(ship, index) in [...Array(3)]" :key="index" :class="{'direction-table__tr-active' : ships[index].shipId === selectShip.shipId}">
 												<th class="ta-left">{{ships[index].departureAndArrivalTime.departure}}</th>
 												<th class="ta-left">{{ships[index].departureAndArrivalTime.arrival}}</th>
 												<th class="ta-left">{{ships[index].pagetitle}}</th>
@@ -38,14 +38,14 @@ const ShipTimetable = {
 												<th 
 													class="direction-table__select-ship" 
 													@click.prevent="clickToSelectShip(ships[index])" 
-													:class="{'direction-table_select-ship-active' : ships[index].id === selectShip.id}"
+													:class="{'direction-table_select-ship-active' : ships[index].shipId === selectShip.shipId}"
 												>
 													ВЫБРАТЬ
 												</th>
 											</tr>
 										</tbody>
-										<tbody class="direction-table__body" v-show="showDetails">
-											<tr v-for="ship in ships" :key="ship.id" :class="{'direction-table__tr-active' : ship.id === selectShip.id}">
+										<tbody class="direction-table__body" v-show="showDetails || ships.length < 3">
+											<tr v-for="ship in ships" :key="ship.id" :class="{'direction-table__tr-active' : ship.shipId === selectShip.shipId}">
 												<th class="ta-left">{{ship.departureAndArrivalTime.departure}}</th>
 												<th class="ta-left">{{ship.departureAndArrivalTime.arrival}}</th>
 												<th class="ta-left">{{ship.pagetitle}}</th>
@@ -59,7 +59,7 @@ const ShipTimetable = {
 												<th 
 													class="direction-table__select-ship" 
 													@click.prevent="clickToSelectShip(ship)" 
-													:class="{'direction-table_select-ship-active' : ship.id === selectShip.id}"
+													:class="{'direction-table_select-ship-active' : ship.shipId === selectShip.shipId}"
 												>
 													ВЫБРАТЬ
 												</th>
@@ -74,7 +74,7 @@ const ShipTimetable = {
 	props: ['direction'],
 	data: () => ({
 		showDetails: false,
-		selectShip: { id: null },
+		selectShip: { shipId: null },
 		dates: [],
 		schedules: [],
 		loaded: false,
@@ -113,7 +113,11 @@ const ShipTimetable = {
 						s.route_id[0].start_dock.title === this.mainInfo.departurePoint
 					) {
 						s.shipType.ships.forEach(ship => {
-							result.push({ ...s, ...ship })
+							result.push({
+								...s,
+								...ship,
+								shipId: `${ship.id}${s.laravel_through_key}`,
+							})
 						})
 					}
 				})
@@ -129,7 +133,11 @@ const ShipTimetable = {
 						).valueOf()
 					) {
 						s.shipType.ships.forEach(ship => {
-							result.push({ ...s, ...ship })
+							result.push({
+								...s,
+								...ship,
+								shipId: `${ship.id}${s.laravel_through_key}`,
+							})
 						})
 					}
 				})
@@ -143,12 +151,12 @@ const ShipTimetable = {
 		},
 		clickToSelectShip(ship) {
 			if (!this.selectShip) {
-				return (this.selectShip = ship)
+				return (this.selectShip = { ...ship })
 			}
 			if (this.selectShip.id === ship.id) {
 				this.selectShip = { id: null }
 			} else {
-				this.selectShip = ship
+				this.selectShip = { ...ship }
 			}
 			this.$store.commit('setAlertSpan', '')
 		},
@@ -172,7 +180,7 @@ const ShipTimetable = {
 			}
 		},
 		alertSpan() {
-			this.selectShip = { id: 0 }
+			this.selectShip = { shipId: null }
 		},
 	},
 	components: {

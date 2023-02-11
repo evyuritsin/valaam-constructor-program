@@ -34,7 +34,7 @@ const Tabs = {
 														readonly
 														@click="e => departureDateOnClick(e)"
 														inputobj="656222263"
-														showmodal="datepicker-lite"													
+														showmodal="datepicker-lite"		
 													/>
 													<Datapicker :click="onClickDatapickerFirst" :obj="656222263"/>
 												</div>
@@ -61,14 +61,11 @@ const Tabs = {
 													<input
 														type="text"
 														class="search__filter icon_geo_search"
-														ref="input4"
-														:value="info.departurePoint"
+														v-model="info.departurePoint"
 														readonly
-														@focus="e => departurePointOnFocus(e)"
-														showmodal="geo-list"
-														inputobj="45634"
+														@click="openCitypicker"
 													/>
-													<Citipicker :click="onClickCitipicker"/>
+													<Citipicker v-if='isCitypicker' :cities="departurePoints" @close="closeCitypicker" @selectCity="selectCity"/>
 												</div>
 											</div>
 										</form>
@@ -111,21 +108,18 @@ const Tabs = {
 													/>
 													<Peoplepicker :click="onClickPeoplepicker"/>
 												</div>
-												<div class="search__col flex-2">
+												<div class="search__col flex-2 relative">
 													<label for="" class="search__filter-name"
 														>Место отправления</label
 													>
 													<input
 														type="text"
 														class="search__filter icon_geo_search"
-														ref="input7"
-														:value="info.departurePoint"
+														v-model="info.departurePoint"
 														readonly
-														showmodal="geo-list"
-														inputobj="45634"
-														@focus="e => departurePointOnFocus(e)"
+														@click="openCitypicker"
 													/>
-													<Citipicker :click="onClickCitipicker"/>
+													<Citipicker v-if='isCitypicker' :cities="departurePoints" @close="closeCitypicker" @selectCity="selectCity"/>
 												</div>
 											</div>
 										</form>
@@ -141,6 +135,9 @@ const Tabs = {
 			peopleAmount: '',
 			departurePoint: '',
 		},
+		departurePoints: [],
+		loaded: false,
+		isCitypicker: false,
 	}),
 	methods: {
 		find() {
@@ -185,13 +182,29 @@ const Tabs = {
 				this.$refs.input6.focus()
 			}, 0)
 		},
-		onClickCitipicker() {
-			setTimeout(() => {
-				this.$refs.input4.focus()
-				this.$refs.input7.focus()
-				$('.popup__blocked').click()
-			}, 0)
+		openCitypicker() {
+			this.isCitypicker = true
 		},
+		closeCitypicker() {
+			this.isCitypicker = false
+		},
+		selectCity(city) {
+			this.info.departurePoint = city
+		},
+	},
+	async mounted() {
+		const { data } = await fetch(
+			'http://valaamskiy-polomnik.directpr.beget.tech/api/constructor/'
+		).then(response => response.json())
+		data.dates.forEach(date => {
+			date.ships_schedule_there.forEach(race => {
+				const city = race.route_id[0].start_dock.title
+				if (!this.departurePoints.includes(city)) {
+					this.departurePoints.push(city)
+				}
+			})
+		})
+		this.loaded = true
 	},
 	components: {
 		Datapicker,

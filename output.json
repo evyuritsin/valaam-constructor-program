@@ -1,10 +1,10 @@
 {
 	"mainInfo": {
-		"multiDay": false,
-		"arrivalDate": "11.02.2023",
-		"departureDate": "",
+		"multiDay": true,
+		"arrivalDate": "12.02.2023",
+		"departureDate": "13.02.2023",
 		"peopleAmount": "Взрослых - 2",
-		"departurePoint": "Приозерск"
+		"departurePoint": "Сортавала"
 	},
 	"guests": [
 		{
@@ -73,20 +73,23 @@
 					]
 				}
 			},
-			"firstName": "21312312",
-			"lastName": "123123",
-			"middleName": "3123123",
+			"firstName": "123123123",
+			"lastName": "21312312",
+			"middleName": "123123123",
 			"gender": "male",
-			"birthdayDate": "09.02.2023",
+			"birthdayDate": "10.02.2023",
 			"document": {
-				"type": "Свидетельство о рождении",
-				"id": "123123123",
-				"issuedBy": "123123123",
-				"issueDate": "07.02.2023"
+				"type": "Паспорт РФ",
+				"id": "123123123123",
+				"issuedBy": "13123123123123",
+				"issueDate": "08.02.2023"
 			},
-			"phone": "12321312312321",
+			"phone": "123123123123123",
 			"privilege": "",
-			"comment": ""
+			"comment": "",
+			"email": "123123123123123",
+			"add": "",
+			"isPilgrim": true
 		},
 		{
 			"id": 2,
@@ -154,131 +157,252 @@
 					]
 				}
 			},
-			"firstName": "3213213123",
-			"lastName": "12321312",
-			"middleName": "123123123",
+			"firstName": "",
+			"lastName": "",
+			"middleName": "",
 			"gender": "male",
-			"birthdayDate": "09.02.2023",
+			"birthdayDate": "",
 			"document": {
 				"type": "Паспорт РФ",
-				"id": "12312321321",
-				"issuedBy": "312312312",
+				"id": "12312312313",
+				"issuedBy": "123123123123123",
 				"issueDate": "08.02.2023"
 			},
-			"phone": "32132131231",
+			"phone": "",
 			"privilege": "",
 			"comment": ""
 		}
 	],
-	"hotelRooms": [],
-	"ships": {
-		"there": {
-			"id": "1003",
-			"route_id": [
+	"hotelRooms": [
+		{
+			"id": 1024,
+			"parent": 1022,
+			"pagetitle": "Двухместный номер стандарт",
+			"introtext": "Доступно дополнительное спальное место.\r\nУютные тёплые номера (на 2-х гостей) с удобствами в номере. В номере имеются: чайник, чашки, чайные ложки, плечики для одежды, полотенца.\r\nЗа окном рассветный час сменяется закатным; в высокие окна можно полюбоваться вечерней мирной улыбкой святой обители.",
+			"images": [
+				{
+					"sg_id": 1040,
+					"sg_image": "/assets/galleries/1024/20210615_pk155467.jpg",
+					"sg_title": "20210615_PK155467",
+					"sg_isactive": "1",
+					"sg_index": "0"
+				},
+				{
+					"sg_id": 1041,
+					"sg_image": "/assets/galleries/1024/5d4_9363.jpg",
+					"sg_title": "5D4_9363",
+					"sg_isactive": "1",
+					"sg_index": "1"
+				},
+				{
+					"sg_id": 1042,
+					"sg_image": "/assets/galleries/1024/5d4_9366.jpg",
+					"sg_title": "5D4_9366",
+					"sg_isactive": "1",
+					"sg_index": "2"
+				},
+				{
+					"sg_id": 1043,
+					"sg_image": "/assets/galleries/1024/5d4_9364.jpg",
+					"sg_title": "5D4_9364",
+					"sg_isactive": "1",
+					"sg_index": "3"
+				},
+				{
+					"sg_id": 1044,
+					"sg_image": "/assets/galleries/1024/img_9744.jpg",
+					"sg_title": "IMG_9744",
+					"sg_isactive": "1",
+					"sg_index": "4"
+				}
+			],
+			"facilities": [
 				{
 					"id": 2,
-					"title": "Приозерск - Валаам",
-					"start_dock_id": "1",
+					"title": "Душ в номере, полотенца",
+					"icon": "shower.svg",
+					"iconPath": "/assets/vendor/main/images/icons-svg/shower.svg"
+				},
+				{
+					"id": 5,
+					"title": "Чайник, чашки, чайные ложки",
+					"icon": "kettle.svg",
+					"iconPath": "/assets/vendor/main/images/icons-svg/kettle.svg"
+				},
+				{
+					"id": 6,
+					"title": "Плечики для одежды",
+					"icon": "hanger.svg",
+					"iconPath": "/assets/vendor/main/images/icons-svg/hanger.svg"
+				}
+			],
+			"schedules": [
+				{
+					"id": 14,
+					"room_id": "1024",
+					"date_from": "2023-02-08",
+					"date_to": "2023-02-14",
+					"amount": 5600,
+					"amount_type_id": "1",
+					"per_person": false
+				}
+			]
+		},
+		{
+			"id": 1044,
+			"parent": 1022,
+			"pagetitle": "Трехместный номер стандарт",
+			"introtext": "Уютные тёплые номера (на 3-х гостей) с удобствами в номере. В номере имеются: чайник, чашки, чайные ложки, плечики для одежды, полотенца.\r\nЗа окном рассветный час сменяется закатным; в высокие окна можно полюбоваться вечерней мирной улыбкой святой обители.",
+			"images": [
+				{
+					"sg_id": 1049,
+					"sg_image": "/assets/galleries/1044/3.jpeg",
+					"sg_title": "3",
+					"sg_isactive": "1",
+					"sg_index": "0"
+				}
+			],
+			"facilities": [
+				{
+					"id": 2,
+					"title": "Душ в номере, полотенца",
+					"icon": "shower.svg",
+					"iconPath": "/assets/vendor/main/images/icons-svg/shower.svg"
+				},
+				{
+					"id": 5,
+					"title": "Чайник, чашки, чайные ложки",
+					"icon": "kettle.svg",
+					"iconPath": "/assets/vendor/main/images/icons-svg/kettle.svg"
+				},
+				{
+					"id": 6,
+					"title": "Плечики для одежды",
+					"icon": "hanger.svg",
+					"iconPath": "/assets/vendor/main/images/icons-svg/hanger.svg"
+				}
+			],
+			"schedules": [
+				{
+					"id": 20,
+					"room_id": "1044",
+					"date_from": "2023-02-08",
+					"date_to": "2023-02-14",
+					"amount": 7800,
+					"amount_type_id": "1",
+					"per_person": false
+				}
+			]
+		}
+	],
+	"ships": {
+		"there": {
+			"id": "1002",
+			"route_id": [
+				{
+					"id": 1,
+					"title": "Сортавала - Валаам",
+					"start_dock_id": "4",
 					"end_dock_id": "3",
-					"distance": 60,
+					"distance": 40,
 					"start_dock": {
-						"id": 1,
-						"title": "Приозерск",
-						"address": "Причал в Приозерске ул. Заозёрная, 12"
+						"id": 4,
+						"title": "Сортавала",
+						"address": "Причал в Сортавала 2-я Пристанская улица, 1"
 					},
 					"end_dock": {
 						"id": 3,
 						"title": "Никоновская бухта",
 						"address": "Причал о. Валаам, Никоновская бухта"
+					}
+				}
+			],
+			"pagetitle": "«ВАЛААМ»",
+			"departureAndArrivalTime": {
+				"date": "12-02-2023",
+				"departure": "15:00",
+				"arrival": "17:30",
+				"duration": 150,
+				"price": 1150
+			}
+		},
+		"back": {
+			"id": "1003",
+			"route_id": [
+				{
+					"id": 4,
+					"title": "Валаам - Приозерск",
+					"start_dock_id": "3",
+					"end_dock_id": "1",
+					"distance": 60,
+					"start_dock": {
+						"id": 3,
+						"title": "Никоновская бухта",
+						"address": "Причал о. Валаам, Никоновская бухта"
+					},
+					"end_dock": {
+						"id": 1,
+						"title": "Приозерск",
+						"address": "Причал в Приозерске ул. Заозёрная, 12"
 					}
 				}
 			],
 			"pagetitle": "«ИГУМЕН НАЗАРИЙ»",
 			"departureAndArrivalTime": {
-				"date": "11-02-2023",
-				"departure": "15:00",
-				"arrival": "16:15",
+				"date": "13-02-2023",
+				"departure": "14:00",
+				"arrival": "15:15",
 				"duration": 75,
 				"price": 1950
-			}
-		},
-		"back": {
-			"id": "1005",
-			"route_id": [
-				{
-					"id": 3,
-					"title": "Валаам - Сортавала",
-					"start_dock_id": "3",
-					"end_dock_id": "4",
-					"distance": 40,
-					"start_dock": {
-						"id": 3,
-						"title": "Никоновская бухта",
-						"address": "Причал о. Валаам, Никоновская бухта"
-					},
-					"end_dock": {
-						"id": 4,
-						"title": "Сортавала",
-						"address": "Причал в Сортавала 2-я Пристанская улица, 1"
-					}
-				}
-			],
-			"pagetitle": "«АНДРЕЙ ПЕРВОЗВАННЫЙ»",
-			"departureAndArrivalTime": {
-				"date": "11-02-2023",
-				"departure": "15:00",
-				"arrival": "15:45",
-				"duration": 45,
-				"price": 1400
 			}
 		}
 	},
 	"feedsPrice": 2840,
 	"excursions": [
 		{
-			"idEx": "10401676108879",
-			"id": 1040,
-			"pagetitle": "Святой остров",
+			"idEx": "10321676209119",
+			"id": 1032,
+			"pagetitle": "Связь времён",
 			"date": {
 				"year": 2023,
 				"month": 2,
-				"day": 11,
-				"dayOfWeek": 6,
-				"dayOfYear": 42,
-				"hour": 12,
-				"minute": 47,
-				"second": 59,
-				"micro": 885343,
-				"timestamp": 1676108879,
-				"formatted": "2023-02-11 12:47:59",
+				"day": 12,
+				"dayOfWeek": 0,
+				"dayOfYear": 43,
+				"hour": 16,
+				"minute": 38,
+				"second": 39,
+				"micro": 434961,
+				"timestamp": 1676209119,
+				"formatted": "2023-02-12 16:38:39",
 				"timezone": { "timezone_type": 3, "timezone": "Europe/Moscow" },
-				"formatted_date": "11-02-2023",
-				"amount": 1400
+				"formatted_date": "12-02-2023",
+				"amount": 650
 			},
 			"tourist": { "adults": 2, "children": 0 }
 		}
 	],
 	"services": [
-		{ "id": 1019, "price": 500, "pagetitle": "Прокат электровелосипедов" },
 		{ "id": 1021, "price": 6000, "pagetitle": "Прокат микроавтобусов" }
 	],
 	"client": {
-		"firstName": "12312312",
-		"lastName": "123123123",
-		"middleName": "312312312",
+		"firstName": "123123123",
+		"lastName": "21312312",
+		"middleName": "123123123",
 		"gender": "male",
-		"birthdayDate": "09.02.2023",
+		"birthdayDate": "10.02.2023",
 		"document": {
-			"type": "Свидетельство о рождении",
-			"id": "12312312312312",
-			"issuedBy": "312312312312",
-			"issueDate": "07.02.2023"
+			"type": "Паспорт РФ",
+			"id": "123123123123",
+			"issuedBy": "13123123123123",
+			"issueDate": "08.02.2023"
 		},
-		"phone": "123123123",
-		"email": "123123123123",
+		"phone": "123123123123123",
+		"email": "123123123123123",
 		"add": "",
-		"isPilgrim": false
+		"isPilgrim": true
 	},
-	"totalPrice": 18840,
+	"totalPrice": 29740,
+	"payments": [{ "payment_type": 1, "payment_method": 3 }],
 	"alertSpan": ""
 }

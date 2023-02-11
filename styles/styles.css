@@ -5361,6 +5361,7 @@ select {
 	border-radius: 0 0 5px 5px;
 	border-width: 0px 1px 1px 1px;
 	z-index: 20;
+	top: 100%;
 }
 
 .datepicker-date {

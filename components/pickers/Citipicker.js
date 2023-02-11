@@ -1,11 +1,13 @@
 const Citipicker = {
 	template: /*html*/ `			
-			<div class="popup popup__select geo-list hide" popupobject="" obj="" @click.prevent="click">
-				<div class="select__item">Санкт-Петербург</div>
-				<div class="select__item">Приозерск</div>
-				<div class="select__item">Псков</div>
-				<div class="select__item">Великий Новгород</div>
-				<div class="select__item">Калуга</div>
+			<div class="picker w-100">
+				<div class="select__item" v-for="city in cities" :key="city" @click.stop="clickToCity(city)">{{city}}</div>
 			</div>`,
-	props: ['click'],
+	props: ['cities'],
+	methods: {
+		clickToCity(city) {
+			this.$emit('selectCity', city)
+			this.$emit('close')
+		},
+	},
 }
