@@ -354,7 +354,6 @@ const Order = {
 		AmountResult,
 		TouristData,
 		TotalResult,
-		Datapicker,
 		Documentspicker,
 		Privilegespicker,
 		Addpicker,
