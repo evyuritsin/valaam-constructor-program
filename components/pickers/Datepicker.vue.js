@@ -171,13 +171,13 @@ const Datepicker = {
 					output.push(
 						'<div class="datepicker-date" date=""' +
 							item +
-							'">' +
+							'" @click="clickToDate(date.value)">' +
 							cDate.getDate() +
 							'</div>'
 					)
 				} else {
 					output.push(
-						'<div class="datepicker-date datepicker_another-month" date=""' +
+						'<div class="datepicker-date datepicker_another-month" @click="clickToDate(date.value)" date=""' +
 							item +
 							'">' +
 							cDate.getDate() +
@@ -193,7 +193,10 @@ const Datepicker = {
 			.html(getFullMonth(currDate.getMonth(), currDate.getFullYear()))
 
 		$('.datepicker-date').click(e => this.clickToDate(e))
+		let vm = this
+
 		$('.datepicker_prev-btn').click(function () {
+			vm.changeMonth++
 			var months = [
 				'Январь',
 				'Февраль',
@@ -229,6 +232,7 @@ const Datepicker = {
 			$(this).closest('.datepicker').find('.datepicker__body').html(days)
 		})
 		$('.datepicker_next-btn').click(function () {
+			vm.changeMonth++
 			var months = [
 				'Январь',
 				'Февраль',
@@ -309,6 +313,7 @@ const Datepicker = {
 			{ id: 41, value: 5, anotherMonth: true },
 			{ id: 42, value: 6, anotherMonth: true },
 		],
+		changeMonth: 0,
 	}),
 	methods: {
 		clickToDate(e) {
@@ -318,6 +323,17 @@ const Datepicker = {
 
 			this.$emit('selectDate', date)
 			this.$emit('close')
+		},
+	},
+	watch: {
+		changeMonth: {
+			handler() {
+				let vm = this
+
+				$('.datepicker-date').click(function (e) {
+					vm.clickToDate(e)
+				})
+			},
 		},
 	},
 }

@@ -202,6 +202,7 @@ const Tabs = {
 			this.isArrivalDate = false
 		},
 		setArrivalDate(date) {
+			console.log(date)
 			this.info.arrivalDate = date
 		},
 	},
