@@ -294,13 +294,15 @@ const Order = {
 				})
 			})
 			console.log(JSON.stringify(this.requestData))
-			await fetch(
-				'http://valaamskiy-polomnik.directpr.beget.tech/api/constructor/',
-				{
-					method: 'POST',
-					body: JSON.stringify(this.requestData),
-				}
-			)
+			$.ajax({
+				url: 'http://valaamskiy-polomnik.directpr.beget.tech/api/constructor/',
+				method: 'post',
+				dataType: 'json',
+				data: { data: JSON.stringify(this.requestData) },
+				success: function (data) {
+					console.log(data)
+				},
+			})
 		},
 		clickToPervStage() {
 			this.$emit('clickToPerv')
