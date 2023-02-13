@@ -172,7 +172,6 @@ const Feed = {
 		breakfastAmount() {
 			let result = 0
 			this.guests.forEach(guest => {
-				console.log(guest.feed.graph.formatted.split('+'))
 				if (guest.feed.graph.formatted.split('+').includes('Завтрак')) result++
 			})
 			return result

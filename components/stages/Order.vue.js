@@ -136,7 +136,7 @@ const Order = {
 									>
 								</div>
 								<div class="order-form__title">Данные туристов</div>
-								<TouristData v-for="(guest, index) in copyGuests" :key="guest.id" :id="guest.id" :validationErrors="validationErrors" :index="index"/>
+								<TouristData v-for="(guest, index) in copyGuests" :key="guest.id" :id="guest.id" :validationErrors="validationErrors" :index="index" />
 								<TotalResult />
 								<div class="order-form__title">Способ оплаты</div>
 								<div class="order-form__field pos-h">
@@ -340,12 +340,6 @@ const Order = {
 						phone: '',
 					})
 				}
-			},
-			deep: true,
-		},
-		guests: {
-			handler() {
-				this.copyGuests = [...this.$store.getters['getGuests']]
 			},
 			deep: true,
 		},

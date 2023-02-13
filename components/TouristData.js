@@ -141,7 +141,11 @@ const TouristData = {
 		Documentspicker,
 	},
 	mounted() {
-		this.copyGuest = { ...this.$store.getters.getGuestById(this.id)[0] }
+		this.copyGuest = {
+			...JSON.parse(
+				JSON.stringify(this.$store.getters.getGuestById(this.id)[0])
+			),
+		}
 		const vm = this
 		document.addEventListener('click', function () {
 			vm.closeDocumentsPicker()
@@ -196,17 +200,15 @@ const TouristData = {
 	watch: {
 		copyGuest: {
 			handler() {
-				if (this.copyGuest.firstName !== this.guest.firstName) {
-					this.$store.commit('changeGuest', { ...this.copyGuest })
-					console.log('что то тут не так')
-				}
+				this.$store.commit('changeGuest', { ...this.copyGuest })
 			},
 			deep: true,
 		},
 		guest: {
 			handler() {
-				this.copyGuest = { ...this.guest }
-				console.log({ ...this.guest })
+				if (this.guest.isPilgrim) {
+					this.copyGuest = { ...this.guest }
+				}
 			},
 			deep: true,
 		},
