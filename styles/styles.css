@@ -1336,7 +1336,7 @@ option::after {
 .find-list__header {
 	width: 100%;
 	height: 56px;
-	padding: 15px 20px 0px 20px;
+	padding: 15px 20px 15px 20px;
 	display: flex;
 	flex: 1;
 }
@@ -1524,7 +1524,7 @@ option::after {
 }
 .list-grid {
 	display: grid;
-	grid-template-columns: repeat(auto-fill, 412px);
+	grid-template-columns: repeat(auto-fit, minmax(20%, 420px));
 	justify-content: space-around;
 	justify-items: center;
 }
@@ -4775,9 +4775,6 @@ select {
 	.find-programs__form {
 		width: 100%;
 	}
-	.find-list__footer {
-		justify-content: space-between;
-	}
 	.reviews__header {
 		flex-direction: column;
 		gap: 1rem;
@@ -4806,6 +4803,11 @@ select {
 		padding: 0;
 		height: auto;
 		flex-direction: column;
+	}
+	.program-designer-excursions .find-list__footer {
+		display: flex;
+		flex-wrap: wrap;
+		height: auto;
 	}
 	.find-list__footer {
 		display: none;

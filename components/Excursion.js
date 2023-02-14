@@ -72,7 +72,7 @@ const Excursion = {
 											<span class="find-list__price-value mt-40">{{this.excursion.schedules[0].amount}} ₽</span>
 										</div>
 										<div class="find-list__footer-price">
-											<button class="find-list__footer-link">Смотреть</button>
+											<a :href="excursion.url" class="find-list__footer-link">Смотреть</ф>
 										</div>
 									</div>
 									<div class="excursion-list__duration">

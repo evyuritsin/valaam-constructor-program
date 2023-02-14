@@ -143,8 +143,8 @@ const Order = {
 									<div class="order-form__group order-form__pay-group">
 										<div class="order-form__subtitle">Категория оплаты</div>
 										<div class="radiobox__label mt-20">
-											<input name="categorypay" type="radio" class="radiobox" />
-											<span class="radiobox__text">Стандартная</span>
+											<input name="categorypay" type="radio" id="rb_standard" class="radiobox" />
+											<label for="rb_standard" class="radiobox__text">Стандартная</label>
 										</div>
 							<!--  <div class="radiobox__label mt-20">
 											<input name="categorypay" type="radio" class="radiobox" />
@@ -157,8 +157,8 @@ const Order = {
 									<div class="order-form__group order-form__pay-group">
 										<div class="order-form__subtitle">Тип платежа</div>
 										<div class="radiobox__label mt-20">
-											<input name="typepay" type="radio" class="radiobox" />
-											<span class="radiobox__text">Картой он-лайн</span>
+											<input name="typepay" type="radio" id="rb_card" class="radiobox" />
+											<label for="rb_card" class="radiobox__text">Картой он-лайн</label>
 										</div>
 									<!-- 	<div class="radiobox__label mt-20">
 											<input name="typepay" type="radio" class="radiobox" />
@@ -176,15 +176,15 @@ const Order = {
 											<div class="order-form__footer">
 												<div class="order-form__agreement">
 													<div class="checkbox__label">
-														<input type="checkbox" class="checkbox" checked />
-														<span class="checkbox__text"
-															>Я согласен с условиями передачи информации</span
+														<input type="checkbox" class="checkbox" id="cb_agree" checked />
+														<label for="cb_agree" class="checkbox__text"
+															>Я согласен с условиями передачи информации</label
 														>
 													</div>
 													<div class="checkbox__label">
-														<input type="checkbox" class="checkbox" />
-														<span class="checkbox__text"
-															>Подписаться на рассылку новостей</span
+														<input type="checkbox" id="cb_sub" class="checkbox" />
+														<label for="cb_sub" class="checkbox__text"
+															>Подписаться на рассылку новостей</label
 														>
 													</div>
 												</div>
