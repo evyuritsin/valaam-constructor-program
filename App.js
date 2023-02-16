@@ -7,11 +7,11 @@ const App = {
 							<Stages :selectId="selectStage"/>
 						</div>
 						<div class="program-designer__content">
-							<Ship  v-if="selectStage === 2" @clickToNext="clickToNextStage" @clickToPerv="clickToPervStage"/>
-							<Feed v-if="selectStage === 3" @clickToNext="clickToNextStage" @clickToPerv="clickToPervStage"/>
-							<Excursions v-if="selectStage === 4" @clickToNext="clickToNextStage" @clickToPerv="clickToPervStage"/>
-							<Services v-if="selectStage === 5" @clickToNext="clickToNextStage" @clickToPerv="clickToPervStage"/>
-							<Order v-if="selectStage === 6" @clickToPerv="clickToPervStage"/>
+							<Ship  v-if="selectStage === 2" @clickToNext="clickToNextStage" @clickToPerv="clickToPervStage" @goToStage="goToStage"/>
+							<Feed v-if="mainInfo.multiDay && selectStage === 3" @clickToNext="clickToNextStage" @clickToPerv="clickToPervStage"/>
+							<Excursions v-if="mainInfo.multiDay ? selectStage === 4 : selectStage === 3" @clickToNext="clickToNextStage" @clickToPerv="clickToPervStage" @goToStage="goToStage"/>
+							<Services v-if="mainInfo.multiDay ? selectStage === 5 : selectStage === 4 " @clickToNext="clickToNextStage" @clickToPerv="clickToPervStage"/>
+							<Order v-if="mainInfo.multiDay ? selectStage === 6 : selectStage === 5" @clickToPerv="clickToPervStage"/>
 						</div>
 						<div class="program-designer__content" :class='[selectStage !== 1 && "hidden"]'>
 							<Habitation  @clickToNext="clickToNextStage"/>
@@ -41,6 +41,9 @@ const App = {
 	computed: {
 		alertSpan() {
 			return this.$store.getters['getAlertSpan']
+		},
+		mainInfo() {
+			return this.$store.getters['getMainInfo']
 		},
 	},
 	components: {

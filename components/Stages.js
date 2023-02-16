@@ -25,16 +25,40 @@ const Stages = {
 		stages: [
 			{ id: 1, name: 'Проживание' },
 			{ id: 2, name: 'Теплоход' },
-			{ id: 3, name: 'Питание' },
-			{ id: 4, name: 'Экскурсии' },
-			{ id: 5, name: 'Дополнительные услуги' },
-			{ id: 6, name: 'Оформление' },
+			{ id: 3, name: 'Экскурсии' },
+			{ id: 4, name: 'Дополнительные услуги' },
+			{ id: 5, name: 'Оформление' },
 		],
 	}),
 	props: ['selectId'],
 	computed: {
 		alertSpan() {
 			return this.$store.getters['getAlertSpan']
+		},
+		mainInfo() {
+			return this.$store.getters['getMainInfo']
+		},
+	},
+	watch: {
+		mainInfo(val) {
+			if (val.multiDay) {
+				this.stages = [
+					{ id: 1, name: 'Проживание' },
+					{ id: 2, name: 'Теплоход' },
+					{ id: 3, name: 'Питание' },
+					{ id: 4, name: 'Экскурсии' },
+					{ id: 5, name: 'Дополнительные услуги' },
+					{ id: 6, name: 'Оформление' },
+				]
+			} else {
+				this.stages = [
+					{ id: 1, name: 'Проживание' },
+					{ id: 2, name: 'Теплоход' },
+					{ id: 3, name: 'Экскурсии' },
+					{ id: 4, name: 'Дополнительные услуги' },
+					{ id: 5, name: 'Оформление' },
+				]
+			}
 		},
 	},
 }
