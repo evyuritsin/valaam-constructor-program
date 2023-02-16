@@ -1,6 +1,6 @@
 const Excursion = {
 	template: /*html*/ `
-								<div class="find-list" v-if='schedules.length'>
+								<div class="find-list">
 									<img
 										class="find-list__img"
 										:src="'http://valaamskiy-polomnik.directpr.beget.tech' + excursion.images[0]['sg_image']"
@@ -18,7 +18,7 @@ const Excursion = {
 											</div>
 										</div>
 										<div class="find-list__footer">
-											<div class="checkbox__label mr-10" v-for="item in schedules" :key="item.id">
+											<div class="checkbox__label mr-10" v-for="item in excursion.availableSchedules" :key="item.id">
 												<input 
 													type="checkbox" 
 													class="checkbox" 
@@ -28,7 +28,7 @@ const Excursion = {
 												/>
 												<span class="checkbox__text">{{item.day}}.{{item.month.length === 2 ? item.month : '0' + item.month}}</span>
 											</div>
-											<div class="find-list__date-item" v-if="schedules.length > 6">
+											<div class="find-list__date-item" v-if="excursion.availableSchedules.length > 6">
 												<span class="find-list__date-item-last"
 													>Ещё время</span
 												>
