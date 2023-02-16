@@ -301,6 +301,7 @@ const Order = {
 				data: { data: JSON.stringify(this.requestData) },
 				success: function (data) {
 					console.log(data)
+					window.location.href = data['data']['data']['formUrl'];
 				},
 			})
 		},
