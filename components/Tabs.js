@@ -238,6 +238,9 @@ const Tabs = {
 		guestsObject() {
 			return this.$store.getters['getGuestsObject']
 		},
+		guestsCount() {
+			return this.$store.getters['getGuests'].length
+		},
 	},
 	watch: {
 		info: {
@@ -328,6 +331,11 @@ const Tabs = {
 					}
 				}
 				this.$store.commit('setGuests', [...result])
+			}
+		},
+		guestsCount() {
+			if (this.guestsCount >= 10) {
+				window.location.href = 'zayavka-na-gruppovuyu-programu.html'
 			}
 		},
 	},
