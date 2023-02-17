@@ -21,7 +21,7 @@ const App = {
 		<Else />
 	`,
 	data: () => ({
-		selectStage: 1,
+		selectStage: 4,
 	}),
 	methods: {
 		clickToPervStage() {

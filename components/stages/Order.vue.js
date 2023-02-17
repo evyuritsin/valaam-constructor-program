@@ -13,21 +13,21 @@ const Order = {
 													<input
 														type="text"
 														class="vp-input"
-														v-model="client.lastName"
+														v-model="lastNameModel"
 														placeholder="Фамилия*"
 														:class="{'vp-input_invalid' : !client.lastName && validationErrors}"
 													/>
 													<input
 														type="text"
 														class="vp-input"
-														v-model="client.firstName"
+														v-model="firstNameModel"
 														placeholder="Имя*"
 														:class="{'vp-input_invalid' : !client.firstName && validationErrors}"
 													/>
 													<input
 														type="text"
 														class="vp-input flex-1"
-														v-model="client.middleName"
+														v-model="middleNameModel"
 														placeholder="Отчество*"
 														:class="{'vp-input_invalid' : !client.middleName && validationErrors}"														
 													/>
@@ -37,7 +37,7 @@ const Order = {
 													<input
 														type="text"
 														class="vp-input flatpickr-input"
-														v-model="client.birthdayDate"
+														v-model="birthdayDateModel"
 														placeholder="Дата рождения*"
 														@click.stop="openBdDatepicker"
 														:class="{'vp-input_invalid' : !client.birthdayDate && validationErrors}"		
@@ -51,7 +51,7 @@ const Order = {
 														class="vp-input w-100 input__icon_right icon_arrowdown" 
 														:class="{'vp-input_invalid' : !client.document.type && validationErrors}" 
 														placeholder="Тип документа*" 
-														v-model="client.document.type"
+														v-model="documentTypeModel"
 													/>
 													<Documentspicker v-if="isDocumentsOpen" @selectDoc="selectDoc" @close="closeDocumentsPicker"/>
 												</div>
@@ -59,7 +59,7 @@ const Order = {
 													<input
 														type="text"
 														class="vp-input flex-1"
-														v-model="client.document.id"
+														v-model="documentIdModel"
 														placeholder="Паспорт серия/номер*"
 														name="passSN"
 														:class="{'vp-input_invalid' : !client.document.id && validationErrors}"															
@@ -71,7 +71,7 @@ const Order = {
 													<input
 														type="text"
 														class="vp-input"
-														v-model="client.document.issuedBy"
+														v-model="documentIssuedByModel"
 														placeholder="Кем выдан*"
 														:class="{'vp-input_invalid' : !client.document.issuedBy && validationErrors}"	
 													/>												
@@ -81,7 +81,7 @@ const Order = {
 														type="text"
 														class="vp-input input-datedocp"
 														placeholder="Дата выдачи*"
-														v-model="client.document.issueDate"
+														v-model="documentIssueDateModel"
 														:class="{'vp-input_invalid' : !client.document.issueDate && validationErrors}"						
 														readonly									
 														@click.stop="openIssueDate"
@@ -96,7 +96,7 @@ const Order = {
 														class="vp-input"
 														placeholder="Телефон*"
 														name="telefon"
-														v-model="client.phone"
+														v-model="phoneModel"
 														:class="{'vp-input_invalid' : !client.phone && validationErrors}"														
 													/>
 												</div>
@@ -104,14 +104,14 @@ const Order = {
 													<input
 														type="text"
 														class="vp-input"
-														v-model="client.email"
+														v-model="emailModel"
 														placeholder="E-mail*"
 														:class="{'vp-input_invalid' : !client.email && validationErrors}"														
 													/>
 												</div>
 												<div className="flex-1 relative" @click.stop="openAddsPicker">
 													<input 
-														v-model="client.add" 
+														v-model="addModel" 
 														class="vp-input input__icon_right icon_arrowdown" 
 														placeholder="Откуда узнали о нас" 
 														readonly
@@ -122,10 +122,19 @@ const Order = {
 										</div>
 										<div class="order-form__fields-gender">
 											<div
-												class="order-form__field-gender order-form_field-active"
-												@click='client.gender = "male"'
-											>М</div>
-											<div class="order-form__field-gender" @click='client.gender = "female"'>Ж</div>
+												class="order-form__field-gender"
+												:class="{'order-form_field-active' : isMale}"
+												@click='setMale'
+											>
+												М
+											</div>
+											<div 
+												class="order-form__field-gender" 
+												:class="{'order-form_field-active' : !isMale}"
+												@click='setFemale'
+											>
+												Ж
+											</div>
 										</div>
 									</div>
 								</div>
@@ -136,7 +145,7 @@ const Order = {
 									>
 								</div>
 								<div class="order-form__title">Данные туристов</div>
-								<TouristData v-for="(guest, index) in copyGuests" :key="guest.id" :id="guest.id" :validationErrors="validationErrors" :index="index" />
+								<TouristData v-for="(guest, index) in guests" :key="guest.id" :id="guest.id" :validationErrors="validationErrors" :index="index" />
 								<TotalResult />
 								<div class="order-form__title">Способ оплаты</div>
 								<div class="order-form__field pos-h">
@@ -195,24 +204,6 @@ const Order = {
 							</div>
 						</div>`,
 	data: () => ({
-		copyGuests: [],
-		client: {
-			firstName: '',
-			lastName: '',
-			middleName: '',
-			gender: 'male',
-			birthdayDate: '',
-			document: {
-				type: '',
-				id: '',
-				issuedBy: '',
-				issueDate: '',
-			},
-			phone: '',
-			email: '',
-			add: '',
-			isPilgrim: false,
-		},
 		isDocumentsOpen: false,
 		isAddsOpen: false,
 		validationErrors: false,
@@ -223,19 +214,160 @@ const Order = {
 		guests() {
 			return this.$store.getters['getGuests']
 		},
-		originalClient() {
-			return this.$store.getters['getClient']
+		isMale() {
+			if (this.client.isPilgrim) {
+				return this.firstGuest.gender === 'male' ? true : false
+			} else {
+				return this.client.gender === 'male' ? true : false
+			}
+		},
+		firstGuest: {
+			get() {
+				return this.$store.getters.getGuestById(1)[0]
+			},
+			set() {
+				this.$store.commit('setGuest', { ...this.firstGuest })
+			},
+		},
+		client: {
+			get() {
+				return this.$store.getters['getClient']
+			},
+			set() {
+				this.$store.commit('setClient', { ...this.client })
+			},
+		},
+		lastNameModel: {
+			get() {
+				return this.client.isPilgrim
+					? this.firstGuest.lastName
+					: this.client.lastName
+			},
+			set(val) {
+				this.client.isPilgrim
+					? (this.firstGuest.lastName = val)
+					: (this.client.lastName = val)
+			},
+		},
+		firstNameModel: {
+			get() {
+				return this.client.isPilgrim
+					? this.firstGuest.firstName
+					: this.client.firstName
+			},
+			set(val) {
+				this.client.isPilgrim
+					? (this.firstGuest.firstName = val)
+					: (this.client.firstName = val)
+			},
+		},
+		middleNameModel: {
+			get() {
+				return this.client.isPilgrim
+					? this.firstGuest.middleName
+					: this.client.middleName
+			},
+			set(val) {
+				this.client.isPilgrim
+					? (this.firstGuest.middleName = val)
+					: (this.client.middleName = val)
+			},
+		},
+		birthdayDateModel: {
+			get() {
+				return this.client.isPilgrim
+					? this.firstGuest.birthdayDate
+					: this.client.birthdayDate
+			},
+			set(val) {
+				this.client.isPilgrim
+					? (this.firstGuest.birthdayDate = val)
+					: (this.client.birthdayDate = val)
+			},
+		},
+		documentTypeModel: {
+			get() {
+				return this.client.isPilgrim
+					? this.firstGuest.document.type
+					: this.client.document.type
+			},
+			set(val) {
+				this.client.isPilgrim
+					? (this.firstGuest.document.type = val)
+					: (this.client.document.type = val)
+			},
+		},
+		documentIdModel: {
+			get() {
+				return this.client.isPilgrim
+					? this.firstGuest.document.id
+					: this.client.document.id
+			},
+			set(val) {
+				this.client.isPilgrim
+					? (this.firstGuest.document.id = val)
+					: (this.client.document.id = val)
+			},
+		},
+		documentIssuedByModel: {
+			get() {
+				return this.client.isPilgrim
+					? this.firstGuest.document.issuedBy
+					: this.client.document.issuedBy
+			},
+			set(val) {
+				this.client.isPilgrim
+					? (this.firstGuest.document.issuedBy = val)
+					: (this.client.document.issuedBy = val)
+			},
+		},
+		documentIssueDateModel: {
+			get() {
+				return this.client.isPilgrim
+					? this.firstGuest.document.issueDate
+					: this.client.document.issueDate
+			},
+			set() {
+				this.client.isPilgrim
+					? (this.firstGuest.document.issueDate = val)
+					: (this.client.document.issueDate = val)
+			},
+		},
+		phoneModel: {
+			get() {
+				return this.client.isPilgrim ? this.firstGuest.phone : this.client.phone
+			},
+			set(val) {
+				this.client.isPilgrim
+					? (this.firstGuest.phone = val)
+					: (this.client.phone = val)
+			},
+		},
+		emailModel: {
+			get() {
+				return this.client.isPilgrim ? this.firstGuest.email : this.client.email
+			},
+			set(val) {
+				this.client.isPilgrim
+					? (this.firstGuest.email = val)
+					: (this.client.email = val)
+			},
+		},
+		addModel: {
+			get() {
+				return this.client.isPilgrim ? this.firstGuest.add : this.client.add
+			},
+			set(val) {
+				this.client.isPilgrim
+					? (this.firstGuest.add = val)
+					: (this.client.add = val)
+			},
 		},
 		requestData() {
 			return this.$store.getters['getRequestData']
 		},
 	},
 	methods: {
-		onClickDatapicker(e) {
-			setTimeout(() => {
-				$('.popup__blocked').click()
-			}, 0)
-		},
 		openDocumentsPicker() {
 			this.isDocumentsOpen = true
 		},
@@ -243,7 +375,9 @@ const Order = {
 			this.isDocumentsOpen = false
 		},
 		selectDoc(doc) {
-			this.client.document.type = doc
+			this.client.isPilgrim
+				? (this.firstGuest.document.type = doc)
+				: (this.client.document.type = doc)
 		},
 		openAddsPicker() {
 			this.isAddsOpen = true
@@ -252,7 +386,9 @@ const Order = {
 			this.isAddsOpen = false
 		},
 		selectAdd(add) {
-			this.client.add = add
+			this.client.isPilgrim
+				? (this.firstGuest.add = add)
+				: (this.client.add = add)
 		},
 		openBdDatepicker() {
 			this.isBdDatepicker = true
@@ -261,7 +397,9 @@ const Order = {
 			this.isBdDatepicker = false
 		},
 		selectBirthday(date) {
-			this.client.birthdayDate = date
+			this.client.isPilgrim
+				? (this.firstGuest.birthdayDate = date)
+				: (this.client.birthdayDate = date)
 		},
 		openIssueDate() {
 			this.isIssueDate = true
@@ -270,7 +408,19 @@ const Order = {
 			this.isIssueDate = false
 		},
 		selectIssueDate(date) {
-			this.client.document.issueDate = date
+			this.client.isPilgrim
+				? (this.firstGuest.document.issueDate = date)
+				: (this.client.document.issueDate = date)
+		},
+		setMale() {
+			this.client.isPilgrim
+				? (this.firstGuest.gender = 'male')
+				: (this.client.gender = 'male')
+		},
+		setFemale() {
+			this.client.isPilgrim
+				? (this.firstGuest.gender = 'female')
+				: (this.client.gender = 'female')
 		},
 		async clickToOrder() {
 			if (
@@ -301,7 +451,7 @@ const Order = {
 				data: { data: JSON.stringify(this.requestData) },
 				success: function (data) {
 					console.log(data)
-					window.location.href = data['data']['data']['formUrl'];
+					window.location.href = data['data']['data']['formUrl']
 				},
 			})
 		},
@@ -311,7 +461,6 @@ const Order = {
 	},
 	mounted() {
 		//coping guests
-		this.copyGuests = [...this.$store.getters['getGuests']]
 		const vm = this
 		document.addEventListener('click', function () {
 			vm.closeDocumentsPicker()
@@ -323,24 +472,11 @@ const Order = {
 	watch: {
 		client: {
 			handler() {
-				this.$store.commit('setClient', { ...this.client })
 				if (this.client.isPilgrim) {
-					this.$store.commit('changeGuest', { id: 1, ...this.client })
-				} else {
 					this.$store.commit('changeGuest', {
 						id: 1,
-						firstName: '',
-						lastName: '',
-						middleName: '',
-						gender: 'male',
-						birthdayDate: '',
-						document: {
-							type: '',
-							id: '',
-							issuedBy: '',
-							issueDate: '',
-						},
-						phone: '',
+						...this.firstGuest,
+						...this.client,
 					})
 				}
 			},

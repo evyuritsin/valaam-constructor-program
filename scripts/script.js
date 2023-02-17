@@ -666,15 +666,15 @@ $(document).ready(function () {
 				.addClass('show')
 		}
 	})
-	$('body').on('click', '.order-form__field-gender', function () {
-		if (!$(this).hasClass('order-form_field-active')) {
-			$(this)
-				.parent()
-				.find('.order-form__field-gender')
-				.removeClass('order-form_field-active')
-			$(this).addClass('order-form_field-active')
-		}
-	})
+	// $('body').on('click', '.order-form__field-gender', function () {
+	// 	if (!$(this).hasClass('order-form_field-active')) {
+	// 		$(this)
+	// 			.parent()
+	// 			.find('.order-form__field-gender')
+	// 			.removeClass('order-form_field-active')
+	// 		$(this).addClass('order-form_field-active')
+	// 	}
+	// })
 	$('.btn-finish-order').click(function () {
 		//$('.vp-input[required]').removeClass('vp-input_invalid');
 		$('.vp-input[required]').each(function (i, element) {

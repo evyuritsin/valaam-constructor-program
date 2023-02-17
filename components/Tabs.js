@@ -335,7 +335,7 @@ const Tabs = {
 		},
 		guestsCount() {
 			if (this.guestsCount >= 10) {
-				window.location.href = 'zayavka-na-gruppovuyu-programu.html'
+				window.location.href = '/zayavka-na-gruppovuyu-programu.html'
 			}
 		},
 	},

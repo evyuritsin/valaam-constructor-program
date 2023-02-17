@@ -19,7 +19,23 @@ const store = createStore({
 			feedsPrice: 0,
 			excursions: [],
 			services: [],
-			client: {},
+			client: {
+				firstName: '',
+				lastName: '',
+				middleName: '',
+				gender: 'male',
+				birthdayDate: '',
+				document: {
+					type: '',
+					id: '',
+					issuedBy: '',
+					issueDate: '',
+				},
+				phone: '',
+				email: '',
+				add: '',
+				isPilgrim: false,
+			},
 			totalPrice: 0,
 			payments: [
 				{
