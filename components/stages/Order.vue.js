@@ -470,14 +470,21 @@ const Order = {
 		})
 	},
 	watch: {
-		client: {
+		'client.isPilgrim': {
 			handler() {
 				if (this.client.isPilgrim) {
 					this.$store.commit('changeGuest', {
 						id: 1,
 						...this.firstGuest,
 						...this.client,
+						document: { ...this.client.document },
 					})
+				} else {
+					this.client = {
+						...this.client,
+						document: { ...this.firstGuest.document },
+						...this.firstGuest,
+					}
 				}
 			},
 			deep: true,
