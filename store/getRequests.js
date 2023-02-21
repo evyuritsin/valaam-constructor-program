@@ -20,7 +20,7 @@ const getRequests = {
 				'http://valaamskiy-polomnik.directpr.beget.tech/api/constructor/firstStage',
 				{
 					method: 'POST',
-					body: formData,
+					body: { data: formData },
 				}
 			).then(r => r.json())
 			console.log(response)
