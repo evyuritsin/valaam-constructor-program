@@ -15,21 +15,21 @@ const Order = {
 														class="vp-input"
 														v-model="lastNameModel"
 														placeholder="Фамилия*"
-														:class="{'vp-input_invalid' : !client.lastName && validationErrors}"
+														:class="{'vp-input_invalid' : !lastNameModel && validationErrors}"
 													/>
 													<input
 														type="text"
 														class="vp-input"
 														v-model="firstNameModel"
 														placeholder="Имя*"
-														:class="{'vp-input_invalid' : !client.firstName && validationErrors}"
+														:class="{'vp-input_invalid' : !firstNameModel && validationErrors}"
 													/>
 													<input
 														type="text"
 														class="vp-input flex-1"
 														v-model="middleNameModel"
 														placeholder="Отчество*"
-														:class="{'vp-input_invalid' : !client.middleName && validationErrors}"														
+														:class="{'vp-input_invalid' : !middleNameModel && validationErrors}"														
 													/>
 											</div>
 											<div class="order-form__field-contact mt-20">
@@ -40,7 +40,7 @@ const Order = {
 														v-model="birthdayDateModel"
 														placeholder="Дата рождения*"
 														@click.stop="openBdDatepicker"
-														:class="{'vp-input_invalid' : !client.birthdayDate && validationErrors}"		
+														:class="{'vp-input_invalid' : !birthdayDateModel && validationErrors}"		
 													/>
 													<Datepicker v-if="isBdDatepicker" @selectDate="selectBirthday" @close="closeBdDatepicker"/>
 												</div>
@@ -49,7 +49,7 @@ const Order = {
 														type="text" 
 														readonly 
 														class="vp-input w-100 input__icon_right icon_arrowdown" 
-														:class="{'vp-input_invalid' : !client.document.type && validationErrors}" 
+														:class="{'vp-input_invalid' : !documentTypeModel && validationErrors}" 
 														placeholder="Тип документа*" 
 														v-model="documentTypeModel"
 													/>
@@ -62,7 +62,7 @@ const Order = {
 														v-model="documentIdModel"
 														placeholder="Паспорт серия/номер*"
 														name="passSN"
-														:class="{'vp-input_invalid' : !client.document.id && validationErrors}"															
+														:class="{'vp-input_invalid' : !documentIdModel && validationErrors}"															
 													/>
 												</div>
 											</div>
@@ -73,7 +73,7 @@ const Order = {
 														class="vp-input"
 														v-model="documentIssuedByModel"
 														placeholder="Кем выдан*"
-														:class="{'vp-input_invalid' : !client.document.issuedBy && validationErrors}"	
+														:class="{'vp-input_invalid' : !documentIssuedByModel && validationErrors}"	
 													/>												
 												</div>
 												<div className="flex-1 relative">
@@ -82,7 +82,7 @@ const Order = {
 														class="vp-input input-datedocp"
 														placeholder="Дата выдачи*"
 														v-model="documentIssueDateModel"
-														:class="{'vp-input_invalid' : !client.document.issueDate && validationErrors}"						
+														:class="{'vp-input_invalid' : !documentIssueDateModel && validationErrors}"						
 														readonly									
 														@click.stop="openIssueDate"
 													/>									
@@ -97,7 +97,7 @@ const Order = {
 														placeholder="Телефон*"
 														name="telefon"
 														v-model="phoneModel"
-														:class="{'vp-input_invalid' : !client.phone && validationErrors}"														
+														:class="{'vp-input_invalid' : !phoneModel && validationErrors}"														
 													/>
 												</div>
 												<div className="flex-1">
@@ -106,7 +106,7 @@ const Order = {
 														class="vp-input"
 														v-model="emailModel"
 														placeholder="E-mail*"
-														:class="{'vp-input_invalid' : !client.email && validationErrors}"														
+														:class="{'vp-input_invalid' : !emailModel && validationErrors}"														
 													/>
 												</div>
 												<div className="flex-1 relative" @click.stop="openAddsPicker">
@@ -440,6 +440,11 @@ const Order = {
 			this.guests.forEach(guest => {
 				Object.keys(guest).forEach(key => {
 					if (key === 'comment' || key === 'privilege') return
+					if (key === 'document') {
+						Object.keys(guest[key]).forEach(k => {
+							if (!guest[key][k]) return (this.validationErrors = true)
+						})
+					}
 					if (!guest[key]) return (this.validationErrors = true)
 				})
 			})
@@ -460,7 +465,6 @@ const Order = {
 		},
 	},
 	mounted() {
-		//coping guests
 		const vm = this
 		document.addEventListener('click', function () {
 			vm.closeDocumentsPicker()

@@ -1,6 +1,6 @@
 const App = {
 	template: /*html*/ `
-				<section class="section" :class="[selectStage === 1 ? 'program-designer-habitation' : selectStage === 2 ? 'program-designer-ship' : selectStage === 3 ? 'program-designer-feed' : selectStage === 4 ? 'program-designer-excursions' : selectStage === 5 ? 'program-designer-services' : 'program-designer-order']">
+				<section class="section" :class="sectionClass">
 					<div class="main__content">
 						<div class="program-designer__header">
 							<Tabs v-if="selectStage !== 6" :selectStage="selectStage" @goToStage="goToStage"/>
@@ -21,7 +21,7 @@ const App = {
 		<Else />
 	`,
 	data: () => ({
-		selectStage: 4,
+		selectStage: 1,
 	}),
 	methods: {
 		clickToPervStage() {
@@ -32,6 +32,11 @@ const App = {
 			if (!this.alertSpan) {
 				this.selectStage++
 				window.scrollTo(0, 250)
+			}
+			if (this.alertSpan === 'Вы изменили данные') {
+				this.selectStage++
+				window.scrollTo(0, 250)
+				this.$store.commit('setAlertSpan', '')
 			}
 		},
 		goToStage(stageNumber) {
@@ -44,6 +49,19 @@ const App = {
 		},
 		mainInfo() {
 			return this.$store.getters['getMainInfo']
+		},
+		sectionClass() {
+			return this.selectStage === 1
+				? 'program-designer-habitation'
+				: this.selectStage === 2
+				? 'program-designer-ship'
+				: this.selectStage === 3
+				? 'program-designer-feed'
+				: this.selectStage === 4
+				? 'program-designer-excursions'
+				: this.selectStage === 5
+				? 'program-designer-services'
+				: 'program-designer-order'
 		},
 	},
 	components: {

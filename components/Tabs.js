@@ -58,7 +58,7 @@ const Tabs = {
 													<input
 														type="text"
 														class="search__filter icon_geo_search"
-														v-model="info.departurePoint"
+														v-model="info.departurePoint.dock_name"
 														readonly
 														@click.stop="openCitypicker"
 													/>
@@ -108,7 +108,7 @@ const Tabs = {
 													<input
 														type="text"
 														class="search__filter icon_geo_search"
-														v-model="info.departurePoint"
+														v-model="info.departurePoint.dock_name"
 														readonly
 														@click.stop="openCitypicker"
 													/>
@@ -210,14 +210,7 @@ const Tabs = {
 		const { data } = await fetch(
 			'http://valaamskiy-polomnik.directpr.beget.tech/api/constructor/'
 		).then(response => response.json())
-		data.dates.forEach(date => {
-			date.ships_schedule_there.forEach(race => {
-				const city = race.route_id[0].start_dock.title
-				if (!this.departurePoints.includes(city)) {
-					this.departurePoints.push(city)
-				}
-			})
-		})
+		this.departurePoints = Object.values(data.departurePlaces)
 		this.loaded = true
 		const vm = this
 		document.addEventListener('click', function () {
@@ -244,46 +237,40 @@ const Tabs = {
 	},
 	watch: {
 		info: {
-			handler(nV, oV) {
+			async handler(nV, oV) {
 				this.$store.commit('setMainInfo', { ...this.info })
+				if (!this.info.multiDay) {
+					this.info.departureDate = this.info.arrivalDate
+				}
+				if (this.selectStage > 1) {
+					this.$emit('goToStage', 1)
+					this.$store.commit('setAlertSpan', 'Вы изменили данные')
+				}
+				if (
+					this.info.arrivalDate &&
+					this.info.departureDate &&
+					this.info.peopleAmount &&
+					this.info.departurePoint
+				) {
+					const formData = new FormData()
+					formData.append('date_start', this.info.arrivalDate)
+					formData.append('date_end', this.info.departureDate)
+					formData.append('tourist_count', this.guestsCount)
+					formData.append(
+						'dock_departure_id',
+						this.info.departurePoint.start_dock_id
+					)
+
+					await fetch(
+						'http://valaamskiy-polomnik.directpr.beget.tech/api/constructor/firstStage',
+						{
+							method: 'POST',
+							data: JSON.stringify(formData),
+						}
+					)
+				}
 			},
 			deep: true,
-		},
-		'info.multiDay'() {
-			if (this.selectStage > 1) {
-				if (this.info.multiDay) {
-					this.$store.commit(
-						'setAlertSpan',
-						'Необходимо выбрать номер(а) в отеле'
-					)
-					this.$store.commit('setMainInfo', {
-						multiDay: true,
-						arrivalDate: '',
-						departureDate: '',
-						peopleAmount: '',
-						departurePoint: '',
-					})
-					this.info = {
-						multiDay: true,
-						arrivalDate: '',
-						departureDate: '',
-						peopleAmount: '',
-						departurePoint: '',
-					}
-					this.$emit('goToStage', 1)
-				}
-			}
-		},
-		'info.departurePoint'() {
-			if (this.selectStage > 2) {
-				this.$store.commit(
-					'setAlertSpan',
-					'Так как город отправления был изменен, необходимо выбрать новые теплоходы'
-				)
-				this.$store.commit('setShipThere', { price: 0 })
-				this.$store.commit('setShipBack', { price: 0 })
-				this.$emit('goToStage', 2)
-			}
 		},
 		'info.peopleAmount'() {
 			if (this.info.peopleAmount) {
