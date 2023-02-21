@@ -60,11 +60,11 @@ const Habitation = {
 	}),
 	components: { HotelRoom, Tabs, AmountResult, Stages },
 	async mounted() {
-		const { data } = await fetch(
-			'http://valaamskiy-polomnik.directpr.beget.tech/api/constructor/'
-		).then(response => response.json())
-		this.hotels = data.hotels
-		this.loaded = true
+		// const { data } = await fetch(
+		// 	'http://valaamskiy-polomnik.directpr.beget.tech/api/constructor/'
+		// ).then(response => response.json())
+		// this.hotels = data.hotels
+		// this.loaded = true
 	},
 	computed: {
 		mainInfo() {
