@@ -202,7 +202,6 @@ const Tabs = {
 			this.isArrivalDate = false
 		},
 		setArrivalDate(date) {
-			console.log(date)
 			this.info.arrivalDate = date
 		},
 	},
@@ -252,15 +251,10 @@ const Tabs = {
 					this.info.peopleAmount &&
 					this.info.departurePoint
 				) {
-					const formData = new FormData()
-					formData.append('date_start', this.info.arrivalDate)
-					formData.append('date_end', this.info.departureDate)
-					formData.append('tourist_count', this.guestsCount)
-					formData.append(
-						'dock_departure_id',
-						this.info.departurePoint.start_dock_id
-					)
-					await this.$store.dispatch('fetchFirstStage')
+					await this.$store.dispatch('fetchFirstStage', {
+						...this.info,
+						guestsCount: this.guestsCount,
+					})
 				}
 			},
 			deep: true,

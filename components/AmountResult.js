@@ -5,7 +5,7 @@ const AmountResult = {
 									<div class="program-card__labels">
 										<span class="program-card__label">Маршрут:</span>
 										<span v-if="mainInfo.departurePoint" class="program-card__label"
-											>{{mainInfo.departurePoint}} — Валаам — {{mainInfo.departurePoint}}</span
+											>{{mainInfo.departurePoint.dock_name}} — Валаам — {{mainInfo.departurePoint.dock_name}}</span
 										>
 										<span v-else class="program-card__label"
 											>Не выбрано</span
