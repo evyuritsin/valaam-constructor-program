@@ -168,4 +168,7 @@ const store = createStore({
 			return state.alertSpan
 		},
 	},
+	modules: {
+		getRequests,
+	},
 })

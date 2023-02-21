@@ -260,14 +260,7 @@ const Tabs = {
 						'dock_departure_id',
 						this.info.departurePoint.start_dock_id
 					)
-
-					await fetch(
-						'http://valaamskiy-polomnik.directpr.beget.tech/api/constructor/firstStage',
-						{
-							method: 'POST',
-							data: JSON.stringify(formData),
-						}
-					)
+					await this.$store.dispatch('fetchFirstStage')
 				}
 			},
 			deep: true,
