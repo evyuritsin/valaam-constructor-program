@@ -1,6 +1,6 @@
 const Feed = {
 	template: /*html*/ `
-						<div class="program-designer__content" v-if="loaded">
+						<div class="program-designer__content">
 							<div class="program-designer__block">
 								<div class="program-designer__menu-title">Питание</div>
 								<div class="program-designer__menu-subtitle">
@@ -45,32 +45,29 @@ const Feed = {
 										>
 									</div>
 									<div class="program-designer__calc-col">
-										<select class="custom-select custom-select__body" v-model="toAllFeed.type">
+										<select class="custom-select custom-select__body" v-model="toAllFeed.type" @click="isPersonalMeals = false">
 											<option selected disabled hidden value="default">Тип меню</option>
 											<option class="custom-select__item" v-for="type in menuTypes" :key="type.id" :value="type">{{type.title}}</option>
 										</select>									
 									</div>
 									<div class="program-designer__calc-col">
-										<select class="custom-select custom-select__body" v-model="toAllFeed.graph">
+										<select class="custom-select custom-select__body" v-model="toAllFeed.graph" @click="isPersonalMeals = false">
 											<option selected disabled hidden value="default">График питания</option>
 											<option 
 												class="custom-select__item" 
-												v-for="item in toAllFeed.type['meals_schedules']" 
+												v-for="item in graphics" 
 												:key="item.id" 
 												:value="item"
 											>
-												{{item.formatted}}
+												{{item.title}}
 											</option>
 										</select>
 									</div>									
 									<div
-										class="program-designer__calc-col program-designer__calc-subtitle"
+										class="program-designer__calc-col"
 										
 									>
-										Сумма:
-										<span class="program-designer__calc-price" 
-											><b v-if="toAllFeed.graph !== 'default'">{{toAllFeed.graph.amount * peopleAmount}}</b> ₽</span
-										>
+
 									</div>
 								</div>
 								<span class="program-designer__calc-subtitle"
@@ -83,21 +80,21 @@ const Feed = {
 										>
 									</div>
 									<div class="program-designer__calc-col" >
-										<select class="custom-select custom-select__body" v-model="guest.feed.type">
+										<select class="custom-select custom-select__body" v-model="guest.feed.type" @click="isPersonalMeals = true">
 											<option selected disabled hidden value="default">Тип меню</option>
 											<option class="custom-select__item" v-for="type in menuTypes" :key="type.id" :value="type">{{type.title}}</option>
 										</select>									
 									</div>
 									<div class="program-designer__calc-col">
-										<select class="custom-select custom-select__body" v-model="guest.feed.graph">
+										<select class="custom-select custom-select__body" v-model="guest.feed.graph" @click="isPersonalMeals = true">
 											<option selected disabled hidden value="default">График питания</option>
 											<option 
 												class="custom-select__item" 
-												v-for="item in guest.feed.type['meals_schedules']"
-												:key="item.id"
+												v-for="item in graphics" 
+												:key="item.id" 
 												:value="item"
 											>
-												{{item.formatted}}
+												{{item.title}}
 											</option>
 										</select>
 									</div>
@@ -105,13 +102,13 @@ const Feed = {
 										class="program-designer__calc-col program-designer__calc-subtitle"
 									>
 										<span class="program-designer__calc-price"
-											><b v-if="guest.feed.graph !== 'default' && guest.feed.graph">{{guest.feed.graph.amount}}</b> ₽</span
+											><b v-if="guest.feed.graph !== 'default' && guest.feed.graph">{{personalMealPrice(guest)}}</b> ₽</span
 										>
 									</div>
 								</div>
 							</div>
 
-							<div class="program-designer__total-details" v-if="isPersonalFeed">
+							<div class="program-designer__total-details" v-if="isMealsSelected">
 								<div class="program-designer__total-detail">
 									<div class="program-designer__menu-subtitle" >
 										Завтраков: {{breakfastAmount}}
@@ -137,7 +134,6 @@ const Feed = {
 						<div class="program-designer__footer">
 							<AmountResult />
 						</div>
-						<div v-if="alertSpan" class="red show ml-auto mw-fit">{{alertSpan}}</div>
 						<div class="program-designer__nav">
 							<button class="vp-btn-inline mr-20" @click="clickToPervStage">Назад</button>
 							<button class="vp-btn" @click="clickToNextStage">Дальше</button>
@@ -148,19 +144,27 @@ const Feed = {
 			graph: 'default',
 			type: 'default',
 		},
+		graphics: [
+			{ id: 1, title: 'Завтрак', mealsId: [1] },
+			{ id: 2, title: 'Завтрак + Обед', mealsId: [1, 2] },
+			{ id: 3, title: 'Завтрак + Ужин', mealsId: [1, 4] },
+			{ id: 4, title: 'Обед + Ужин', mealsId: [2, 4] },
+			{ id: 5, title: 'Завтрак + Обед + Ужин', mealsId: [1, 2, 4] },
+		],
 		copyGuests: [],
-		alertSpan: '',
-		menuTypes: [],
-		loaded: false,
+		isPersonalMeals: null,
 	}),
 	computed: {
 		guests() {
 			return this.$store.getters['getGuests']
 		},
-		peopleAmount() {
-			return this.guests.length
+		meals() {
+			return this.$store.getters['getFetchMeals']
 		},
-		isPersonalFeed() {
+		menuTypes() {
+			return this.meals.directory.types
+		},
+		isMealsSelected() {
 			let result = true
 			this.guests.forEach(guest => {
 				if (guest.feed.graph === 'default' || guest.feed.type === 'default') {
@@ -170,71 +174,62 @@ const Feed = {
 			return result
 		},
 		breakfastAmount() {
-			let result = 0
-			this.guests.forEach(guest => {
-				if (guest.feed.graph.formatted.split('+').includes('Завтрак')) result++
-			})
-			return result
+			return this.$store.getters['getBreakfastAmount']
 		},
 		lunchAmount() {
-			let result = 0
-			this.guests.forEach(guest => {
-				if (guest.feed.graph.formatted.split('+').includes('Обед')) result++
-			})
-			return result
+			return this.$store.getters['getLunchAmount']
 		},
 		dinnerAmount() {
-			let result = 0
-			this.guests.forEach(guest => {
-				if (guest.feed.graph.formatted.split('+').includes('Ужин')) result++
-			})
-			return result
+			return this.$store.getters['getDinnerAmount']
 		},
 		feedPrice() {
-			let result = 0
-			this.guests.forEach(guest => {
-				result += guest.feed.graph.amount
-			})
-			return result
+			return this.guests.reduce((sum, guest) => sum + guest.feed.price, 0)
 		},
+	},
+	mounted() {
+		this.copyGuests = [...this.guests]
 	},
 	methods: {
 		clickToPervStage() {
 			this.$emit('clickToPerv')
 		},
 		clickToNextStage() {
+			console.log(this.copyGuests)
 			this.$emit('clickToNext')
 		},
-	},
-	async mounted() {
-		this.copyGuests = [...this.$store.getters['getGuests']]
-		const { data } = await fetch(
-			'http://valaamskiy-polomnik.directpr.beget.tech/api/constructor/'
-		).then(response => response.json())
-		this.menuTypes = data.feeds
-		this.loaded = true
+		personalMealPrice(guest) {
+			let result = 0
+			if (guest.feed.graph.mealsId && guest.feed.type.id) {
+				this.meals.schedules.forEach(meal => {
+					if (
+						meal.type_id === guest.feed.type.id &&
+						guest.feed.graph.mealsId.includes(meal.meal_id)
+					) {
+						result += meal.prices.reduce((sum, price) => sum + price.amount, 0)
+					}
+				})
+			}
+			return result
+		},
 	},
 	watch: {
 		toAllFeed: {
 			handler() {
 				this.copyGuests = this.copyGuests.map(guest => ({
 					...guest,
-					feed: { ...this.toAllFeed },
+					feed: { ...this.toAllFeed, price: this.personalMealPrice(guest) },
 				}))
 			},
 			deep: true,
 		},
 		copyGuests: {
 			handler() {
-				this.$store.commit('setGuests', [...this.copyGuests])
-				if (this.isPersonalFeed)
-					this.$store.commit('setFeedsPrice', this.feedPrice)
-			},
-			deep: true,
-		},
-		guests: {
-			handler() {
-				this.copyGuests = [...this.$store.getters['getGuests']]
+				this.$store.commit('setGuests', [
+					...this.copyGuests.map(guest => ({
+						...guest,
+						feed: { ...guest.feed, price: this.personalMealPrice(guest) },
+					})),
+				])
 			},
 			deep: true,
 		},

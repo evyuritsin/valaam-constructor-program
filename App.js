@@ -7,14 +7,21 @@ const App = {
 							<Stages :selectId="selectStage"/>
 						</div>
 						<div class="program-designer__content">
+							<Habitation  v-if="selectStage === 1"  @clickToNext="clickToNextStage"/>
 							<Ship  v-if="selectStage === 2" @clickToNext="clickToNextStage" @clickToPerv="clickToPervStage" @goToStage="goToStage"/>
 							<Feed v-if="mainInfo.multiDay && selectStage === 3" @clickToNext="clickToNextStage" @clickToPerv="clickToPervStage"/>
-							<Excursions v-if="mainInfo.multiDay ? selectStage === 4 : selectStage === 3" @clickToNext="clickToNextStage" @clickToPerv="clickToPervStage" @goToStage="goToStage"/>
-							<Services v-if="mainInfo.multiDay ? selectStage === 5 : selectStage === 4 " @clickToNext="clickToNextStage" @clickToPerv="clickToPervStage"/>
+							<Excursions 
+								v-if="mainInfo.multiDay ? selectStage === 4 : selectStage === 3" 
+								@clickToNext="clickToNextStage" 
+								@clickToPerv="clickToPervStage" 
+								@goToStage="goToStage"
+							/>
+							<Services 
+								v-if="mainInfo.multiDay ? selectStage === 5 : selectStage === 4" 
+								@clickToNext="clickToNextStage" 
+								@clickToPerv="clickToPervStage"
+							/>
 							<Order v-if="mainInfo.multiDay ? selectStage === 6 : selectStage === 5" @clickToPerv="clickToPervStage"/>
-						</div>
-						<div class="program-designer__content" :class='[selectStage !== 1 && "hidden"]'>
-							<Habitation  @clickToNext="clickToNextStage"/>
 						</div>
 					</div>
 				</section>	

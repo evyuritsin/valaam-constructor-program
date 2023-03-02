@@ -69,19 +69,12 @@ const store = createStore({
 			state.excursions.push(action)
 		},
 		deleteExcursion(state, action) {
-			state.excursions = state.excursions.filter(ex => ex.idEx !== action)
+			state.excursions = state.excursions.filter(
+				ex => ex.excursion_id !== action
+			)
 		},
 		setExcursions(state, action) {
 			state.excursions = action
-		},
-		addService(state, action) {
-			state.services.push(action)
-		},
-		removeService(state, action) {
-			state.services = state.services.filter(service => service.id !== action)
-		},
-		setServices(state, action) {
-			state.services = action
 		},
 		setClient(state, action) {
 			state.client = action
@@ -124,36 +117,47 @@ const store = createStore({
 			return state.hotelRooms
 		},
 		getAccommodationsPrice(state) {
-			const days =
-				moment(state.mainInfo.arrivalDate, 'DD-MM-YYY')
-					.to(moment(state.mainInfo.departureDate, 'DD-MM-YYY'), true)
-					.split(' ')[0] === 'a'
-					? 1
-					: moment(state.mainInfo.arrivalDate, 'DD-MM-YYY')
-							.to(moment(state.mainInfo.departureDate, 'DD-MM-YYY'), true)
-							.split(' ')[0]
 			let result = 0
-			state.hotelRooms.forEach(r => (result += Number(r.schedules[0].amount)))
-			return result * days
+			state.hotelRooms.forEach(room => {
+				let roomPrice = room.prices.reduce(
+					(sum, price) => sum + price.amount,
+					0
+				)
+				if (room.per_person) roomPrice = roomPrice * state.guests.length
+				result += roomPrice
+			})
+			return result
 		},
 		getShips(state) {
 			return state.ships
 		},
+		getBreakfastAmount(state) {
+			let result = 0
+			state.guests.forEach(guest => {
+				if (guest.feed.graph.title.split(' + ').includes('Завтрак')) result++
+			})
+			return result
+		},
+		getLunchAmount(state) {
+			let result = 0
+			state.guests.forEach(guest => {
+				if (guest.feed.graph.title.split(' + ').includes('Обед')) result++
+			})
+			return result
+		},
+		getDinnerAmount(state) {
+			let result = 0
+			state.guests.forEach(guest => {
+				if (guest.feed.graph.title.split(' + ').includes('Ужин')) result++
+			})
+			return result
+		},
+
 		getFeedsPrice(state) {
 			return state.feedsPrice
 		},
 		getExcursions(state) {
 			return state.excursions
-		},
-		getServices(state) {
-			return state.services
-		},
-		isSelectedService: state => id => {
-			let result = false
-			state.services.forEach(service => {
-				if (service.id === id) result = true
-			})
-			return result
 		},
 		getClient(state) {
 			return state.client
@@ -169,6 +173,7 @@ const store = createStore({
 		},
 	},
 	modules: {
-		getRequests,
+		getFetchRequests,
+		request,
 	},
 })

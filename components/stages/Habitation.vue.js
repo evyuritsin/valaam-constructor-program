@@ -1,6 +1,6 @@
 const Habitation = {
 	template: /* html */ `
-						<div class="program-designer__content" v-if="mainInfo.multiDay && mainInfo.arrivalDate && mainInfo.departureDate && loaded">
+						<div class="program-designer__content" v-if="mainInfo.multiDay && loaded">
 							<div class="main__introtext">
 								Выберите понравившийся Вам вариант размещения
 							</div>
@@ -8,8 +8,8 @@ const Habitation = {
 								<div class="find-list" v-for="hotel in hotels" :key="hotel.id">
 									<img
 										class="find-list__img"
-										:src="'http://valaamskiy-polomnik.directpr.beget.tech' + hotel.images[0]['sg_image']"
-										:alt="hotel.images[0]['sg_title']"
+										:src="'http://valaamskiy-polomnik.directpr.beget.tech' + hotel.gallery[0]"
+										:alt="Hotel"
 									/>
 									<div class="find-list__content">
 										<div class="find-list__header">
@@ -28,7 +28,7 @@ const Habitation = {
 									<div class="find-list__price">
 										<div class="find-list__body-price">
 											от
-											<span class="find-list__price-value">{{hotel['price_from']}} ₽</span>
+											<span class="find-list__price-value">{{minPriceForHotel(hotel)}} ₽</span>
 											/сут.
 										</div>
 										<div class="find-list__footer-price">
@@ -38,16 +38,15 @@ const Habitation = {
 								</div>
 							</div>
 						</div>
-						<div class="list-grid" v-bind:class="[!showHabitations && 'hidden']">
-								<HotelRoom v-for="room in showingRooms" :key="room.id" :addRoom='addRoom' :room="room" :allRooms="selectRooms" :hotel="activeHotel"/>
+						<div class="list-grid" v-if="mainInfo.multiDay && loaded && showHabitations">
+							<HotelRoom v-for="room in showingRooms" :key="room.id" :room="room.room" :directory="room.directory" :addRoom='addRoom' 				:allRooms="selectRooms" :hotel="activeHotel"/>
 						</div>
-						<h2 v-if="!showingRooms.length && showHabitations">Нет номеров в выбранной вами дате</h2>
 						<div class="program-designer__footer">
 							<AmountResult />
 						</div>
 						<div class="program-designer__nav program-designer__nav_habitation">
 							<span v-if="alertSpan" class="red">{{alertSpan}}</span>
-							<button class="vp-btn" @click="clickToNextStage">Дальше</button>
+							<button class="vp-btn" @click="clickToNextStage" :disabled="!loaded">Дальше</button>
 						</div>
 	`,
 	data: () => ({
@@ -55,50 +54,45 @@ const Habitation = {
 		activeHotel: { id: null, rooms: [] },
 		selectRooms: [],
 		alertSpan: '',
-		hotels: [],
-		loaded: false,
 	}),
 	components: { HotelRoom, Tabs, AmountResult, Stages },
-	async mounted() {
-		// const { data } = await fetch(
-		// 	'http://valaamskiy-polomnik.directpr.beget.tech/api/constructor/'
-		// ).then(response => response.json())
-		// this.hotels = data.hotels
-		// this.loaded = true
-	},
 	computed: {
 		mainInfo() {
 			return this.$store.getters['getMainInfo']
 		},
+		loaded() {
+			return this.$store.getters.getLoaded
+		},
+		fetchPlacements() {
+			return this.$store.getters.getFetchPlacements
+		},
+		hotels() {
+			return Object.values(this.fetchPlacements.directory.hotels).filter(
+				hotel => this.availableHotelsId.includes(hotel.id)
+			)
+		},
+		availableHotelsId() {
+			return this.fetchPlacements.schedules.map(room => room.hotel_id)
+		},
 		showingRooms() {
-			let rooms = []
-			this.activeHotel.rooms.forEach(room => {
-				room.schedules.forEach(time => {
-					if (
-						moment(this.mainInfo.arrivalDate, 'DD-MM-YYYY').valueOf() >=
-							moment(time.date_from, 'YYYY-MM-DD').valueOf() &&
-						moment(this.mainInfo.departureDate, 'DD-MM-YYYY').valueOf() <=
-							moment(time.date_to, 'YYYY-MM-DD').valueOf()
-					) {
-						rooms.push({ ...room })
+			return this.fetchPlacements.schedules
+				.filter(room => room.hotel_id === this.activeHotel.id)
+				.map(room => {
+					return {
+						room,
+						directory: {
+							...this.fetchPlacements.directory.rooms[`room${room.room_id}`],
+						},
 					}
 				})
-			})
-			let result = []
-			rooms.forEach(room => {
-				if (!result.some(item => item.id === room.id)) {
-					result.push({ ...room })
-				}
-			})
-			return result
 		},
 	},
 	methods: {
-		addRoom(room) {
+		addRoom(room, directory) {
 			if (this.selectRooms.some(r => r.id === room.id)) {
 				this.selectRooms = this.selectRooms.filter(r => r.id !== room.id)
 			} else {
-				this.selectRooms.push(room)
+				this.selectRooms.push({ ...room, directory })
 			}
 		},
 		clickToNextStage() {
@@ -120,6 +114,9 @@ const Habitation = {
 			if (!this.mainInfo.departurePoint) {
 				return (this.alertSpan = 'Выберите место отправления')
 			}
+			this.selectRooms.forEach(room => {
+				this.$store.commit('addPlacement', { id: room.id, prices: room.prices })
+			})
 			this.$emit('clickToNext')
 		},
 		clickToShowHabitations(hotel) {
@@ -131,6 +128,15 @@ const Habitation = {
 				this.activeHotel = { id: null, rooms: [] }
 			}
 		},
+		minPriceForHotel(hotel) {
+			let result = 999999999
+			this.fetchPlacements.schedules
+				.filter(room => room.hotel_id === hotel.id)
+				.forEach(room => {
+					if (room.prices[0].amount < result) result = room.prices[0].amount
+				})
+			return result
+		},
 	},
 	watch: {
 		selectRooms: {
@@ -140,5 +146,17 @@ const Habitation = {
 			},
 			deep: true,
 		},
+		mainInfo: {
+			handler() {
+				this.selectRooms = []
+				this.activeHotel = { id: null, rooms: [] }
+				this.showHabitations = false
+			},
+			deep: true,
+		},
+	},
+	mounted() {
+		this.selectRooms = []
+		this.$store.commit('setHotelRooms', [])
 	},
 }

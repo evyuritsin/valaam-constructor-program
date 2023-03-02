@@ -546,6 +546,10 @@ option::after {
 .vp-btn:hover {
 	background-color: #ff8a00;
 }
+.vp-btn:disabled {
+	background-color: #4f4f4f;
+	cursor: not-allowed;
+}
 .vp-btn-inline {
 	height: 50px;
 	border: 1px solid rgba(29, 48, 84, 0.5);
@@ -4205,6 +4209,9 @@ option::after {
 }
 .w-100 {
 	width: 100% !important;
+}
+.w-15 {
+	width: 15% !important;
 }
 .h-fit {
 	height: fit-content !important;

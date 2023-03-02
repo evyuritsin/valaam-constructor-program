@@ -123,8 +123,8 @@ const Tabs = {
 	data: () => ({
 		info: {
 			multiDay: false,
-			arrivalDate: '',
-			departureDate: '',
+			arrivalDate: '01.03.2023',
+			departureDate: '03.03.2023',
 			peopleAmount: '',
 			departurePoint: '',
 		},
@@ -285,6 +285,7 @@ const Tabs = {
 							feed: {
 								graph: 'default',
 								type: 'default',
+								price: 0,
 							},
 							firstName: '',
 							lastName: '',

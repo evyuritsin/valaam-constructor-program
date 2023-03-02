@@ -3,8 +3,8 @@ const Excursion = {
 								<div class="find-list">
 									<img
 										class="find-list__img"
-										:src="'http://valaamskiy-polomnik.directpr.beget.tech' + excursion.images[0]['sg_image']"
-										:alt="excursion.images[0]['sg_image']"
+										:src="'http://valaamskiy-polomnik.directpr.beget.tech' + excursion.gallery[0]"
+										alt="Excursion photo"
 									/>
 									<div class="find-list__content">
 										<div class="find-list__header">
@@ -18,17 +18,18 @@ const Excursion = {
 											</div>
 										</div>
 										<div class="find-list__footer">
-											<div class="checkbox__label mr-10" v-for="item in excursion.availableSchedules" :key="item.id">
-												<input 
-													type="checkbox" 
+											<div class="checkbox__label mr-10" v-for="item in excursionData.prices" :key="item.id">
+											  <input 
+													type="radio" 
 													class="checkbox" 
-													@change="e => clickToCheckbox(e, item)" 
-													:checked="!tourist.adults && !tourist.children ? false : isSelected(item.id)"
+													name="excursionDate" 
 													:disabled="!tourist.adults && !tourist.children"
+													:value="item"
+													v-model="selectDate"
 												/>
-												<span class="checkbox__text">{{item.day}}.{{item.month.length === 2 ? item.month : '0' + item.month}}</span>
+												<span class="checkbox__text">{{item.date}}</span>
 											</div>
-											<div class="find-list__date-item" v-if="excursion.availableSchedules.length > 6">
+											<div class="find-list__date-item" v-if="excursionData.prices.length > 6">
 												<span class="find-list__date-item-last"
 													>Ещё время</span
 												>
@@ -69,10 +70,10 @@ const Excursion = {
 													<div class="index-form__btn-plus" @click="addChildren"></div>
 												</div>
 											</div>
-											<span class="find-list__price-value mt-40">{{this.excursion.schedules[0].amount}} ₽</span>
+											<span class="find-list__price-value mt-40">{{this.excursionData.amount}} ₽</span>
 										</div>
 										<div class="find-list__footer-price">
-											<a :href="excursion.url" class="find-list__footer-link">Смотреть</ф>
+											<a :href="excursion.url" class="find-list__footer-link">Смотреть</a>
 										</div>
 									</div>
 									<div class="excursion-list__duration">
@@ -81,20 +82,28 @@ const Excursion = {
 											alt="icon clock"
 											class="excursion-list__icon"
 										/>
-										<span class="excursion-list__time">{{excursion.duration.formatted}}</span>
+										<span class="excursion-list__time">{{excursion.excursionDuration}} мин.</span>
 									</div>
 								</div>
 	`,
-	props: ['excursion'],
+	props: ['excursionData'],
 	data: () => ({
 		tourist: {
 			adults: 0,
 			children: 0,
 		},
-		selectExcursions: [],
+		selectDate: null,
 	}),
 	mounted() {
-		this.selectExcursions = [...this.$store.getters['getExcursions']]
+		let excursion
+		if (this.allSelectExcursions) {
+			excursion = this.allSelectExcursions.filter(
+				ex => ex.excursion_id === this.excursionData.excursion_id
+			)[0]
+		}
+		if (excursion) {
+			this.selectDate = { ...excursion.date }
+		}
 	},
 	computed: {
 		guests() {
@@ -103,30 +112,16 @@ const Excursion = {
 		mainInfo() {
 			return this.$store.getters['getMainInfo']
 		},
-		schedules() {
-			let result = []
-			if (!this.mainInfo.multiDay) {
-				Object.values(this.excursion.featureSchedules).forEach(e => {
-					if (
-						moment(e.formatted_date).valueOf() ===
-						moment(this.mainInfo.arrivalDate).valueOf()
-					) {
-						result.push({ ...e })
-					}
-				})
-			} else {
-				Object.values(this.excursion.featureSchedules).forEach(e => {
-					if (
-						moment(e.formatted_date, 'DD-MM-YYY').valueOf() >=
-							moment(this.mainInfo.arrivalDate, 'DD-MM-YYY').valueOf() &&
-						moment(e.formatted_date, 'DD-MM-YYY').valueOf() <=
-							moment(this.mainInfo.departureDate, 'DD-MM-YYY').valueOf()
-					) {
-						result.push({ ...e })
-					}
-				})
-			}
-			return result
+		directory() {
+			return this.$store.getters['getFetchFetchExcursions'].directory
+		},
+		excursion() {
+			return this.directory.excursions[
+				`excursion${this.excursionData.excursion_id}`
+			]
+		},
+		allSelectExcursions() {
+			return this.$store.getters['getExceptions']
 		},
 	},
 	methods: {
@@ -140,33 +135,9 @@ const Excursion = {
 				this.tourist.adults--
 			}
 		},
-		isSelected(id) {
-			let result = false
-			this.selectExcursions.forEach(ex => {
-				if (ex.id === id) result = true
-			})
-			return result
-		},
 		addChildren() {
-			if (
-				Number(this.guests['Дети 7-12 лет']) &&
-				Number(this.guests['Дети от 0-6'])
-			) {
-				if (
-					this.tourist.children <
-					Number(this.guests['Дети 7-12 лет']) +
-						Number(this.guests['Дети от 0-6'])
-				) {
-					this.tourist.children++
-				}
-			} else {
-				if (Number(this.guests['Дети 7-12 лет'])) {
-					if (this.tourist.children < Number(this.guests['Дети 7-12 лет'])) {
-						this.tourist.children++
-					}
-				} else if (this.tourist.children < Number(this.guests['Дети от 0-6'])) {
-					this.tourist.children++
-				}
+			if (this.tourist.children < Number(this.guests['Дети 7-12 лет'])) {
+				this.tourist.children++
 			}
 		},
 		deleteChildren() {
@@ -174,50 +145,29 @@ const Excursion = {
 				this.tourist.children--
 			}
 		},
-		clickToCheckbox(e, date) {
-			if (e.target.checked) {
-				this.$store.commit('addExcursion', {
-					idEx: `${this.excursion.id}${date.timestamp}`,
-					id: this.excursion.id,
-					pagetitle: this.excursion.pagetitle,
-					date,
-					tourist: { ...this.tourist },
-				})
-				this.selectExcursions.push({
-					idEx: `${this.excursion.id}${date.timestamp}`,
-					id: this.excursion.id,
-					pagetitle: this.excursion.pagetitle,
-					date,
-					tourist: { ...this.tourist },
-				})
-			} else {
-				this.$store.commit(
-					'deleteExcursion',
-					`${this.excursion.id}${date.timestamp}`
-				)
-				this.selectExcursions = this.selectExcursion.filter(
-					e => e.idEx !== `${this.excursion.id}${date.timestamp}`
-				)
-			}
+		addExcursionToStore() {
+			this.$store.commit('deleteExcursion', this.excursionData.excursion_id)
+			this.$store.commit('addExcursion', {
+				...this.excursionData,
+				pagetitle: this.excursion.pagetitle,
+				date: this.selectDate,
+				tourist: { ...this.tourist },
+			})
 		},
 	},
 	watch: {
 		tourist: {
 			handler() {
-				this.selectExcursions.forEach(e =>
-					this.$store.commit('deleteExcursion', e.id)
-				)
-				this.selectExcursions.forEach(ex =>
-					this.$store.commit('addExcursion', { ...ex, tourist: this.tourist })
-				)
-				if (!this.tourist.adults && !this.tourist.children) {
-					this.selectExcursions.forEach(e =>
-						this.$store.commit('deleteExcursion', e.id)
-					)
-					this.selectExcursions = []
+				if (this.selectDate) {
+					this.addExcursionToStore()
 				}
 			},
 			deep: true,
+		},
+		selectDate: {
+			handler() {
+				this.addExcursionToStore()
+			},
 		},
 	},
 }

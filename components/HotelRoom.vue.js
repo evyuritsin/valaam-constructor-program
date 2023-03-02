@@ -4,19 +4,19 @@ const HotelRoom = {
 	<div class="placement-item__gallery slider-for swiper">
 		<div className="swiper-wrapper">
 			<img
-				v-for="image in room.images"
-				:key="image.id"
-				:src="'http://valaamskiy-polomnik.directpr.beget.tech' + image['sg_image']"
-				:alt="image['sg_title']"
+				v-for="image in directory.gallery"
+				:key="image"
+				:src="'http://valaamskiy-polomnik.directpr.beget.tech' + image"
+				alt="Hotel room image"
 				class="placement-item__gallery-item swiper-slide"
 			/>
 		</div>
-		<img src="../img/arrow_prev_slider.png" alt="btn prev" class="gallery__btn-prev" v-if="room.images.length > 1">
-		<img src="../img/arrow_next_slider.png" alt="btn next" class="gallery__btn-next" v-if="room.images.length > 1">
+		<img src="../img/arrow_prev_slider.png" alt="btn prev" class="gallery__btn-prev" v-if="directory.gallery.length > 1">
+		<img src="../img/arrow_next_slider.png" alt="btn next" class="gallery__btn-next" v-if="directory.gallery.length > 1">
 	</div>
 	<div class="placement-item__geo">
 		<div class="icon-list pt-0">
-			<!--img class="icon-list__icon while" src="./img/icons-svg/geo.svg" alt=""-->
+			<!--<img class="icon-list__icon while" src="./img/icons-svg/geo.svg" alt="" />-->
 			<svg
 				class="icon-list__icon icon-h-16"
 				viewBox="0 0 25 30"
@@ -42,17 +42,17 @@ const HotelRoom = {
 		</div>
 	</div>
 	<div class="placement-item__title">
-		{{room.pagetitle}}
+		{{directory.pagetitle}}
 	</div>
 	<div class="placement-item__desc">
-		{{room.introtext}}
+		{{directory.introtext}}
 	</div>
 	<div class="placement-item__prices">
 		<div class="placement-item__price-label">
 			Стоимость номера за весь период поездки
 		</div>
 		<div class="placement-item__price">
-			<span class="placement-item__value">{{daysInTrip * room.schedules[0].amount}}</span>
+			<span class="placement-item__value">{{totalPrice}}</span>
 			₽
 		</div>
 	</div>
@@ -60,27 +60,36 @@ const HotelRoom = {
 		obj="habitation"
 		class="placement-item__btn"
 		:selectedOrder="isSelectRoom"
-		@click="addRoom(room)"
+		@click="addRoom(room, directory)"
 	>
 		{{isSelectRoom ? 'ОТМЕНИТЬ' : 'ДОБАВИТЬ В ЗАЯВКУ'}}
 	</div>
-	<div class="placement-item__included" v-if="room.facilities.length">
+	<div class="placement-item__included" v-if="directory.roomFacilities.length">
 		<img
-			v-for="item in room.facilities"
+			v-for="item in directory.roomFacilities"
 			:src="'http://valaamskiy-polomnik.directpr.beget.tech' +  item.iconPath"
 			:alt="item.title"
 			class="placement-item__icon"
 		/>
-	</div>
+	</div> 
 </div>
 `,
-	props: ['addRoom', 'room', 'allRooms', 'hotel'],
+	props: ['addRoom', 'room', 'directory', 'allRooms', 'hotel'],
 	computed: {
 		isSelectRoom() {
 			return this.allRooms.some(r => r.id === this.room.id)
 		},
-		mainInfo() {
-			return this.$store.getters['getMainInfo']
+		guestsAmount() {
+			return this.$store.getters['getGuests'].length
+		},
+		roomPrice() {
+			return this.room.prices.reduce((sum, price) => (sum += price.amount), 0)
+		},
+		totalPrice() {
+			if (this.room.per_person) {
+				return this.roomPrice * this.guestsAmount
+			}
+			return this.roomPrice
 		},
 		daysInTrip() {
 			return this.$store.getters['getDaysInTrip']

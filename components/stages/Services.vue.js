@@ -1,6 +1,6 @@
 const Services = {
 	template: /*html*/ `
-						<div class="program-designer__content" v-if='loaded'>
+						<div class="program-designer__content">
 							<div class="list-grid">
 								<Service v-for="service in services" :key="service.id" :service="service"/>
 							</div>
@@ -13,10 +13,6 @@ const Services = {
 							<button class="vp-btn" @click="clickToNextStage">Дальше</button>
 						</div>						
 					`,
-	data: () => ({
-		services: [],
-		loaded: false,
-	}),
 	methods: {
 		clickToPervStage() {
 			if (this.services.length) {
@@ -30,15 +26,8 @@ const Services = {
 	},
 	computed: {
 		services() {
-			return this.$store.getters['getServices']
+			return this.$store.getters['getFetchServices']
 		},
-	},
-	async mounted() {
-		const { data } = await fetch(
-			'http://valaamskiy-polomnik.directpr.beget.tech/api/constructor/'
-		).then(response => response.json())
-		this.services = data.services
-		this.loaded = true
 	},
 	components: {
 		Tabs,

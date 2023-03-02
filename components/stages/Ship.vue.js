@@ -23,17 +23,39 @@ const Ship = {
 		ships() {
 			return this.$store.getters['getShips']
 		},
+		guests() {
+			return this.$store.getters['getGuests']
+		},
 	},
 	methods: {
 		clickToPervStage() {
 			this.$emit('clickToPerv')
 		},
 		clickToNextStage() {
-			if (!this.ships.there.pagetitle || !this.ships.back.pagetitle) {
+			if (!this.ships.there.id || !this.ships.back.id) {
 				return (this.alertSpan = 'Выберите теплоходы')
 			}
+			this.$store.commit('addShip', {
+				date: this.ships.there.prices[0].date,
+				id: this.ships.there.id,
+				amount: this.ships.there.prices[0].amount,
+				guests: this.guests,
+			})
+			this.$store.commit('addShip', {
+				date: this.ships.back.prices[this.ships.back.prices.length - 1].date,
+				id: this.ships.back.id,
+				amount:
+					this.ships.back.prices[this.ships.back.prices.length - 1].amount,
+				guests: this.guests,
+			})
+			console.log(this.$store.getters['getRequest'])
 			this.$emit('clickToNext')
 		},
+	},
+	mounted() {
+		this.$store.commit('setShipThere', { price: 0 })
+		this.$store.commit('setShipBack', { price: 0 })
+		this.$store.commit('removeAllShips')
 	},
 	components: {
 		ShipTimetable,

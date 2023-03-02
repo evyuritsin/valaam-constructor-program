@@ -36,7 +36,7 @@ const AmountResult = {
 										<span class="program-card__label">Проживание:</span>
 										<div className="program-card__label-container">
 										<span v-for="(room, indx) in hotelRooms" :key="room.id" class="program-card__label"
-											>{{room.pagetitle}}
+											>{{room.directory.pagetitle}}
 											<span v-if="indx !== hotelRooms.length-1">, </span>		
 											</span
 										>												
@@ -70,13 +70,7 @@ const AmountResult = {
 									<div class="program-card__labels" v-if="excursions.length">
 										<span class="program-card__label">Экскурсии:</span>
 										<div className="program-card__label-container">
-											<span class="program-card__label" v-for="excursion in excursions">{{excursion.pagetitle}} | {{excursion.date.formatted}} | {{excursion.tourist.adults}} взрослых и {{excursion.tourist.children}} детей</span>
-										</div>
-									</div>
-									<div class="program-card__labels" v-if="services.length">
-										<span class="program-card__label">Дополнительно:</span>
-										<div className="program-card__label-container">
-											<span class="program-card__label" v-for="service in services">{{service.pagetitle}}</span>
+											<span class="program-card__label" v-for="excursion in excursions">{{excursion.pagetitle}} | {{excursion.date.date}} | {{excursion.tourist.adults}} взрослых и {{excursion.tourist.children}} детей</span>
 										</div>
 									</div>
 								</div>
@@ -97,10 +91,6 @@ const AmountResult = {
 										<div class="program-card__item" v-if="excursions.length">
 											<span class="program-card__label">Экскурсии:</span>
 											<span class="program-card__price"><b>{{excursionsPrice}}</b> ₽</span>
-										</div>
-										<div class="program-card__item" v-if="services.length">
-											<span class="program-card__label">Допуслуги:</span>
-											<span class="program-card__price"><b>{{servicesPrice}}</b> ₽</span>
 										</div>
 									</div>
 
@@ -130,42 +120,29 @@ const AmountResult = {
 		},
 		shipsPrice() {
 			return (
-				(this.ships.there.departureAndArrivalTime &&
-					this.ships.back.departureAndArrivalTime &&
-					this.ships.there.departureAndArrivalTime.price +
-						this.ships.back.departureAndArrivalTime.price) * this.guests.length
+				this.ships.there.prices &&
+				this.ships.back.prices &&
+				(Number(this.ships.there.prices[0].amount) +
+					Number(
+						this.ships.back.prices[this.ships.back.prices.length - 1].amount
+					)) *
+					this.guests.length
 			)
 		},
 		guests() {
 			return this.$store.getters['getGuests']
 		},
 		feedPrice() {
-			let result = 0
-			this.guests.forEach(guest => {
-				result += guest.feed.graph.amount
-			})
-			return result ? Math.floor(result) : 0
+			return this.guests.reduce((sum, guest) => sum + guest.feed.price, 0)
 		},
 		breakfastAmount() {
-			let result = 0
-			this.guests.forEach(guest => {
-				if (guest.feed.graph.formatted.split('+').includes('Завтрак')) result++
-			})
-			return result
+			return this.$store.getters['getBreakfastAmount']
 		},
 		lunchAmount() {
-			let result = 0
-			this.guests.forEach(guest => {
-				if (guest.feed.graph.formatted.split('+').includes('Обед')) result++
-			})
-			return result
+			return this.$store.getters['getLunchAmount']
 		},
 		dinnerAmount() {
-			let result = 0
-			this.guests.forEach(guest => {
-				if (guest.feed.graph.formatted.split('+').includes('Ужин')) result++
-			})
-			return result
+			return this.$store.getters['getDinnerAmount']
 		},
 		excursions() {
 			return this.$store.getters['getExcursions']
@@ -176,12 +153,6 @@ const AmountResult = {
 					sum + Number(v.date.amount) * (v.tourist.adults + v.tourist.children),
 				0
 			)
-		},
-		services() {
-			return this.$store.getters['getServices']
-		},
-		servicesPrice() {
-			return this.services.reduce((sum, v) => sum + Number(v.price), 0)
 		},
 		totalPrice() {
 			let result = 0
