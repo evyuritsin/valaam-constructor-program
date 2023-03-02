@@ -161,12 +161,18 @@ const Excursion = {
 				if (this.selectDate) {
 					this.addExcursionToStore()
 				}
+				if (!this.tourist.adults && !this.tourist.children) {
+					this.$store.commit('deleteExcursion', this.excursionData.excursion_id)
+					this.selectDate = null
+				}
 			},
 			deep: true,
 		},
 		selectDate: {
 			handler() {
-				this.addExcursionToStore()
+				if (this.selectDate) {
+					this.addExcursionToStore()
+				}
 			},
 		},
 	},
