@@ -33,8 +33,12 @@ const Excursions = {
 			this.$emit('clickToPerv')
 		},
 		clickToNextStage() {
+			console.log(this.$store.getters['getRequest'])
 			this.$emit('clickToNext')
 		},
+	},
+	mounted() {
+		this.$store.commit('setExcursions', [])
 	},
 	components: {
 		AmountResult,

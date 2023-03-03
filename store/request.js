@@ -163,10 +163,10 @@ const request = {
 			state.excursions = []
 		},
 		setMeals(state, guests) {
-			let result = []
+			let intermediateResult = []
 			guests.forEach(guest => {
 				guest.feed.schedules.forEach(schedule => {
-					result.push({
+					intermediateResult.push({
 						...schedule,
 						reservations: schedule.reservations.map(item => ({
 							...item,
@@ -180,7 +180,26 @@ const request = {
 					})
 				})
 			})
+			const result = []
+			intermediateResult.forEach(item => {
+				if (
+					result.filter(i => i.meal_schedule_id === item.meal_schedule_id)
+						.length
+				) {
+					result
+						.filter(i => i.meal_schedule_id === item.meal_schedule_id)[0]
+						.reservations.push(...item.reservations)
+				} else {
+					result.push({ ...item })
+				}
+			})
 			state.meals = result
+		},
+		removeAllMeals(state) {
+			state.meals = []
+		},
+		setTotalAmount(state, action) {
+			state.order.total_amount = action
 		},
 	},
 	getters: {

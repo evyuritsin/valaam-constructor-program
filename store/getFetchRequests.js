@@ -50,6 +50,7 @@ const getFetchRequests = {
 	},
 	actions: {
 		async fetchFirstStage({ commit }, inputsData) {
+			commit('setLoaded', false)
 			const formData = {
 				date_start: inputsData.arrivalDate,
 				date_end: inputsData.departureDate,

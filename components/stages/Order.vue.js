@@ -240,49 +240,49 @@ const Order = {
 		lastNameModel: {
 			get() {
 				return this.client.isPilgrim
-					? this.firstGuest.lastName
-					: this.client.lastName
+					? this.firstGuest.lastname
+					: this.client.lastname
 			},
 			set(val) {
 				this.client.isPilgrim
-					? (this.firstGuest.lastName = val)
-					: (this.client.lastName = val)
+					? (this.firstGuest.lastname = val)
+					: (this.client.lastname = val)
 			},
 		},
 		firstNameModel: {
 			get() {
 				return this.client.isPilgrim
-					? this.firstGuest.firstName
-					: this.client.firstName
+					? this.firstGuest.firstname
+					: this.client.firstname
 			},
 			set(val) {
 				this.client.isPilgrim
-					? (this.firstGuest.firstName = val)
-					: (this.client.firstName = val)
+					? (this.firstGuest.firstname = val)
+					: (this.client.firstname = val)
 			},
 		},
 		middleNameModel: {
 			get() {
 				return this.client.isPilgrim
-					? this.firstGuest.middleName
-					: this.client.middleName
+					? this.firstGuest.patronymic
+					: this.client.patronymic
 			},
 			set(val) {
 				this.client.isPilgrim
-					? (this.firstGuest.middleName = val)
-					: (this.client.middleName = val)
+					? (this.firstGuest.patronymic = val)
+					: (this.client.patronymic = val)
 			},
 		},
 		birthdayDateModel: {
 			get() {
 				return this.client.isPilgrim
-					? this.firstGuest.birthdayDate
-					: this.client.birthdayDate
+					? this.firstGuest.birthdaydate
+					: this.client.birthdaydate
 			},
 			set(val) {
 				this.client.isPilgrim
-					? (this.firstGuest.birthdayDate = val)
-					: (this.client.birthdayDate = val)
+					? (this.firstGuest.birthdaydate = val)
+					: (this.client.birthdaydate = val)
 			},
 		},
 		documentTypeModel: {
@@ -312,25 +312,25 @@ const Order = {
 		documentIssuedByModel: {
 			get() {
 				return this.client.isPilgrim
-					? this.firstGuest.document.issuedBy
-					: this.client.document.issuedBy
+					? this.firstGuest.document.issued_by
+					: this.client.document.issued_by
 			},
 			set(val) {
 				this.client.isPilgrim
-					? (this.firstGuest.document.issuedBy = val)
-					: (this.client.document.issuedBy = val)
+					? (this.firstGuest.document.issued_by = val)
+					: (this.client.document.issued_by = val)
 			},
 		},
 		documentIssueDateModel: {
 			get() {
 				return this.client.isPilgrim
-					? this.firstGuest.document.issueDate
-					: this.client.document.issueDate
+					? this.firstGuest.document.issue_date
+					: this.client.document.issue_date
 			},
 			set() {
 				this.client.isPilgrim
-					? (this.firstGuest.document.issueDate = val)
-					: (this.client.document.issueDate = val)
+					? (this.firstGuest.document.issue_date = val)
+					: (this.client.document.issue_date = val)
 			},
 		},
 		phoneModel: {
@@ -398,8 +398,8 @@ const Order = {
 		},
 		selectBirthday(date) {
 			this.client.isPilgrim
-				? (this.firstGuest.birthdayDate = date)
-				: (this.client.birthdayDate = date)
+				? (this.firstGuest.birthdaydate = date)
+				: (this.client.birthdaydate = date)
 		},
 		openIssueDate() {
 			this.isIssueDate = true
@@ -409,8 +409,8 @@ const Order = {
 		},
 		selectIssueDate(date) {
 			this.client.isPilgrim
-				? (this.firstGuest.document.issueDate = date)
-				: (this.client.document.issueDate = date)
+				? (this.firstGuest.document.issue_date = date)
+				: (this.client.document.issue_date = date)
 		},
 		setMale() {
 			this.client.isPilgrim
@@ -423,17 +423,18 @@ const Order = {
 				: (this.client.gender = 'female')
 		},
 		async clickToOrder() {
+			console.log(JSON.stringify(this.requestData))
 			if (
-				!this.originalClient.firstName ||
-				!this.originalClient.lastName ||
-				!this.originalClient.middleName ||
-				!this.originalClient.birthdayDate ||
-				!this.originalClient.document.type ||
-				!this.originalClient.document.id ||
-				!this.originalClient.document.issuedBy ||
-				!this.originalClient.document.issueDate ||
-				!this.originalClient.phone ||
-				!this.originalClient.email
+				!this.client.firstname ||
+				!this.client.lastname ||
+				!this.client.patronymic ||
+				!this.client.birthdaydate ||
+				!this.client.document.type ||
+				!this.client.document.id ||
+				!this.client.document.issued_by ||
+				!this.client.document.issue_date ||
+				!this.client.phone ||
+				!this.client.email
 			) {
 				return (this.validationErrors = true)
 			}
@@ -448,7 +449,6 @@ const Order = {
 					if (!guest[key]) return (this.validationErrors = true)
 				})
 			})
-			console.log(JSON.stringify(this.requestData))
 			$.ajax({
 				url: 'http://valaamskiy-polomnik.directpr.beget.tech/api/constructor/',
 				method: 'post',

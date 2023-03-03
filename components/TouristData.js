@@ -8,23 +8,23 @@ const TouristData = {
 													<input
 														type="text"
 														class="vp-input"
-														v-model="guest.lastName"
+														v-model="guest.lastname"
 														placeholder="Фамилия*"
-														:class="{'vp-input_invalid' : !guest.document.id && validationErrors}"															
+														:class="{'vp-input_invalid' : !guest.lastname && validationErrors}"															
 													/>
 													<input
 														type="text"
 														class="vp-input"
-														v-model="guest.firstName"
+														v-model="guest.firstname"
 														placeholder="Имя*"
-														:class="{'vp-input_invalid' : !guest.document.id && validationErrors}"															
+														:class="{'vp-input_invalid' : !guest.firstname && validationErrors}"															
 													/>
 													<input
 														type="text"
 														class="vp-input"
-														v-model="guest.middleName"
+														v-model="guest.patronymic"
 														placeholder="Отчество*"
-														:class="{'vp-input_invalid' : !guest.document.id && validationErrors}"															
+														:class="{'vp-input_invalid' : !guest.patronymic && validationErrors}"															
 													/>
 											</div>
 											<div class="order-form__field-contact mt-20">
@@ -33,9 +33,9 @@ const TouristData = {
 														type="text"
 														class="vp-input flatpickr-input"
 														placeholder="Дата рождения*"
-														:class="{'vp-input_invalid' : !guest.birthdayDate && validationErrors}"		
+														:class="{'vp-input_invalid' : !guest.birthdaydate && validationErrors}"		
 														readonly							
-														v-model="guest.birthdayDate"	
+														v-model="guest.birthdaydate"	
 														@click.stop="openBdDatepicker"				
 													/>
 													<Datepicker v-if="isBdDatepicker" @selectDate="selectBirthday" @close="closeBdDatepicker"/>
@@ -67,18 +67,18 @@ const TouristData = {
 													<input
 														type="text"
 														class="vp-input"
-														v-model="guest.document.issuedBy"
+														v-model="guest.document.issued_by"
 														placeholder="Кем выдан*"
-														:class="{'vp-input_invalid' : !guest.document.id && validationErrors}"															
+														:class="{'vp-input_invalid' : !guest.document.issued_by && validationErrors}"															
 													/>												
 												</div>
 												<div className="flex-1 relative">
 													<input
 														type="text"
 														class="vp-input"
-														:class="{'vp-input_invalid' : !guest.document.id && validationErrors}"															
+														:class="{'vp-input_invalid' : !guest.document.issue_date && validationErrors}"															
 														placeholder="Дата выдачи*"
-														v-model="guest.document.issueDate"
+														v-model="guest.document.issue_date"
 														@click.stop="openIssueDate"
 														readonly
 													/>				
@@ -90,7 +90,7 @@ const TouristData = {
 													<input
 														type="text"
 														class="vp-input"
-														:class="{'vp-input_invalid' : !guest.document.id && validationErrors}"															
+														:class="{'vp-input_invalid' : !guest.phone && validationErrors}"															
 														v-model="guest.phone"
 														placeholder="Телефон*"
 														name="telefon"
@@ -181,7 +181,7 @@ const TouristData = {
 			this.isBdDatepicker = false
 		},
 		selectBirthday(date) {
-			this.guest.birthdayDate = date
+			this.guest.birthdaydate = date
 		},
 		openIssueDate() {
 			this.isIssueDate = true
@@ -190,7 +190,7 @@ const TouristData = {
 			this.isIssueDate = false
 		},
 		selectIssueDate(date) {
-			this.guest.document.issueDate = date
+			this.guest.document.issue_date = date
 		},
 	},
 	computed: {

@@ -20,23 +20,22 @@ const store = createStore({
 			excursions: [],
 			services: [],
 			client: {
-				firstName: '',
+				firstname: '',
 				lastName: '',
-				middleName: '',
+				patronymic: '',
 				gender: 'male',
-				birthdayDate: '',
+				birthdaydate: '',
 				document: {
 					type: '',
 					id: '',
-					issuedBy: '',
-					issueDate: '',
+					issued_by: '',
+					issue_date: '',
 				},
 				phone: '',
 				email: '',
 				add: '',
 				isPilgrim: false,
 			},
-			totalPrice: 0,
 			payments: [
 				{
 					payment_type: 1,
@@ -47,24 +46,29 @@ const store = createStore({
 		}
 	},
 	mutations: {
+		//main
 		setMainInfo(state, action) {
 			state.mainInfo = action
 		},
 		setGuests(state, action) {
 			state.guests = action
 		},
+		//habitation
 		setHotelRooms(state, action) {
 			state.hotelRooms = action
 		},
+		//ships
 		setShipThere(state, action) {
 			state.ships.there = action
 		},
 		setShipBack(state, action) {
 			state.ships.back = action
 		},
+		//feed
 		setFeedsPrice(state, action) {
 			state.feedsPrice = action
 		},
+		//excursions
 		addExcursion(state, action) {
 			state.excursions.push(action)
 		},
@@ -76,6 +80,7 @@ const store = createStore({
 		setExcursions(state, action) {
 			state.excursions = action
 		},
+		//order
 		setClient(state, action) {
 			state.client = action
 		},
@@ -87,11 +92,9 @@ const store = createStore({
 		setAlertSpan(state, action) {
 			state.alertSpan = action
 		},
-		setTotalPrice(state, action) {
-			state.totalPrice = action
-		},
 	},
 	getters: {
+		//main
 		getMainInfo(state) {
 			return state.mainInfo
 		},
@@ -113,6 +116,7 @@ const store = createStore({
 			people.forEach(p => (result[p.split(' - ')[0]] = p.split(' - ')[1]))
 			return result
 		},
+		//habitations
 		getHotelRooms(state) {
 			return state.hotelRooms
 		},
@@ -128,9 +132,11 @@ const store = createStore({
 			})
 			return result
 		},
+		//ships
 		getShips(state) {
 			return state.ships
 		},
+		//feed
 		getBreakfastAmount(state) {
 			let result = 0
 			state.guests.forEach(guest => {
@@ -152,7 +158,6 @@ const store = createStore({
 			})
 			return result
 		},
-
 		getFeedsPrice(state) {
 			function personalPrice(g) {
 				const guest = state.guests.filter(guest => guest.id === g.id)[0]
@@ -165,9 +170,11 @@ const store = createStore({
 
 			return state.guests.reduce((sum, guest) => sum + personalPrice(guest), 0)
 		},
+		//excursions
 		getExcursions(state) {
 			return state.excursions
 		},
+		//order
 		getClient(state) {
 			return state.client
 		},

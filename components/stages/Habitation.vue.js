@@ -1,6 +1,6 @@
 const Habitation = {
 	template: /* html */ `
-						<div class="program-designer__content" v-if="mainInfo.multiDay && loaded">
+						<div class="program-designer__content">
 							<div class="main__introtext">
 								Выберите понравившийся Вам вариант размещения
 							</div>
@@ -38,14 +38,14 @@ const Habitation = {
 								</div>
 							</div>
 						</div>
-						<div class="list-grid" v-if="mainInfo.multiDay && loaded && showHabitations">
+						<div class="list-grid" v-if="showHabitations">
 							<HotelRoom v-for="room in showingRooms" :key="room.id" :room="room.room" :directory="room.directory" :addRoom='addRoom' 				:allRooms="selectRooms" :hotel="activeHotel"/>
 						</div>
 						<div class="program-designer__footer">
 							<AmountResult />
 						</div>
 						<span v-if="alertSpan" class="red show ml-auto mw-fit">{{alertSpan}}</span>
-						<div class="program-designer__nav program-designer__nav_habitation">
+						<div class="program-designer__nav">
 							<button class="vp-btn-inline mr-20" @click="clickToPervStage">Назад</button>
 							<button class="vp-btn" @click="clickToNextStage">Дальше</button>
 						</div>

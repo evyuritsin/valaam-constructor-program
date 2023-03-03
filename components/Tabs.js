@@ -8,7 +8,7 @@ const Tabs = {
 									<div class="vp-tab" :class='[info.multiDay &&  "vp-tab_active"]' @click.prevent="onClickToMultiDay">Многодневные</div>
 								</div>
 								<div class="vp-tab-contents">
-									<div v-if="info.multiDay" class="vp-tab-content vp-tab-content_active">
+									<div v-show="info.multiDay" class="vp-tab-content vp-tab-content_active">
 										<form action="">
 											<div class="search__filters">
 												<div class="search__col flex-2 relative">
@@ -68,7 +68,7 @@ const Tabs = {
 										</form>
 									</div>
 									<div
-										v-if="!info.multiDay"
+										v-show="!info.multiDay"
 										class="vp-tab-content vp-tab-content_active"
 									>
 										<form action="">
@@ -158,27 +158,19 @@ const Tabs = {
 		departurePointOnFocus(e) {
 			this.info.departurePoint = e.target.value
 		},
-		onClickDatapickerFirst() {
-			setTimeout(() => {
-				this.$refs.input1.click()
-				this.$refs.input2.click()
-				$('.popup__blocked').click()
-			}, 0)
-		},
-		onClickDatapickerSecond() {
-			setTimeout(() => {
-				this.$refs.input5.click()
-				$('.popup__blocked').click()
-			}, 0)
-		},
 		onClickPeoplepicker() {
-			setTimeout(() => {
-				this.$refs.input3.focus()
-				this.$refs.input6.focus()
-			}, 0)
+			if (this.info.multiDay) {
+				setTimeout(() => {
+					this.$refs.input3.focus()
+				}, 0)
+			} else {
+				setTimeout(() => {
+					this.$refs.input6.focus()
+				}, 0)
+			}
 		},
 		openCitypicker() {
-			this.isCitypicker = true
+			if (this.loaded) this.isCitypicker = true
 		},
 		closeCitypicker() {
 			this.isCitypicker = false
@@ -287,11 +279,11 @@ const Tabs = {
 								type: 'default',
 								schedules: [],
 							},
-							firstName: '',
-							lastName: '',
-							middleName: '',
+							firstname: '',
+							lastname: '',
+							patronymic: '',
 							gender: 'male',
-							birthdayDate: '',
+							birthdate: '',
 							document: {
 								type: '',
 								id: '',

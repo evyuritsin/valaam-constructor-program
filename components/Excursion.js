@@ -138,7 +138,6 @@ const Excursion = {
 				this.tourist.adults++
 			}
 		},
-
 		deleteAdults() {
 			if (this.tourist.adults) {
 				this.tourist.adults--

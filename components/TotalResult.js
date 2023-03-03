@@ -11,19 +11,13 @@ const TotalResult = {
 											<span class="order-form__text"><b>Теплоход</b></span>
 											<span class="order-form__price"><b>{{shipsPrice}}</b> ₽</span>
 										</div>
-										<div class="order-form__item">
+										<div class="order-form__item" v-if="mainInfo.multiDay">
 											<span class="order-form__text"><b>Питание</b></span>
 											<span class="order-form__price"><b>{{feedPrice}}</b> ₽</span>
 										</div>
 										<div class="order-form__item">
 											<span class="order-form__text"><b>Экскурсии</b></span>
 											<span class="order-form__price"><b>{{excursionsPrice}}</b> ₽</span>
-										</div>
-										<div class="order-form__item">
-											<span class="order-form__text"
-												><b>Дополнительные услуги</b></span
-											>
-											<span class="order-form__price"><b>{{servicesPrice}}</b> ₽</span>
 										</div>
 										<div class="order-form__item">
 											<span class="order-form__text"><b>Льготы</b></span>
@@ -51,42 +45,29 @@ const TotalResult = {
 		},
 		shipsPrice() {
 			return (
-				(this.ships.there.departureAndArrivalTime &&
-					this.ships.back.departureAndArrivalTime &&
-					this.ships.there.departureAndArrivalTime.price +
-						this.ships.back.departureAndArrivalTime.price) * this.guests.length
+				this.ships.there.prices &&
+				this.ships.back.prices &&
+				(Number(this.ships.there.prices[0].amount) +
+					Number(
+						this.ships.back.prices[this.ships.back.prices.length - 1].amount
+					)) *
+					this.guests.length
 			)
 		},
 		guests() {
 			return this.$store.getters['getGuests']
 		},
 		feedPrice() {
-			let result = 0
-			this.guests.forEach(guest => {
-				result += guest.feed.graph.amount
-			})
-			return result ? Math.floor(result) : 0
+			return this.$store.getters['getFeedsPrice']
 		},
 		breakfastAmount() {
-			let result = 0
-			this.guests.forEach(guest => {
-				if (guest.feed.graph.formatted.split('+').includes('Завтрак')) result++
-			})
-			return result
+			return this.$store.getters['getBreakfastAmount']
 		},
 		lunchAmount() {
-			let result = 0
-			this.guests.forEach(guest => {
-				if (guest.feed.graph.formatted.split('+').includes('Обед')) result++
-			})
-			return result
+			return this.$store.getters['getLunchAmount']
 		},
 		dinnerAmount() {
-			let result = 0
-			this.guests.forEach(guest => {
-				if (guest.feed.graph.formatted.split('+').includes('Ужин')) result++
-			})
-			return result
+			return this.$store.getters['getDinnerAmount']
 		},
 		excursions() {
 			return this.$store.getters['getExcursions']
@@ -97,12 +78,6 @@ const TotalResult = {
 					sum + Number(v.date.amount) * (v.tourist.adults + v.tourist.children),
 				0
 			)
-		},
-		services() {
-			return this.$store.getters['getServices']
-		},
-		servicesPrice() {
-			return this.services.reduce((sum, v) => sum + Number(v.price), 0)
 		},
 		totalPrice() {
 			let result = 0
@@ -116,12 +91,12 @@ const TotalResult = {
 		},
 	},
 	mounted() {
-		this.$store.commit('setTotalPrice', this.totalPrice)
+		this.$store.commit('setTotalAmount', this.totalPrice)
 	},
 	watch: {
 		totalPrice: {
 			handler() {
-				this.$store.commit('setTotalPrice', this.totalPrice)
+				this.$store.commit('setTotalAmount', this.totalPrice)
 			},
 		},
 	},

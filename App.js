@@ -6,7 +6,6 @@ const App = {
 							<Tabs v-if="selectStage !== 6" :selectStage="selectStage" @goToStage="goToStage"/>
 							<Stages :selectId="selectStage"/>
 						</div>
-						<h2 class="red">{{alertSpan}}</h2>
 						<div class="program-designer__content">
 							<Ship  v-if="selectStage === 1" @clickToNext="clickToNextStage" />
 							<Habitation  v-if="mainInfo.multiDay && selectStage === 2"  @clickToNext="clickToNextStage"  @clickToPerv="clickToPervStage"/>

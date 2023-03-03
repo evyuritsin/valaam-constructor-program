@@ -194,6 +194,7 @@ const Feed = {
 			this.$emit('clickToPerv')
 		},
 		clickToNextStage() {
+			this.$store.commit('removeAllMeals')
 			this.$store.commit('setMeals', this.guests)
 			this.$emit('clickToNext')
 			console.log(this.$store.getters['getRequest'])
