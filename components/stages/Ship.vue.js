@@ -1,6 +1,6 @@
 const Ship = {
 	template: /*html*/ `
-						<div class="program-designer__content">
+						<div class="program-designer__content" v-if='loaded'>
 							<ShipTimetable direction='ТУДА'/>
 							<ShipTimetable direction='ОБРАТНО'/>
 						</div>
@@ -9,8 +9,7 @@ const Ship = {
 						</div>
 						<div v-if="alertSpan" class="red show ml-auto mw-fit">{{alertSpan}}</div>
 						<div class="program-designer__nav">
-							<button class="vp-btn-inline mr-20" @click="clickToPervStage">Назад</button>
-							<button class="vp-btn" @click="clickToNextStage">Дальше</button>
+							<button class="vp-btn" @click="clickToNextStage" :disabled="!loaded">Дальше</button>
 						</div>						
 					`,
 	data: () => ({
@@ -26,11 +25,11 @@ const Ship = {
 		guests() {
 			return this.$store.getters['getGuests']
 		},
+		loaded() {
+			return this.$store.getters.getLoaded
+		},
 	},
 	methods: {
-		clickToPervStage() {
-			this.$emit('clickToPerv')
-		},
 		clickToNextStage() {
 			if (!this.ships.there.id || !this.ships.back.id) {
 				return (this.alertSpan = 'Выберите теплоходы')
@@ -48,7 +47,6 @@ const Ship = {
 					this.ships.back.prices[this.ships.back.prices.length - 1].amount,
 				guests: this.guests,
 			})
-			console.log(this.$store.getters['getRequest'])
 			this.$emit('clickToNext')
 		},
 	},

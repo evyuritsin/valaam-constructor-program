@@ -102,7 +102,7 @@ const Feed = {
 										class="program-designer__calc-col program-designer__calc-subtitle"
 									>
 										<span class="program-designer__calc-price"
-											><b v-if="guest.feed.graph !== 'default' && guest.feed.graph">{{personalMealPrice(guest)}}</b> ₽</span
+											><b v-if="guest.feed.graph !== 'default' && guest.feed.type !== 'default'">{{personalPrice(guest)}} ₽</b> </span
 										>
 									</div>
 								</div>
@@ -183,7 +183,7 @@ const Feed = {
 			return this.$store.getters['getDinnerAmount']
 		},
 		feedPrice() {
-			return this.guests.reduce((sum, guest) => sum + guest.feed.price, 0)
+			return this.$store.getters['getFeedsPrice']
 		},
 	},
 	mounted() {
@@ -194,18 +194,31 @@ const Feed = {
 			this.$emit('clickToPerv')
 		},
 		clickToNextStage() {
-			console.log(this.copyGuests)
+			this.$store.commit('setMeals', this.guests)
 			this.$emit('clickToNext')
+			console.log(this.$store.getters['getRequest'])
 		},
-		personalMealPrice(guest) {
+		personalPrice(g) {
+			const guest = this.$store.getters.getGuestById(g.id)[0]
 			let result = 0
+			guest.feed.schedules.forEach(item => {
+				result += item.reservations.reduce((sum, r) => sum + r.amount, 0)
+			})
+			return result
+		},
+		personalSchedules(guest) {
+			let result = []
 			if (guest.feed.graph.mealsId && guest.feed.type.id) {
 				this.meals.schedules.forEach(meal => {
 					if (
 						meal.type_id === guest.feed.type.id &&
 						guest.feed.graph.mealsId.includes(meal.meal_id)
 					) {
-						result += meal.prices.reduce((sum, price) => sum + price.amount, 0)
+						const contacts = {
+							meal_schedule_id: meal.id,
+							reservations: [...meal.prices],
+						}
+						result.push(contacts)
 					}
 				})
 			}
@@ -217,19 +230,26 @@ const Feed = {
 			handler() {
 				this.copyGuests = this.copyGuests.map(guest => ({
 					...guest,
-					feed: { ...this.toAllFeed, price: this.personalMealPrice(guest) },
+					feed: {
+						...this.toAllFeed,
+						schedules: this.personalSchedules(guest),
+					},
 				}))
 			},
 			deep: true,
 		},
 		copyGuests: {
 			handler() {
-				this.$store.commit('setGuests', [
-					...this.copyGuests.map(guest => ({
+				this.$store.commit(
+					'setGuests',
+					this.copyGuests.map(guest => ({
 						...guest,
-						feed: { ...guest.feed, price: this.personalMealPrice(guest) },
-					})),
-				])
+						feed: {
+							...guest.feed,
+							schedules: this.personalSchedules(guest),
+						},
+					}))
+				)
 			},
 			deep: true,
 		},

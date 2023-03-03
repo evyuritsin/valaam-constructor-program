@@ -6,22 +6,23 @@ const App = {
 							<Tabs v-if="selectStage !== 6" :selectStage="selectStage" @goToStage="goToStage"/>
 							<Stages :selectId="selectStage"/>
 						</div>
+						<h2 class="red">{{alertSpan}}</h2>
 						<div class="program-designer__content">
-							<Habitation  v-if="selectStage === 1"  @clickToNext="clickToNextStage"/>
-							<Ship  v-if="selectStage === 2" @clickToNext="clickToNextStage" @clickToPerv="clickToPervStage" @goToStage="goToStage"/>
+							<Ship  v-if="selectStage === 1" @clickToNext="clickToNextStage" />
+							<Habitation  v-if="mainInfo.multiDay && selectStage === 2"  @clickToNext="clickToNextStage"  @clickToPerv="clickToPervStage"/>
 							<Feed v-if="mainInfo.multiDay && selectStage === 3" @clickToNext="clickToNextStage" @clickToPerv="clickToPervStage"/>
 							<Excursions 
-								v-if="mainInfo.multiDay ? selectStage === 4 : selectStage === 3" 
+								v-if="mainInfo.multiDay ? selectStage === 4 : selectStage === 2" 
 								@clickToNext="clickToNextStage" 
 								@clickToPerv="clickToPervStage" 
 								@goToStage="goToStage"
 							/>
 							<Services 
-								v-if="mainInfo.multiDay ? selectStage === 5 : selectStage === 4" 
+								v-if="mainInfo.multiDay ? selectStage === 5 : selectStage === 3" 
 								@clickToNext="clickToNextStage" 
 								@clickToPerv="clickToPervStage"
 							/>
-							<Order v-if="mainInfo.multiDay ? selectStage === 6 : selectStage === 5" @clickToPerv="clickToPervStage"/>
+							<Order v-if="mainInfo.multiDay ? selectStage === 6 : selectStage === 4" @clickToPerv="clickToPervStage"/>
 						</div>
 					</div>
 				</section>	
@@ -70,6 +71,9 @@ const App = {
 				? 'program-designer-services'
 				: 'program-designer-order'
 		},
+	},
+	watch: {
+		selectStage() {},
 	},
 	components: {
 		AmountResult,

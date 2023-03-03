@@ -182,6 +182,112 @@ body {
 	border-radius: 4px !important;
 }
 /*--datepicker--*/
+.flatpickr-calendar {
+	width: 300px;
+	height: 300px;
+}
+.flatpickr-months {
+	margin-left: 20px;
+	margin-right: 20px;
+	margin-top: 15px;
+}
+.flatpickr-month {
+	height: 27px !important;
+}
+.flatpickr-prev-month {
+	height: 27px !important;
+	width: 27px !important;
+	background: #999999;
+	border-radius: 4px;
+	top: 15px !important;
+	left: 20px !important;
+	padding: 0 !important;
+	background-image: url(../img/datepicker/datepicker_btn_prev.png);
+	background-repeat: no-repeat;
+	background-position: center;
+}
+.flatpickr-next-month {
+	height: 27px !important;
+	width: 27px !important;
+	background: #999999;
+	border-radius: 4px;
+	right: 20px !important;
+	top: 15px !important;
+	padding: 0 !important;
+	background-image: url(../img/datepicker/datepicker_btn_next.png);
+	background-repeat: no-repeat;
+	background-position: center;
+}
+.flatpickr-prev-month svg,
+.flatpickr-next-month svg {
+	display: none;
+}
+.flatpickr-current-month {
+	height: 27px !important;
+	padding: 0;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+.flatpickr-monthDropdown-months {
+	appearance: none !important;
+	-webkit-appearance: none !important;
+	-moz-appearance: none !important;
+	font-style: normal !important;
+	font-weight: 400 !important;
+	font-size: 12px !important;
+	line-height: 16px !important;
+	text-align: center;
+	color: #ffffff !important;
+	background: #31b404 !important;
+	border-radius: 4px !important;
+	height: 100% !important;
+	padding: 3px 8px !important;
+	box-sizing: border-box !important;
+}
+.flatpickr-monthDropdown-months:hover {
+	background-color: transparent !important;
+	color: #ffffff !important;
+	background: #31b404 !important;
+}
+.flatpickr-monthdropdown-months option {
+	border: 1px solid #ffffff !important;
+}
+.numInputWrapper {
+	display: none !important;
+}
+.flatpickr-innerContainer {
+	margin: 0px 20px 15px 20px !important;
+	box-sizing: content-box !important;
+}
+.flatpickr-day {
+	font-style: normal !important;
+	font-weight: 400 !important;
+	color: #4f4f4f !important;
+}
+.prevMonthDay:hover,
+.flatpickr-day:hover {
+	background-color: #31b404 !important;
+	border-color: #31b404 !important;
+	border-radius: 4px !important;
+	opacity: 0.5 !important;
+}
+.prevMonthDay {
+	font-style: normal !important;
+	font-weight: 400 !important;
+	color: #999999 !important;
+}
+.today {
+	background-color: #999999 !important;
+	border-color: #999999 !important;
+	border-radius: 4px !important;
+}
+.selected {
+	background-color: #31b404 !important;
+	border-color: #31b404 !important;
+	border-radius: 4px !important;
+}
+/*--datepicker--*/
 /*--popup-checkboxs--*/
 .popup {
 	z-index: 10;
@@ -267,6 +373,7 @@ body {
 /*--popup-datepicker--*/
 .popup__datepicker {
 	position: absolute;
+	top: 100%;
 	width: 300px;
 	height: fit-content;
 	display: flex;
@@ -277,7 +384,6 @@ body {
 	box-sizing: border-box;
 	border-top: unset;
 	z-index: 10;
-	top: 100%;
 }
 .datepicker-lite__prev-btn {
 	display: flex;
@@ -311,6 +417,23 @@ body {
 	font-size: 12px;
 	color: #ffffff;
 }
+.datepicker-lite__header-select {
+	position: absolute;
+	height: 100px;
+	display: flex;
+	background: #31b404;
+}
+.datepicker-lite__header-month {
+}
+.datepicker-lite__header-year {
+}
+.datepicker-lite__header-item {
+	font-style: normal;
+	font-weight: 400;
+	font-size: 12px;
+	color: #ffffff;
+	cursor: pointer;
+}
 .datepicker-lite__next-btn {
 	display: flex;
 	flex-direction: row;
@@ -327,6 +450,7 @@ body {
 	background-repeat: no-repeat;
 	cursor: pointer;
 }
+/*--popup-datepicker--*/
 /*--popup-datepicker--*/
 /*--index-form--*/
 .index-form {
@@ -1449,8 +1573,8 @@ option::after {
 }
 
 .find-list__price {
-	width: 200px;
 	height: 100%;
+	min-width: 200px;
 	max-height: 251px;
 	display: flex;
 	flex-direction: column;

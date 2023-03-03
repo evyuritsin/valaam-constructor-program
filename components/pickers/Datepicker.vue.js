@@ -1,75 +1,55 @@
 const Datepicker = {
 	template: /*html*/ `
+		<div class="popup popup__datepicker datepicker datepicker-lite w-100 absolute show">
+	<div class="datepicker__header bg-while" @click.stop>
+		<div class="datepicker_prev-btn datepicker-lite__prev-btn"></div>
+		<div class="datepicker__label">
 			<div
-			class="popup popup__datepicker datepicker datepicker-lite w-100"
+				class="datepicker_label datepicker-lite__header-label"
+				month="2"
+				year="2023"
 			>
-			<div class="datepicker__header bg-while" @click.stop>
-				<div class="datepicker_prev-btn datepicker-lite__prev-btn"></div>
-				<div
-					class="datepicker_label datepicker-lite__header-label"
-					month="11"
-					year="2022"
-					ref="datepicker"
-				>
-					Декабрь 2022
-				</div>
-				<div class="datepicker_next-btn datepicker-lite__next-btn"></div>
+				Март 2023
 			</div>
-			<div class="datepicker__body border-none">
-				<div 
-					v-for='date in dates' 
-					:key='date.id' 
-					class="datepicker-date" 
-					:class="[date.anotherMonth && 'datepicker_another-month']"
-					@click="clickToDate(date.value)"
-				>
-					{{date.value}}
+			<div class="datepicker-lite__header-select hide" month="" year="">
+				<div class="datepicker-lite__header-select-items">
+					<div class="datepicker-lite__header-month">
+						<div class="datepicker-lite__header-item">Январь</div>
+						<div class="datepicker-lite__header-item">Февраль</div> 
+						<div class="datepicker-lite__header-item">Март</div>
+						<div class="datepicker-lite__header-item">Апрель</div>
+						<div class="datepicker-lite__header-item">Май</div>
+					</div>
+					<div class="datepicker-lite__header-year">
+						<div class="datepicker-lite__header-item">2015</div>
+						<div class="datepicker-lite__header-item">2016</div>
+						<div class="datepicker-lite__header-item">2017</div>
+						<div class="datepicker-lite__header-item">2018</div>
+						<div class="datepicker-lite__header-item">2019</div>
+					</div>
 				</div>
+
+				<button class="datepicker-lite__header-select-close">Закрыть</button>
 			</div>
 		</div>
+
+		<div class="datepicker_next-btn datepicker-lite__next-btn"></div>
+	</div>
+	<div class="datepicker__body border-none p-0" @click.stop>
 		<div
-			class="popup popup__datepicker datepicker datepicker-prog p-15 hide"
-			popupobject=""
-			obj=""
-			@click.stop
+			v-for="date in dates"
+			:key="date.id"
+			class="datepicker-date"
+			:class="[date.anotherMonth && 'datepicker_another-month']"
+			@click="clickToDate(date.value)"
+			:date="date.date"
 		>
-			<div class="datepicker__header br-20">
-				<div class="datepicker_prev-btn datepicker__prev-btn"></div>
-				<div
-					class="datepicker_label datepicker__header-label"
-					month="11"
-					year="2022"
-				>
-					Декабрь 2022
-				</div>
-				<div class="datepicker_next-btn datepicker__next-btn" ></div>
-			</div>
-			<div class="datepicker__body border-none p-0">
-				<div 
-					v-for='date in dates' 
-					:key='date.id' 
-					class="datepicker-date" 
-					:class="[date.anotherMonth && 'datepicker_another-month']"
-					@click="clickToDate(date.value)"
-				>
-					{{date.value}}
-				</div>
-			</div>
-			<div class="datepicker__footer p-0">
-				<div class="datepicker__status">
-					<div class="datepicker__point bg-green"></div>
-					<span class="datepicker__point-label">Много</span>
-				</div>
-				<div class="datepicker__status">
-					<div class="datepicker__point bg-orange"></div>
-					<span class="datepicker__point-label">Мало</span>
-				</div>
-				<div class="datepicker__status">
-					<div class="datepicker__point bg-red"></div>
-					<span class="datepicker__point-label">Закончились</span>
-				</div>
-			</div>
+			{{date.value}}
 		</div>
+	</div>
+</div>
+
+
 	`,
 	mounted() {
 		function getDaysInMonth(month, year) {
@@ -187,14 +167,41 @@ const Datepicker = {
 			})
 			return output.join('')
 		}
+		function getLabelCalendar(month, year) {
+			var label = $('.datepicker-lite').find('.datepicker_label')
+			var labelProg = $('.datepicker-prog').find('.datepicker_label')
+			var labelTime = $('.datepicker-timing').find('.datepicker_label')
+			var months = [
+				'Январь',
+				'Февраль',
+				'Март',
+				'Апрель',
+				'Май',
+				'Июнь',
+				'Июль',
+				'Август',
+				'Сентябрь',
+				'Октябрь',
+				'Ноябрь',
+				'Декабрь',
+			]
+			label.text(months[month] + ' ' + String(year))
+			label.attr('month', month)
+			label.attr('year', year)
+			labelProg.text(months[month] + ' ' + String(year))
+			labelProg.attr('month', month)
+			labelProg.attr('year', year)
+			labelTime.text(months[month] + ' ' + String(year))
+			labelTime.attr('month', month)
+			labelTime.attr('year', year)
+		}
+
 		var currDate = new Date()
 		$('.datepicker')
 			.find('.datepicker__body')
 			.html(getFullMonth(currDate.getMonth(), currDate.getFullYear()))
-
-		$('.datepicker-date').click(e => this.clickToDate(e))
-		let vm = this
-
+		getLabelCalendar(currDate.getMonth(), currDate.getFullYear())
+		const vm = this
 		$('.datepicker_prev-btn').click(function () {
 			vm.changeMonth++
 			var months = [
@@ -231,7 +238,8 @@ const Datepicker = {
 			)
 			$(this).closest('.datepicker').find('.datepicker__body').html(days)
 		})
-		$('.datepicker_next-btn').click(function () {
+		$('.datepicker_next-btn').click(function (e) {
+			e.stopPropagation()
 			vm.changeMonth++
 			var months = [
 				'Январь',
@@ -266,6 +274,22 @@ const Datepicker = {
 				Number(label.attr('year'))
 			)
 			$(this).closest('.datepicker').find('.datepicker__body').html(days)
+		})
+		$('body').on('click', '.datepicker_label', function () {
+			var target = $(this).closest('.datepicker__header')
+			var label = target.find('.datepicker_label')
+			var select = target.find('.datepicker-lite__header-select')
+			var height = label.height()
+			var pos = label.offset()
+			select
+				.css('top', pos.top + height)
+				.css('left', pos.left)
+				.attr('obj', keyObj)
+				.removeClass('hide')
+				.addClass('showFlex')
+		})
+		$('.datepicker-date').click(e => {
+			this.clickToDate(e)
 		})
 	},
 	data: () => ({
@@ -328,10 +352,8 @@ const Datepicker = {
 	watch: {
 		changeMonth: {
 			handler() {
-				let vm = this
-
-				$('.datepicker-date').click(function (e) {
-					vm.clickToDate(e)
+				$('.datepicker-date').click(e => {
+					this.clickToDate(e)
 				})
 			},
 		},

@@ -154,7 +154,16 @@ const store = createStore({
 		},
 
 		getFeedsPrice(state) {
-			return state.feedsPrice
+			function personalPrice(g) {
+				const guest = state.guests.filter(guest => guest.id === g.id)[0]
+				let result = 0
+				guest.feed.schedules.forEach(item => {
+					result += item.reservations.reduce((sum, r) => sum + r.amount, 0)
+				})
+				return result
+			}
+
+			return state.guests.reduce((sum, guest) => sum + personalPrice(guest), 0)
 		},
 		getExcursions(state) {
 			return state.excursions

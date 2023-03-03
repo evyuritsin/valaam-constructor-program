@@ -133,7 +133,7 @@ const AmountResult = {
 			return this.$store.getters['getGuests']
 		},
 		feedPrice() {
-			return this.guests.reduce((sum, guest) => sum + guest.feed.price, 0)
+			return this.$store.getters['getFeedsPrice']
 		},
 		breakfastAmount() {
 			return this.$store.getters['getBreakfastAmount']

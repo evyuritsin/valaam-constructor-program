@@ -253,13 +253,13 @@ $(document).ready(function () {
 			.val(list.join('; '))
 			.attr('data', JSON.stringify(data))
 	})
-	$('.vp-tab').click(function () {
-		var idTab = $(this).attr('id-tab')
-		$('.vp-tab').removeClass('vp-tab_active')
-		$(this).addClass('vp-tab_active')
-		$('.vp-tab-content').removeClass('vp-tab-content_active')
-		$('[id-tab-content=' + idTab + ']').addClass('vp-tab-content_active')
-	})
+	// $('.vp-tab').click(function () {
+	// 	var idTab = $(this).attr('id-tab')
+	// 	$('.vp-tab').removeClass('vp-tab_active')
+	// 	$(this).addClass('vp-tab_active')
+	// 	$('.vp-tab-content').removeClass('vp-tab-content_active')
+	// 	$('[id-tab-content=' + idTab + ']').addClass('vp-tab-content_active')
+	// })
 	$('.custom-select__body').click(function () {
 		$('.custom-select__items').removeClass('show').addClass('hide')
 		var items = $(this).parent().find('.custom-select__items')

@@ -2,13 +2,13 @@ const Tabs = {
 	template: /*html*/ `
 							<div class="vp-tabs-content">
 								<div class="vp-tabs">
-									<div id-tab="tab-2" class="vp-tab vp-tab_active" @click.prevent="onClickToSingleDay">
+									<div class="vp-tab" :class='[!info.multiDay &&  "vp-tab_active"]' @click.prevent="onClickToSingleDay">
 										Однодневные
 									</div>
-									<div id-tab="tab-1" class="vp-tab" @click.prevent="onClickToMultiDay">Многодневные</div>
+									<div class="vp-tab" :class='[info.multiDay &&  "vp-tab_active"]' @click.prevent="onClickToMultiDay">Многодневные</div>
 								</div>
 								<div class="vp-tab-contents">
-									<div id-tab-content="tab-1" class="vp-tab-content">
+									<div v-if="info.multiDay" class="vp-tab-content vp-tab-content_active">
 										<form action="">
 											<div class="search__filters">
 												<div class="search__col flex-2 relative">
@@ -21,7 +21,7 @@ const Tabs = {
 														@click.stop="openArrivalDate"
 														class="search__filter icon_date flatpickr-input active"
 													/>
-													<Datepicker v-if="isArrivalDate" @close="closeArrivalDate" @selectDate="setArrivalDate" />
+													<Datepicker v-if="isArrivalDate" @close="closeArrivalDate" @selectDate="setArrivalDate"/>
 												</div>
 												<div class="search__col flex-2 relative">
 													<label for="" class="search__filter-name">Дата отъезда</label>
@@ -68,7 +68,7 @@ const Tabs = {
 										</form>
 									</div>
 									<div
-										id-tab-content="tab-2"
+										v-if="!info.multiDay"
 										class="vp-tab-content vp-tab-content_active"
 									>
 										<form action="">
@@ -83,7 +83,7 @@ const Tabs = {
 														@click.stop="openArrivalDate"
 														class="search__filter icon_date flatpickr-input active"
 													/>
-													<Datepicker v-if="isArrivalDate" @close="closeArrivalDate" @selectDate="setArrivalDate" />
+													<Datepicker v-if="isArrivalDate" @close="closeArrivalDate" @selectDate="setArrivalDate"/>
 												</div>
 												<div class="search__col flex-2" >
 													<label for="" class="search__filter-name"
@@ -285,7 +285,7 @@ const Tabs = {
 							feed: {
 								graph: 'default',
 								type: 'default',
-								price: 0,
+								schedules: [],
 							},
 							firstName: '',
 							lastName: '',

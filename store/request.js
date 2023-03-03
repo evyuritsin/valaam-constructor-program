@@ -30,27 +30,17 @@ const request = {
 				// ...
 			],
 			services: [],
-			// Узел с перечнем выбранных питаний
 			meals: [
-				// Массив объектов
 				{
-					// Идентификатор услуги
 					meal_schedule_id: 1,
-					// Список бронирований услуг по каждому туристу
 					reservations: [
-						// Массив объектов
 						{
-							// Дата питания
 							date: '16.02.2023',
-							// Категория посетителей, например Взрослые
 							discount_category: 1,
-							// Общая стоимость
 							amount: 150,
 						},
-						// ...
 					],
 				},
-				// ...
 			],
 			// Узел с перечнем данных по туристам
 			tourists: [
@@ -171,6 +161,26 @@ const request = {
 		},
 		removeAllExcursions(state) {
 			state.excursions = []
+		},
+		setMeals(state, guests) {
+			let result = []
+			guests.forEach(guest => {
+				guest.feed.schedules.forEach(schedule => {
+					result.push({
+						...schedule,
+						reservations: schedule.reservations.map(item => ({
+							...item,
+							discount_category:
+								guest.type === 'Взрослый'
+									? 1
+									: guest.type === 'Ребенок 7-12'
+									? 3
+									: 2,
+						})),
+					})
+				})
+			})
+			state.meals = result
 		},
 	},
 	getters: {

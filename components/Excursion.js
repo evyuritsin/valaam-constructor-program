@@ -22,12 +22,12 @@ const Excursion = {
 											  <input 
 													type="radio" 
 													class="checkbox" 
-													name="excursionDate" 
+													:name="'excursionDate' + excursionData.excursion_id" 
 													:disabled="!tourist.adults && !tourist.children"
 													:value="item"
 													v-model="selectDate"
 												/>
-												<span class="checkbox__text">{{item.date}}</span>
+												<span class="checkbox__text">{{dateFormatter(item.date)}}</span>
 											</div>
 											<div class="find-list__date-item" v-if="excursionData.prices.length > 6">
 												<span class="find-list__date-item-last"
@@ -57,7 +57,7 @@ const Excursion = {
 											<div class="index-form justify-between">
 												<div class="index-form__label flex-n pl-10">
 													<span class="index-form__text index-form_one-line"
-														>Детей</span
+														>Детей 7-12 лет</span
 													>
 												</div>
 												<div
@@ -70,7 +70,8 @@ const Excursion = {
 													<div class="index-form__btn-plus" @click="addChildren"></div>
 												</div>
 											</div>
-											<span class="find-list__price-value mt-40">{{this.excursionData.amount}} ₽</span>
+											<span class="find-list__price-value mt-40" v-if="!selectDate">от {{lowestPrice}} ₽</span>
+											<span class="find-list__price-value mt-40" v-if="selectDate">{{selectDate.amount * (tourist.adults + tourist.children)}} ₽</span>
 										</div>
 										<div class="find-list__footer-price">
 											<a :href="excursion.url" class="find-list__footer-link">Смотреть</a>
@@ -123,6 +124,13 @@ const Excursion = {
 		allSelectExcursions() {
 			return this.$store.getters['getExceptions']
 		},
+		lowestPrice() {
+			let result = 9999999999
+			this.excursionData.prices.forEach(price => {
+				if (price.amount < result) result = price.amount
+			})
+			return result
+		},
 	},
 	methods: {
 		addAdults() {
@@ -130,6 +138,7 @@ const Excursion = {
 				this.tourist.adults++
 			}
 		},
+
 		deleteAdults() {
 			if (this.tourist.adults) {
 				this.tourist.adults--
@@ -153,6 +162,10 @@ const Excursion = {
 				date: this.selectDate,
 				tourist: { ...this.tourist },
 			})
+		},
+		dateFormatter(date) {
+			const arrDate = date.split('.')
+			return `${arrDate[0]}.${arrDate[1]}`
 		},
 	},
 	watch: {

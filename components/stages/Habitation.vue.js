@@ -44,9 +44,10 @@ const Habitation = {
 						<div class="program-designer__footer">
 							<AmountResult />
 						</div>
+						<span v-if="alertSpan" class="red show ml-auto mw-fit">{{alertSpan}}</span>
 						<div class="program-designer__nav program-designer__nav_habitation">
-							<span v-if="alertSpan" class="red">{{alertSpan}}</span>
-							<button class="vp-btn" @click="clickToNextStage" :disabled="!loaded">Дальше</button>
+							<button class="vp-btn-inline mr-20" @click="clickToPervStage">Назад</button>
+							<button class="vp-btn" @click="clickToNextStage">Дальше</button>
 						</div>
 	`,
 	data: () => ({
@@ -59,9 +60,6 @@ const Habitation = {
 	computed: {
 		mainInfo() {
 			return this.$store.getters['getMainInfo']
-		},
-		loaded() {
-			return this.$store.getters.getLoaded
 		},
 		fetchPlacements() {
 			return this.$store.getters.getFetchPlacements
