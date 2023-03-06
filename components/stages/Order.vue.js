@@ -41,6 +41,7 @@ const Order = {
 														placeholder="Дата рождения*"
 														@click.stop="openBdDatepicker"
 														:class="{'vp-input_invalid' : !birthdayDateModel && validationErrors}"		
+														readonly
 													/>
 													<Datepicker v-if="isBdDatepicker" @selectDate="selectBirthday" @close="closeBdDatepicker"/>
 												</div>
@@ -364,7 +365,7 @@ const Order = {
 			},
 		},
 		requestData() {
-			return this.$store.getters['getRequestData']
+			return this.$store.getters['getRequest']
 		},
 	},
 	methods: {
@@ -423,42 +424,38 @@ const Order = {
 				: (this.client.gender = 'female')
 		},
 		async clickToOrder() {
-			console.log(JSON.stringify(this.requestData))
-			if (
-				!this.client.firstname ||
-				!this.client.lastname ||
-				!this.client.patronymic ||
-				!this.client.birthdaydate ||
-				!this.client.document.type ||
-				!this.client.document.id ||
-				!this.client.document.issued_by ||
-				!this.client.document.issue_date ||
-				!this.client.phone ||
-				!this.client.email
-			) {
-				return (this.validationErrors = true)
-			}
-			this.guests.forEach(guest => {
-				Object.keys(guest).forEach(key => {
-					if (key === 'comment' || key === 'privilege') return
-					if (key === 'document') {
-						Object.keys(guest[key]).forEach(k => {
-							if (!guest[key][k]) return (this.validationErrors = true)
+			this.validationErrors = true
+			setTimeout(() => {
+				const invalidInputs = document.querySelectorAll('.vp-input_invalid')
+				if (invalidInputs.length) {
+					window.scrollTo(0, invalidInputs[0].offsetTop - 50)
+				} else {
+					this.validationErrors = false
+				}
+				if (!this.validationErrors) {
+					this.$store.commit(
+						'setTourists',
+						this.guests.map(guest => {
+							delete guest.feed
+							return {
+								...guest,
+								gender_id: guest.gender === 'male' ? 1 : 2,
+								discount_category:
+									guest.type === 'Взрослый'
+										? 1
+										: guest.type === 'Ребенок 7-12'
+										? 3
+										: 2,
+							}
 						})
-					}
-					if (!guest[key]) return (this.validationErrors = true)
-				})
-			})
-			$.ajax({
-				url: 'http://valaamskiy-polomnik.directpr.beget.tech/api/constructor/',
-				method: 'post',
-				dataType: 'json',
-				data: { data: JSON.stringify(this.requestData) },
-				success: function (data) {
-					console.log(data)
-					window.location.href = data['data']['data']['formUrl']
-				},
-			})
+					)
+					this.$store.commit('setRequestClient', {
+						...this.client,
+						gender_id: this.client.gender === 'male' ? 1 : 2,
+					})
+					console.log(JSON.stringify(this.requestData))
+				}
+			}, 0)
 		},
 		clickToPervStage() {
 			this.$emit('clickToPerv')

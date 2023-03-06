@@ -15,9 +15,6 @@ const Services = {
 					`,
 	methods: {
 		clickToPervStage() {
-			if (this.services.length) {
-				this.$store.commit('setServices', [])
-			}
 			this.$emit('clickToPerv')
 		},
 		clickToNextStage() {

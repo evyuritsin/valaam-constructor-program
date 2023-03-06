@@ -20,6 +20,7 @@ const Stages = {
 								</div>
 							</div>
 							<h4 class="red" v-if="alertSpan">{{alertSpan}}</h4>
+							<h4 v-if="mainInfo.multiDay ? selectId === 4 : selectId === 2" class="green">Детям до 6 лет проход на любую экскурсию - бесплатно</h4>
 	`,
 	data: () => ({
 		stages: [

@@ -21,7 +21,7 @@ const store = createStore({
 			services: [],
 			client: {
 				firstname: '',
-				lastName: '',
+				lastname: '',
 				patronymic: '',
 				gender: 'male',
 				birthdaydate: '',
@@ -36,12 +36,6 @@ const store = createStore({
 				add: '',
 				isPilgrim: false,
 			},
-			payments: [
-				{
-					payment_type: 1,
-					payment_method: 3,
-				},
-			],
 			alertSpan: '',
 		}
 	},

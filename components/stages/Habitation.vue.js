@@ -117,6 +117,11 @@ const Habitation = {
 			})
 			this.$emit('clickToNext')
 		},
+		clickToPervStage() {
+			this.selectRooms = []
+			this.$store.commit('setHotelRooms', [])
+			this.$emit('clickToPerv')
+		},
 		clickToShowHabitations(hotel) {
 			if (hotel.id !== this.activeHotel.id) {
 				this.showHabitations = true
