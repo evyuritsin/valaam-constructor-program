@@ -2,7 +2,7 @@ const Habitation = {
 	template: /* html */ `
 						<div class="program-designer__content">
 							<div class="main__introtext">
-								Выберите понравившийся Вам вариант размещения
+								{{hotels.length ? 'Выберите понравившийся Вам вариант размещения' : 'Нет свободных номеров в выбранные даты'}}
 							</div>
 							<div class="list">
 								<div class="find-list" v-for="hotel in hotels" :key="hotel.id">

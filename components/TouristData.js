@@ -147,6 +147,11 @@ const TouristData = {
 		Documentspicker,
 	},
 	mounted() {
+		//add masks
+		$('[name=passSN]').mask('9999 999999')
+		$('[name=telefon]').mask('+7 (999) 999 99 99')
+
+		//add logic to close picker on click to out of theme
 		const vm = this
 		document.addEventListener('click', function () {
 			vm.closeDocumentsPicker()

@@ -1,3 +1,5 @@
+console.log(moment)
+
 const request = {
 	state() {
 		return {
@@ -36,7 +38,7 @@ const request = {
 					guest.type === 'Взрослый' ? 1 : guest.type === 'Ребенок 7-12' ? 3 : 2,
 				amount: action.amount,
 			}))
-			state.ships.push({ room_schedule_id: action.id, reservations })
+			state.ships.push({ ships_schedule_id: action.id, reservations })
 		},
 		removeAllShips(state) {
 			state.ships = []
@@ -63,21 +65,27 @@ const request = {
 		removeAllExcursions(state) {
 			state.excursions = []
 		},
-		setMeals(state, guests) {
+		setMeals(state, { guests, arrivalTime, departureTime }) {
 			let intermediateResult = []
 			guests.forEach(guest => {
 				guest.feed.schedules.forEach(schedule => {
 					intermediateResult.push({
 						...schedule,
-						reservations: schedule.reservations.map(item => ({
-							...item,
-							discount_category:
-								guest.type === 'Взрослый'
-									? 1
-									: guest.type === 'Ребенок 7-12'
-									? 3
-									: 2,
-						})),
+						reservations: schedule.reservations
+							.filter(
+								r =>
+									moment(`${r.date}, ${r.time}`).isAfter(arrivalTime) &&
+									moment(`${r.date}, ${r.time}`).isBefore(departureTime)
+							)
+							.map(item => ({
+								...item,
+								discount_category:
+									guest.type === 'Взрослый'
+										? 1
+										: guest.type === 'Ребенок 7-12'
+										? 3
+										: 2,
+							})),
 					})
 				})
 			})
@@ -95,6 +103,7 @@ const request = {
 				}
 			})
 			state.meals = result
+			console.log(result)
 		},
 		removeAllMeals(state) {
 			state.meals = []

@@ -63,6 +63,7 @@ const Order = {
 														v-model="documentIdModel"
 														placeholder="Паспорт серия/номер*"
 														name="passSN"
+														v-mask="'####-##'"
 														:class="{'vp-input_invalid' : !documentIdModel && validationErrors}"															
 													/>
 												</div>
@@ -453,7 +454,7 @@ const Order = {
 						...this.client,
 						gender_id: this.client.gender === 'male' ? 1 : 2,
 					})
-					console.log(JSON.stringify(this.requestData))
+					console.log(this.$store.getters['getRequestData'])
 				}
 			}, 0)
 		},
@@ -462,6 +463,11 @@ const Order = {
 		},
 	},
 	mounted() {
+		//add masks
+		$('[name=passSN]').mask('9999 999999')
+		$('[name=telefon]').mask('+7 (999) 999 99 99')
+
+		//add logic to close picker on click to out of theme
 		const vm = this
 		document.addEventListener('click', function () {
 			vm.closeDocumentsPicker()

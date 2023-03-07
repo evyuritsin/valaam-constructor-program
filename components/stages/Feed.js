@@ -155,11 +155,17 @@ const Feed = {
 		isPersonalMeals: null,
 	}),
 	computed: {
+		mainInfo() {
+			return this.$store.getters['getMainInfo']
+		},
 		guests() {
 			return this.$store.getters['getGuests']
 		},
 		meals() {
 			return this.$store.getters['getFetchMeals']
+		},
+		ships() {
+			return this.$store.getters['getShips']
 		},
 		menuTypes() {
 			return this.meals.directory.types
@@ -195,9 +201,12 @@ const Feed = {
 		},
 		clickToNextStage() {
 			this.$store.commit('removeAllMeals')
-			this.$store.commit('setMeals', this.guests)
+			this.$store.commit('setMeals', {
+				guests: this.guests,
+				arrivalTime: `${this.mainInfo.arrivalDate}, ${this.ships.there.time_end}`,
+				departureTime: `${this.mainInfo.departureDate}, ${this.ships.back.time_start}`,
+			})
 			this.$emit('clickToNext')
-			console.log(this.$store.getters['getRequest'])
 		},
 		personalPrice(g) {
 			const guest = this.$store.getters.getGuestById(g.id)[0]
@@ -217,7 +226,12 @@ const Feed = {
 					) {
 						const contacts = {
 							meal_schedule_id: meal.id,
-							reservations: [...meal.prices],
+							reservations: [
+								...meal.prices.map(price => ({
+									...price,
+									time: this.meals.directory.meals[`meal${meal.meal_id}`].time,
+								})),
+							],
 						}
 						result.push(contacts)
 					}

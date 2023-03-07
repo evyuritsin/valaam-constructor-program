@@ -5,7 +5,7 @@ const main = Vue.createApp({
 	components: {
 		App,
 	},
-})
+}).directive('mask', VueMask.VueMaskDirective)
 
 main.use(store)
 main.mount('#app')

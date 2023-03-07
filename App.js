@@ -29,6 +29,7 @@ const App = {
 	`,
 	data: () => ({
 		selectStage: 1,
+		myInputModel: '',
 	}),
 	methods: {
 		clickToPervStage() {

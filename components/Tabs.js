@@ -123,8 +123,8 @@ const Tabs = {
 	data: () => ({
 		info: {
 			multiDay: false,
-			arrivalDate: '01.03.2023',
-			departureDate: '03.03.2023',
+			arrivalDate: '04.03.2023',
+			departureDate: '06.03.2023',
 			peopleAmount: '',
 			departurePoint: '',
 		},

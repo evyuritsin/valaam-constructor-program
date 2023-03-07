@@ -70,8 +70,9 @@ const Excursion = {
 													<div class="index-form__btn-plus" @click="addChildren"></div>
 												</div>
 											</div>
-											<span class="find-list__price-value mt-40" v-if="!selectDate">от {{lowestPrice}} ₽</span>
-											<span class="find-list__price-value mt-40" v-if="selectDate">{{selectDate.amount * (tourist.adults + tourist.children)}} ₽</span>
+											<span class="find-list__price-value mt-40" v-if="lowestPrice === 0">За пожертвование</span>
+											<span class="find-list__price-value mt-40" v-else-if="!selectDate">от {{lowestPrice}} ₽</span>
+											<span class="find-list__price-value mt-40" v-else-if="selectDate">{{selectDate.amount * (tourist.adults + tourist.children)}} ₽</span>
 										</div>
 										<div class="find-list__footer-price">
 											<a :href="excursion.url" class="find-list__footer-link">Смотреть</a>
