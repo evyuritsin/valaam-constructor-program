@@ -43,19 +43,19 @@ const AmountResult = {
 										<span v-if="!hotelRooms.length">Не выбрано</span>						
 										</div>
 									</div>
-									<div v-if="ships.there.pagetitle" class="program-card__labels">
+									<div v-if="ships.there.id" class="program-card__labels">
 										<span class="program-card__label">Проезд туда:</span>
 										<div className="program-card__label-container">
 										<span class="program-card__label"
-											>{{ships.there.pagetitle}} отправление {{ships.there.departureAndArrivalTime.arrival}}
+											>{{ships.there.ship.pagetitle}} отправление {{ships.there.time_start}}
 										</span>																	
 										</div>
 									</div>
-									<div v-if="ships.back.pagetitle" class="program-card__labels">
+									<div v-if="ships.back.id" class="program-card__labels">
 										<span class="program-card__label">Проезд обратно:</span>
 										<div className="program-card__label-container">
 										<span class="program-card__label"
-											>{{ships.back.pagetitle}} отправление {{ships.back.departureAndArrivalTime.arrival}}
+											>{{ships.back.ship.pagetitle}} отправление {{ships.back.time_start}}
 										</span>																	
 										</div>
 									</div>

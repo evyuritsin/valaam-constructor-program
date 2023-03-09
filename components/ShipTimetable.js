@@ -27,7 +27,7 @@ const ShipTimetable = {
 											<tr v-for="(ship, index) in [...Array(3)]" :key="index" >
 												<th class="ta-left">{{ships[index].time_start}}</th>
 												<th class="ta-left">{{ships[index].time_end}}</th>
-												<th class="ta-left">Static pagetitle</th>
+												<th class="ta-left">{{getShipTitle(ships[index].prices[0].ship_id)}}</th>
 												<th class="ta-left">
 													<div class="find-list__date-item ml-0">
 														<div class="find-list__point find-list_green"></div>
@@ -48,7 +48,7 @@ const ShipTimetable = {
 											<tr v-for="ship in ships" :key="ship.id">
 												<th class="ta-left">{{ship.time_start}}</th>
 												<th class="ta-left">{{ship.time_end}}</th>
-												<th class="ta-left">Static pagetitle</th>
+												<th class="ta-left">{{getShipTitle(ship.prices[0].ship_id)}}</th>
 												<th class="ta-left">
 													<div class="find-list__date-item ml-0">
 														<div class="find-list__point find-list_green"></div>
@@ -110,6 +110,9 @@ const ShipTimetable = {
 		getShipDirectory(id) {
 			return this.fetchShips.directory.ships[`ship${id}`]
 		},
+		getShipTitle(id) {
+			return this.fetchShips.directory.ships[`ship${id}`].pagetitle
+		},
 		clickToSelectShip(ship) {
 			if (!this.selectShip) {
 				return (this.selectShip = { ...ship })
@@ -128,13 +131,13 @@ const ShipTimetable = {
 				this.$store.commit('setShipBack', {
 					...this.selectShip,
 					route: { ...this.getShipRoutesDirectory(this.selectShip.route_id) },
-					ship: { ...this.getShipDirectory(this.selectShip.id) },
+					ship: { ...this.getShipDirectory(this.selectShip.prices[0].ship_id) },
 				})
 			} else {
 				this.$store.commit('setShipThere', {
 					...this.selectShip,
 					route: { ...this.getShipRoutesDirectory(this.selectShip.route_id) },
-					ship: { ...this.getShipDirectory(this.selectShip.id) },
+					ship: { ...this.getShipDirectory(this.selectShip.prices[0].ship_id) },
 				})
 			}
 		},
