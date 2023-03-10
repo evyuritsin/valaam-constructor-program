@@ -454,20 +454,13 @@ const Order = {
 						...this.client,
 						gender_id: this.client.gender === 'male' ? 1 : 2,
 					})
-					console.log('done')
-					const form = new FormData()
-					form.append('json', { ...this.requestData })
-					await fetch(
-						'http://valaamskiy-polomnik.directpr.beget.tech/api/order',
-						{
-							method: 'POST',
-							mode: 'cors',
-							headers: {
-								'Content-Type': 'application/json',
-							},
-							body: form,
-						}
-					)
+					const data = { ...this.requestData }
+					console.log(data)
+					$.ajax({
+						type: 'POST',
+						url: 'http://valaamskiy-polomnik.directpr.beget.tech/api/order',
+						data: { json: data },
+					})
 				}
 			}, 0)
 		},

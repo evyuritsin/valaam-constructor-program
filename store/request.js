@@ -1,5 +1,3 @@
-console.log(moment)
-
 const request = {
 	state() {
 		return {
