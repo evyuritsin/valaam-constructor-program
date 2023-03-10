@@ -454,7 +454,7 @@ const Order = {
 						...this.client,
 						gender_id: this.client.gender === 'male' ? 1 : 2,
 					})
-					const data = JSON.stringify({ json: { ...this.requestData } })
+					const data = JSON.stringify({ ...this.requestData })
 					console.log(data)
 					$.ajax({
 						type: 'POST',
