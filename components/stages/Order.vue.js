@@ -426,7 +426,7 @@ const Order = {
 		},
 		async clickToOrder() {
 			this.validationErrors = true
-			setTimeout(() => {
+			setTimeout(async () => {
 				const invalidInputs = document.querySelectorAll('.vp-input_invalid')
 				if (invalidInputs.length) {
 					window.scrollTo(0, invalidInputs[0].offsetTop - 50)
@@ -454,7 +454,18 @@ const Order = {
 						...this.client,
 						gender_id: this.client.gender === 'male' ? 1 : 2,
 					})
-					console.log(this.$store.getters['getRequestData'])
+					console.log('done')
+					await fetch(
+						'http://valaamskiy-polomnik.directpr.beget.tech/api/order',
+						{
+							method: 'POST',
+							mode: 'cors',
+							headers: {
+								'Content-Type': 'application/json',
+							},
+							body: JSON.stringify(this.$store.getters['getRequestData']),
+						}
+					)
 				}
 			}, 0)
 		},
