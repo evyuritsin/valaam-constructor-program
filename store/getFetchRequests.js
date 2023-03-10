@@ -65,7 +65,6 @@ const getFetchRequests = {
 				data: { data: JSON.stringify(formData) },
 				success: data => data,
 			})
-			console.log(data)
 			commit('setData', data)
 			commit('setLoaded', true)
 		},

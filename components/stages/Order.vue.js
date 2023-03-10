@@ -454,13 +454,13 @@ const Order = {
 						...this.client,
 						gender_id: this.client.gender === 'male' ? 1 : 2,
 					})
-					const data = JSON.stringify({ ...this.requestData })
-					console.log(data)
+
 					$.ajax({
-						type: 'POST',
-						url: 'http://valaamskiy-polomnik.directpr.beget.tech/api/order',
-						data,
+						url: 'http://valaamskiy-polomnik.directpr.beget.tech/api/order/',
+						method: 'post',
 						dataType: 'json',
+						data: { data: JSON.stringify({ ...this.requestData }) },
+						success: data => data,
 					})
 				}
 			}, 0)
