@@ -463,7 +463,7 @@ const Order = {
 							headers: {
 								'Content-Type': 'application/json',
 							},
-							body: JSON.stringify(this.$store.getters['getRequestData']),
+							body: JSON.stringify(this.requestData),
 						}
 					)
 				}
