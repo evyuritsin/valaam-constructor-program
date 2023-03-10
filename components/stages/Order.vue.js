@@ -454,12 +454,12 @@ const Order = {
 						...this.client,
 						gender_id: this.client.gender === 'male' ? 1 : 2,
 					})
-					const data = { ...this.requestData }
+					const data = { json: { ...this.requestData } }
 					console.log(data)
 					$.ajax({
 						type: 'POST',
 						url: 'http://valaamskiy-polomnik.directpr.beget.tech/api/order',
-						data: { json: data },
+						data,
 					})
 				}
 			}, 0)
