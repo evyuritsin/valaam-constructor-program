@@ -819,5 +819,4 @@ $(document).ready(function () {
 		$(this).closest('.post-list').find('.post-list__desc').animate({top: 300, opacity: 1}, 1000);
 	});
 */
-	setupMask()
 })
