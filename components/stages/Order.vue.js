@@ -400,8 +400,8 @@ const Order = {
 		},
 		selectBirthday(date) {
 			this.client.isPilgrim
-				? (this.firstGuest.birthdaydate = date)
-				: (this.client.birthdaydate = date)
+				? (this.firstGuest.birth_date = date)
+				: (this.client.birth_date = date)
 		},
 		openIssueDate() {
 			this.isIssueDate = true

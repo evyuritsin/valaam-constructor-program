@@ -186,7 +186,7 @@ const TouristData = {
 			this.isBdDatepicker = false
 		},
 		selectBirthday(date) {
-			this.guest.birthdaydate = date
+			this.guest.birth_date = date
 		},
 		openIssueDate() {
 			this.isIssueDate = true
