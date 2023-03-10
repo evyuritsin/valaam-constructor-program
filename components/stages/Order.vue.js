@@ -278,13 +278,13 @@ const Order = {
 		birthdayDateModel: {
 			get() {
 				return this.client.isPilgrim
-					? this.firstGuest.birthdaydate
-					: this.client.birthdaydate
+					? this.firstGuest.birth_date
+					: this.client.birth_date
 			},
 			set(val) {
 				this.client.isPilgrim
-					? (this.firstGuest.birthdaydate = val)
-					: (this.client.birthdaydate = val)
+					? (this.firstGuest.birth_date = val)
+					: (this.client.birth_date = val)
 			},
 		},
 		documentTypeModel: {

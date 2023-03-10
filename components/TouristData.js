@@ -33,9 +33,9 @@ const TouristData = {
 														type="text"
 														class="vp-input flatpickr-input"
 														placeholder="Дата рождения*"
-														:class="{'vp-input_invalid' : !guest.birthdaydate && validationErrors}"		
+														:class="{'vp-input_invalid' : !guest.birth_date && validationErrors}"		
 														readonly							
-														v-model="guest.birthdaydate"	
+														v-model="guest.birth_date"	
 														@click.stop="openBdDatepicker"				
 													/>
 													<Datepicker v-if="isBdDatepicker" @selectDate="selectBirthday" @close="closeBdDatepicker"/>

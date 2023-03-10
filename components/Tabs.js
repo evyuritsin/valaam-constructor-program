@@ -283,7 +283,7 @@ const Tabs = {
 							lastname: '',
 							patronymic: '',
 							gender: 'male',
-							birthdaydate: '',
+							birth_date: '',
 							document: {
 								type: '',
 								id: '',
