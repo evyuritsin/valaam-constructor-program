@@ -455,6 +455,8 @@ const Order = {
 						gender_id: this.client.gender === 'male' ? 1 : 2,
 					})
 					console.log('done')
+					const form = new FormData()
+					form.append('json', { ...this.requestData })
 					await fetch(
 						'http://valaamskiy-polomnik.directpr.beget.tech/api/order',
 						{
@@ -463,7 +465,7 @@ const Order = {
 							headers: {
 								'Content-Type': 'application/json',
 							},
-							body: JSON.stringify(this.requestData),
+							body: form,
 						}
 					)
 				}
