@@ -36,7 +36,7 @@ const request = {
 					guest.type === 'Взрослый' ? 1 : guest.type === 'Ребенок 7-12' ? 3 : 2,
 				amount: action.amount,
 			}))
-			state.ships.push({ ships_schedule_id: action.id, reservations })
+			state.ships.push({ ship_schedule_id: action.id, reservations })
 		},
 		removeAllShips(state) {
 			state.ships = []
