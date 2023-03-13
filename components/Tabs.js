@@ -8,7 +8,7 @@ const Tabs = {
 									<div class="vp-tab" :class='[info.multiDay &&  "vp-tab_active"]' @click.prevent="onClickToMultiDay">Многодневные</div>
 								</div>
 								<div class="vp-tab-contents">
-									<div v-show="info.multiDay" class="vp-tab-content vp-tab-content_active">
+									<div v-if="info.multiDay" class="vp-tab-content vp-tab-content_active">
 										<form action="">
 											<div class="search__filters">
 												<div class="search__col flex-2 relative">
@@ -68,7 +68,7 @@ const Tabs = {
 										</form>
 									</div>
 									<div
-										v-show="!info.multiDay"
+										v-if="!info.multiDay"
 										class="vp-tab-content vp-tab-content_active"
 									>
 										<form action="">
@@ -124,7 +124,7 @@ const Tabs = {
 		info: {
 			multiDay: false,
 			arrivalDate: '04.03.2023',
-			departureDate: '06.03.2023',
+			departureDate: '',
 			peopleAmount: '',
 			departurePoint: '',
 		},
@@ -185,7 +185,8 @@ const Tabs = {
 			this.isDepartureDate = false
 		},
 		setDepartureDate(date) {
-			this.info.departureDate = date
+			if (this.getLocateDate(date) > this.getLocateDate(this.info.arrivalDate))
+				this.info.departureDate = date
 		},
 		openArrivalDate() {
 			this.isArrivalDate = true
@@ -194,10 +195,25 @@ const Tabs = {
 			this.isArrivalDate = false
 		},
 		setArrivalDate(date) {
-			this.info.arrivalDate = date
+			if (this.getLocateDate(date) > new Date().toLocaleString()) {
+				this.info.arrivalDate = date
+			}
+		},
+		getLocateDate(date) {
+			const datetime_regex = /(\d\d)\.(\d\d)\.(\d\d\d\d)\s(\d\d):(\d\d)/
+
+			const date_array = datetime_regex.exec(`${date} 23:59`)
+			return new Date(
+				date_array[3],
+				date_array[2],
+				date_array[1],
+				date_array[4],
+				date_array[5]
+			).toLocaleString()
 		},
 	},
 	async mounted() {
+		this.info.arrivalDate = moment().format('DD.MM.YYYY')
 		const { data } = await fetch(
 			'http://valaamskiy-polomnik.directpr.beget.tech/api/constructor/'
 		).then(response => response.json())
@@ -230,9 +246,6 @@ const Tabs = {
 		info: {
 			async handler(nV, oV) {
 				this.$store.commit('setMainInfo', { ...this.info })
-				if (!this.info.multiDay) {
-					this.info.departureDate = this.info.arrivalDate
-				}
 				if (this.selectStage > 1) {
 					this.$emit('goToStage', 1)
 					this.$store.commit('setAlertSpan', 'Вы изменили данные')
@@ -298,6 +311,13 @@ const Tabs = {
 					}
 				}
 				this.$store.commit('setGuests', [...result])
+			}
+		},
+		'info.multiDay'() {
+			if (!this.info.multiDay) {
+				this.info.departureDate = this.info.arrivalDate
+			} else {
+				this.info.departureDate = ''
 			}
 		},
 		guestsCount() {

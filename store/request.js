@@ -68,11 +68,44 @@ const request = {
 					intermediateResult.push({
 						...schedule,
 						reservations: schedule.reservations
-							.filter(
-								r =>
-									moment(`${r.date}, ${r.time}`).isAfter(arrivalTime) &&
-									moment(`${r.date}, ${r.time}`).isBefore(departureTime)
-							)
+							.filter(r => {
+								const mealTime = `${r.date} ${r.time}`
+
+								const datetime_regex =
+									/(\d\d)\.(\d\d)\.(\d\d\d\d)\s(\d\d):(\d\d)/
+
+								const mealTime_array = datetime_regex.exec(mealTime)
+								const mealTime_date = new Date(
+									mealTime_array[3],
+									mealTime_array[2],
+									mealTime_array[1],
+									mealTime_array[4],
+									mealTime_array[5]
+								)
+								const arrivalTime_array = datetime_regex.exec(arrivalTime)
+								const arrivalTime_date = new Date(
+									arrivalTime_array[3],
+									arrivalTime_array[2],
+									arrivalTime_array[1],
+									arrivalTime_array[4],
+									arrivalTime_array[5]
+								)
+								const departureTime_array = datetime_regex.exec(departureTime)
+								const departureTime_date = new Date(
+									departureTime_array[3],
+									departureTime_array[2],
+									departureTime_array[1],
+									departureTime_array[4],
+									departureTime_array[5]
+								)
+
+								return (
+									mealTime_date.toLocaleString() >
+										arrivalTime_date.toLocaleString() &&
+									mealTime_date.toLocaleString() <
+										departureTime_date.toLocaleString()
+								)
+							})
 							.map(item => ({
 								...item,
 								discount_category:
@@ -98,8 +131,7 @@ const request = {
 					result.push({ ...item })
 				}
 			})
-			state.meals = result
-			console.log(result)
+			state.meals = result.filter(meal => meal.reservations.length)
 		},
 		removeAllMeals(state) {
 			state.meals = []

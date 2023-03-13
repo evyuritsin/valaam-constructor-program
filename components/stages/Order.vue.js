@@ -460,7 +460,9 @@ const Order = {
 						method: 'post',
 						dataType: 'json',
 						data: { data: JSON.stringify({ ...this.requestData }) },
-						success: data => data,
+						success: data => {
+							console.log(data)
+						},
 					})
 				}
 			}, 0)

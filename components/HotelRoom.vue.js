@@ -96,7 +96,6 @@ const HotelRoom = {
 		},
 	},
 	mounted() {
-		console.log(Swiper)
 		const swiper = new Swiper('.placement-item__gallery', {
 			loop: true,
 			navigation: {

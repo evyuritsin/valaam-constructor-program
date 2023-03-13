@@ -1,22 +1,20 @@
 {
 	"order": {
 		"tour_id": null,
-		"total_amount": 17330,
+		"total_amount": 13110,
 		"tours_prices_payments_types": [1, 4]
 	},
 	"ships": [
 		{
 			"ship_schedule_id": 1,
 			"reservations": [
-				{ "date": "13.03.2023", "discount_category": 1, "amount": "1400.00" },
-				{ "date": "13.03.2023", "discount_category": 1, "amount": "1400.00" }
+				{ "date": "15.03.2023", "discount_category": 1, "amount": "1400.00" }
 			]
 		},
 		{
-			"ship_schedule_id": 4,
+			"ship_schedule_id": 2,
 			"reservations": [
-				{ "date": "14.03.2023", "discount_category": 1, "amount": "1150.00" },
-				{ "date": "14.03.2023", "discount_category": 1, "amount": "1150.00" }
+				{ "date": "16.03.2023", "discount_category": 1, "amount": "1400.00" }
 			]
 		}
 	],
@@ -24,8 +22,8 @@
 		{
 			"room_schedule_id": 12,
 			"reservations": [
-				{ "date": "13.03.2023", "amount": 2560, "available": 300 },
-				{ "date": "14.03.2023", "amount": 2560, "available": 300 }
+				{ "date": "15.03.2023", "amount": 2560, "available": 299 },
+				{ "date": "16.03.2023", "amount": 2560, "available": 299 }
 			]
 		}
 	],
@@ -33,47 +31,74 @@
 		{
 			"excursion_schedule_id": 2,
 			"reservations": [
-				{
-					"date": { "date": "14.03.2023", "amount": 1400 },
-					"discount_category": 1
-				},
-				{
-					"date": { "date": "14.03.2023", "amount": 1400 },
-					"discount_category": 1
-				}
+				{ "date": "16.03.2023", "amount": 1400, "discount_category": 1 }
 			]
 		},
 		{
-			"excursion_schedule_id": 8,
+			"excursion_schedule_id": 7,
 			"reservations": [
-				{
-					"date": { "date": "14.03.2023", "amount": 950 },
-					"discount_category": 1
-				}
+				{ "date": "15.03.2023", "amount": 950, "discount_category": 1 }
 			]
 		}
 	],
 	"services": [],
 	"meals": [
-		{ "meal_schedule_id": 1, "reservations": [] },
-		{ "meal_schedule_id": 5, "reservations": [] }
+		{
+			"meal_schedule_id": 1,
+			"reservations": [
+				{
+					"date": "16.03.2023",
+					"amount": 370,
+					"time": "08:00",
+					"discount_category": 1
+				}
+			]
+		},
+		{
+			"meal_schedule_id": 4,
+			"reservations": [
+				{
+					"date": "15.03.2023",
+					"amount": 580,
+					"time": "13:00",
+					"discount_category": 1
+				},
+				{
+					"date": "16.03.2023",
+					"amount": 580,
+					"time": "13:00",
+					"discount_category": 1
+				}
+			]
+		},
+		{
+			"meal_schedule_id": 5,
+			"reservations": [
+				{
+					"date": "15.03.2023",
+					"amount": 470,
+					"time": "19:00",
+					"discount_category": 1
+				}
+			]
+		}
 	],
 	"tourists": [
 		{
 			"id": 1,
 			"type": "Взрослый",
-			"firstname": "qwer",
-			"lastname": "qwer",
-			"patronymic": "qwer",
+			"firstname": "1234",
+			"lastname": "1234",
+			"patronymic": "1234",
 			"gender": "male",
-			"birth_date": "07.03.2023",
+			"birth_date": "09.03.2023",
 			"document": {
 				"type": "Паспорт РФ",
-				"id": "qwer",
-				"issued_by": "qwer",
-				"issue_date": "07.03.2023"
+				"id": "1234",
+				"issued_by": "1234",
+				"issue_date": "08.03.2023"
 			},
-			"phone": "qwer",
+			"phone": "1234",
 			"privilege": "",
 			"comment": "",
 			"email": "ghalumyantigran2001@gmail.com",
@@ -81,41 +106,21 @@
 			"isPilgrim": true,
 			"gender_id": 1,
 			"discount_category": 1
-		},
-		{
-			"id": 2,
-			"type": "Взрослый",
-			"firstname": "1234",
-			"lastname": "1234",
-			"patronymic": "1234",
-			"gender": "male",
-			"birth_date": "15.03.2023",
-			"document": {
-				"type": "Паспорт РФ",
-				"id": "1234",
-				"issued_by": "1234",
-				"issue_date": "07.03.2023"
-			},
-			"phone": "1234",
-			"privilege": "Студент",
-			"comment": "",
-			"gender_id": 1,
-			"discount_category": 1
 		}
 	],
 	"client": {
-		"firstname": "qwer",
-		"lastname": "qwer",
-		"patronymic": "qwer",
+		"firstname": "1234",
+		"lastname": "1234",
+		"patronymic": "1234",
 		"gender": "male",
-		"birth_date": "07.03.2023",
+		"birth_date": "09.03.2023",
 		"document": {
 			"type": "Паспорт РФ",
-			"id": "qwer",
-			"issued_by": "qwer",
-			"issue_date": "07.03.2023"
+			"id": "1234",
+			"issued_by": "1234",
+			"issue_date": "08.03.2023"
 		},
-		"phone": "qwer",
+		"phone": "1234",
 		"email": "ghalumyantigran2001@gmail.com",
 		"add": "",
 		"isPilgrim": true,

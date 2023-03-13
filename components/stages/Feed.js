@@ -203,8 +203,8 @@ const Feed = {
 			this.$store.commit('removeAllMeals')
 			this.$store.commit('setMeals', {
 				guests: this.guests,
-				arrivalTime: `${this.mainInfo.arrivalDate}, ${this.ships.there.time_end}`,
-				departureTime: `${this.mainInfo.departureDate}, ${this.ships.back.time_start}`,
+				arrivalTime: `${this.mainInfo.arrivalDate} ${this.ships.there.time_end}`,
+				departureTime: `${this.mainInfo.departureDate} ${this.ships.back.time_start}`,
 			})
 			this.$emit('clickToNext')
 		},
