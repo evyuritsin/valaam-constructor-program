@@ -1,113 +1,53 @@
 {
 	"order": {
 		"tour_id": null,
-		"total_amount": 36789,
-		"tours_prices_payments_types": []
+		"total_amount": 17330,
+		"tours_prices_payments_types": [1, 4]
 	},
 	"ships": [
 		{
-			"room_schedule_id": 1,
+			"ship_schedule_id": 1,
 			"reservations": [
-				{ "date": "01.03.2023", "discount_category": 1, "amount": "1400.00" },
-				{ "date": "01.03.2023", "discount_category": 1, "amount": "1400.00" },
-				{ "date": "01.03.2023", "discount_category": 3, "amount": "1400.00" }
+				{ "date": "13.03.2023", "discount_category": 1, "amount": "1400.00" },
+				{ "date": "13.03.2023", "discount_category": 1, "amount": "1400.00" }
 			]
 		},
 		{
-			"room_schedule_id": 4,
+			"ship_schedule_id": 4,
 			"reservations": [
-				{ "date": "03.03.2023", "discount_category": 1, "amount": "1150.00" },
-				{ "date": "03.03.2023", "discount_category": 1, "amount": "1150.00" },
-				{ "date": "03.03.2023", "discount_category": 3, "amount": "1150.00" }
+				{ "date": "14.03.2023", "discount_category": 1, "amount": "1150.00" },
+				{ "date": "14.03.2023", "discount_category": 1, "amount": "1150.00" }
 			]
 		}
 	],
 	"placements": [
 		{
-			"room_schedule_id": 49,
+			"room_schedule_id": 12,
 			"reservations": [
-				{
-					"date": "01.03.2023",
-					"amount": 1600,
-					"amounts": { "discount_category1": 1360, "discount_category2": 1120 },
-					"available": 100
-				},
-				{
-					"date": "02.03.2023",
-					"amount": 1600,
-					"amounts": { "discount_category1": 1360, "discount_category2": 1120 },
-					"available": 100
-				},
-				{
-					"date": "03.03.2023",
-					"amount": 1600,
-					"amounts": { "discount_category1": 1360, "discount_category2": 1120 },
-					"available": 100
-				}
+				{ "date": "13.03.2023", "amount": 2560, "available": 300 },
+				{ "date": "14.03.2023", "amount": 2560, "available": 300 }
 			]
 		}
 	],
 	"excursions": [
 		{
-			"excursion_schedule_id": 1,
-			"reservations": [
-				{ "date": "16.02.2023", "discount_category": 1, "amount": 150 }
-			]
-		},
-		{
-			"excursion_schedule_id": 3,
+			"excursion_schedule_id": 2,
 			"reservations": [
 				{
-					"date": {
-						"date": "03.03.2023",
-						"amounts": {
-							"discount_category1": 1275,
-							"discount_category2": 1050
-						},
-						"amount": 1500,
-						"available": 100
-					},
+					"date": { "date": "14.03.2023", "amount": 1400 },
 					"discount_category": 1
 				},
 				{
-					"date": {
-						"date": "03.03.2023",
-						"amounts": {
-							"discount_category1": 1275,
-							"discount_category2": 1050
-						},
-						"amount": 1500,
-						"available": 100
-					},
+					"date": { "date": "14.03.2023", "amount": 1400 },
 					"discount_category": 1
-				},
-				{
-					"date": {
-						"date": "03.03.2023",
-						"amounts": {
-							"discount_category1": 1275,
-							"discount_category2": 1050
-						},
-						"amount": 1500,
-						"available": 100
-					},
-					"discount_category": 2
 				}
 			]
 		},
 		{
-			"excursion_schedule_id": 10,
+			"excursion_schedule_id": 8,
 			"reservations": [
 				{
-					"date": {
-						"date": "02.03.2023",
-						"amounts": {
-							"discount_category1": 721.65,
-							"discount_category2": 594.3
-						},
-						"amount": 849,
-						"available": 100
-					},
+					"date": { "date": "14.03.2023", "amount": 950 },
 					"discount_category": 1
 				}
 			]
@@ -115,309 +55,28 @@
 	],
 	"services": [],
 	"meals": [
-		{
-			"meal_schedule_id": 1,
-			"reservations": [
-				{
-					"date": "01.03.2023",
-					"amount": 370,
-					"amounts": { "discount_category1": 314.5, "discount_category2": 259 },
-					"available": 100,
-					"discount_category": 1
-				},
-				{
-					"date": "02.03.2023",
-					"amount": 370,
-					"amounts": { "discount_category1": 314.5, "discount_category2": 259 },
-					"available": 100,
-					"discount_category": 1
-				},
-				{
-					"date": "03.03.2023",
-					"amount": 370,
-					"amounts": { "discount_category1": 314.5, "discount_category2": 259 },
-					"available": 100,
-					"discount_category": 1
-				}
-			]
-		},
-		{
-			"meal_schedule_id": 4,
-			"reservations": [
-				{
-					"date": "01.03.2023",
-					"amount": 580,
-					"amounts": { "discount_category1": 493, "discount_category2": 406 },
-					"available": 100,
-					"discount_category": 1
-				},
-				{
-					"date": "02.03.2023",
-					"amount": 580,
-					"amounts": { "discount_category1": 493, "discount_category2": 406 },
-					"available": 100,
-					"discount_category": 1
-				},
-				{
-					"date": "03.03.2023",
-					"amount": 580,
-					"amounts": { "discount_category1": 493, "discount_category2": 406 },
-					"available": 100,
-					"discount_category": 1
-				}
-			]
-		},
-		{
-			"meal_schedule_id": 6,
-			"reservations": [
-				{
-					"date": "01.03.2023",
-					"amount": 290,
-					"amounts": { "discount_category1": 246.5, "discount_category2": 203 },
-					"available": 100,
-					"discount_category": 1
-				},
-				{
-					"date": "02.03.2023",
-					"amount": 290,
-					"amounts": { "discount_category1": 246.5, "discount_category2": 203 },
-					"available": 100,
-					"discount_category": 1
-				},
-				{
-					"date": "03.03.2023",
-					"amount": 290,
-					"amounts": { "discount_category1": 246.5, "discount_category2": 203 },
-					"available": 100,
-					"discount_category": 1
-				}
-			]
-		},
-		{
-			"meal_schedule_id": 7,
-			"reservations": [
-				{
-					"date": "01.03.2023",
-					"amount": 450,
-					"amounts": { "discount_category1": 382.5, "discount_category2": 315 },
-					"available": 100,
-					"discount_category": 1
-				},
-				{
-					"date": "02.03.2023",
-					"amount": 450,
-					"amounts": { "discount_category1": 382.5, "discount_category2": 315 },
-					"available": 100,
-					"discount_category": 1
-				},
-				{
-					"date": "03.03.2023",
-					"amount": 450,
-					"amounts": { "discount_category1": 382.5, "discount_category2": 315 },
-					"available": 100,
-					"discount_category": 1
-				}
-			]
-		},
-		{
-			"meal_schedule_id": 8,
-			"reservations": [
-				{
-					"date": "01.03.2023",
-					"amount": 390,
-					"amounts": { "discount_category1": 331.5, "discount_category2": 273 },
-					"available": 100,
-					"discount_category": 1
-				},
-				{
-					"date": "02.03.2023",
-					"amount": 390,
-					"amounts": { "discount_category1": 331.5, "discount_category2": 273 },
-					"available": 100,
-					"discount_category": 1
-				},
-				{
-					"date": "03.03.2023",
-					"amount": 390,
-					"amounts": { "discount_category1": 331.5, "discount_category2": 273 },
-					"available": 100,
-					"discount_category": 1
-				}
-			]
-		},
-		{
-			"meal_schedule_id": 9,
-			"reservations": [
-				{
-					"date": "01.03.2023",
-					"amount": 240,
-					"amounts": { "discount_category1": 204, "discount_category2": 168 },
-					"available": 100,
-					"discount_category": 3
-				},
-				{
-					"date": "02.03.2023",
-					"amount": 240,
-					"amounts": { "discount_category1": 204, "discount_category2": 168 },
-					"available": 100,
-					"discount_category": 3
-				},
-				{
-					"date": "03.03.2023",
-					"amount": 240,
-					"amounts": { "discount_category1": 204, "discount_category2": 168 },
-					"available": 100,
-					"discount_category": 3
-				}
-			]
-		},
-		{
-			"meal_schedule_id": 10,
-			"reservations": [
-				{
-					"date": "01.03.2023",
-					"amount": 440,
-					"amounts": { "discount_category1": 374, "discount_category2": 308 },
-					"available": 100,
-					"discount_category": 3
-				},
-				{
-					"date": "02.03.2023",
-					"amount": 440,
-					"amounts": { "discount_category1": 374, "discount_category2": 308 },
-					"available": 100,
-					"discount_category": 3
-				},
-				{
-					"date": "03.03.2023",
-					"amount": 440,
-					"amounts": { "discount_category1": 374, "discount_category2": 308 },
-					"available": 100,
-					"discount_category": 3
-				}
-			]
-		},
-		{
-			"meal_schedule_id": 11,
-			"reservations": [
-				{
-					"date": "01.03.2023",
-					"amount": 370,
-					"amounts": { "discount_category1": 314.5, "discount_category2": 259 },
-					"available": 100,
-					"discount_category": 3
-				},
-				{
-					"date": "02.03.2023",
-					"amount": 370,
-					"amounts": { "discount_category1": 314.5, "discount_category2": 259 },
-					"available": 100,
-					"discount_category": 3
-				},
-				{
-					"date": "03.03.2023",
-					"amount": 370,
-					"amounts": { "discount_category1": 314.5, "discount_category2": 259 },
-					"available": 100,
-					"discount_category": 3
-				}
-			]
-		}
+		{ "meal_schedule_id": 1, "reservations": [] },
+		{ "meal_schedule_id": 5, "reservations": [] }
 	],
 	"tourists": [
 		{
 			"id": 1,
 			"type": "Взрослый",
-			"feed": {
-				"graph": { "id": 2, "title": "Завтрак + Обед", "mealsId": [1, 2] },
-				"type": {
-					"id": 1,
-					"title": "Основное меню",
-					"description": "Основное меню"
-				},
-				"schedules": [
-					{
-						"meal_schedule_id": 1,
-						"reservations": [
-							{
-								"date": "01.03.2023",
-								"amount": 370,
-								"amounts": {
-									"discount_category1": 314.5,
-									"discount_category2": 259
-								},
-								"available": 100
-							},
-							{
-								"date": "02.03.2023",
-								"amount": 370,
-								"amounts": {
-									"discount_category1": 314.5,
-									"discount_category2": 259
-								},
-								"available": 100
-							},
-							{
-								"date": "03.03.2023",
-								"amount": 370,
-								"amounts": {
-									"discount_category1": 314.5,
-									"discount_category2": 259
-								},
-								"available": 100
-							}
-						]
-					},
-					{
-						"meal_schedule_id": 4,
-						"reservations": [
-							{
-								"date": "01.03.2023",
-								"amount": 580,
-								"amounts": {
-									"discount_category1": 493,
-									"discount_category2": 406
-								},
-								"available": 100
-							},
-							{
-								"date": "02.03.2023",
-								"amount": 580,
-								"amounts": {
-									"discount_category1": 493,
-									"discount_category2": 406
-								},
-								"available": 100
-							},
-							{
-								"date": "03.03.2023",
-								"amount": 580,
-								"amounts": {
-									"discount_category1": 493,
-									"discount_category2": 406
-								},
-								"available": 100
-							}
-						]
-					}
-				]
-			},
-			"firstname": "Иван",
-			"lastname": "Иванов",
-			"patronymic": "Иваныч",
+			"firstname": "qwer",
+			"lastname": "qwer",
+			"patronymic": "qwer",
 			"gender": "male",
-			"birthdaydate": "16.11.2022",
+			"birth_date": "07.03.2023",
 			"document": {
 				"type": "Паспорт РФ",
-				"id": "123123123",
-				"issued_by": "кем то",
+				"id": "qwer",
+				"issued_by": "qwer",
 				"issue_date": "07.03.2023"
 			},
-			"phone": "12312312",
+			"phone": "qwer",
 			"privilege": "",
 			"comment": "",
-			"lastName": "",
-			"email": "mail@mail.ru",
+			"email": "ghalumyantigran2001@gmail.com",
 			"add": "",
 			"isPilgrim": true,
 			"gender_id": 1,
@@ -426,281 +85,40 @@
 		{
 			"id": 2,
 			"type": "Взрослый",
-			"feed": {
-				"graph": {
-					"id": 5,
-					"title": "Завтрак + Обед + Ужин",
-					"mealsId": [1, 2, 4]
-				},
-				"type": {
-					"id": 2,
-					"title": "Постное меню",
-					"description": "Постное меню"
-				},
-				"schedules": [
-					{
-						"meal_schedule_id": 6,
-						"reservations": [
-							{
-								"date": "01.03.2023",
-								"amount": 290,
-								"amounts": {
-									"discount_category1": 246.5,
-									"discount_category2": 203
-								},
-								"available": 100
-							},
-							{
-								"date": "02.03.2023",
-								"amount": 290,
-								"amounts": {
-									"discount_category1": 246.5,
-									"discount_category2": 203
-								},
-								"available": 100
-							},
-							{
-								"date": "03.03.2023",
-								"amount": 290,
-								"amounts": {
-									"discount_category1": 246.5,
-									"discount_category2": 203
-								},
-								"available": 100
-							}
-						]
-					},
-					{
-						"meal_schedule_id": 7,
-						"reservations": [
-							{
-								"date": "01.03.2023",
-								"amount": 450,
-								"amounts": {
-									"discount_category1": 382.5,
-									"discount_category2": 315
-								},
-								"available": 100
-							},
-							{
-								"date": "02.03.2023",
-								"amount": 450,
-								"amounts": {
-									"discount_category1": 382.5,
-									"discount_category2": 315
-								},
-								"available": 100
-							},
-							{
-								"date": "03.03.2023",
-								"amount": 450,
-								"amounts": {
-									"discount_category1": 382.5,
-									"discount_category2": 315
-								},
-								"available": 100
-							}
-						]
-					},
-					{
-						"meal_schedule_id": 8,
-						"reservations": [
-							{
-								"date": "01.03.2023",
-								"amount": 390,
-								"amounts": {
-									"discount_category1": 331.5,
-									"discount_category2": 273
-								},
-								"available": 100
-							},
-							{
-								"date": "02.03.2023",
-								"amount": 390,
-								"amounts": {
-									"discount_category1": 331.5,
-									"discount_category2": 273
-								},
-								"available": 100
-							},
-							{
-								"date": "03.03.2023",
-								"amount": 390,
-								"amounts": {
-									"discount_category1": 331.5,
-									"discount_category2": 273
-								},
-								"available": 100
-							}
-						]
-					}
-				]
-			},
-			"firstname": "Киса",
-			"lastname": "Киса",
-			"patronymic": "Кисовна",
-			"gender": "female",
-			"birthdaydate": "08.03.2023",
-			"document": {
-				"type": "Паспорт РФ",
-				"id": "12312123",
-				"issued_by": "фывафыва",
-				"issue_date": "01.03.2023"
-			},
-			"phone": "123123",
-			"privilege": "",
-			"comment": "",
-			"gender_id": 2,
-			"discount_category": 1
-		},
-		{
-			"id": 3,
-			"type": "Ребенок 7-12",
-			"feed": {
-				"graph": {
-					"id": 5,
-					"title": "Завтрак + Обед + Ужин",
-					"mealsId": [1, 2, 4]
-				},
-				"type": {
-					"id": 3,
-					"title": "Детское меню",
-					"description": "Детское меню"
-				},
-				"schedules": [
-					{
-						"meal_schedule_id": 9,
-						"reservations": [
-							{
-								"date": "01.03.2023",
-								"amount": 240,
-								"amounts": {
-									"discount_category1": 204,
-									"discount_category2": 168
-								},
-								"available": 100
-							},
-							{
-								"date": "02.03.2023",
-								"amount": 240,
-								"amounts": {
-									"discount_category1": 204,
-									"discount_category2": 168
-								},
-								"available": 100
-							},
-							{
-								"date": "03.03.2023",
-								"amount": 240,
-								"amounts": {
-									"discount_category1": 204,
-									"discount_category2": 168
-								},
-								"available": 100
-							}
-						]
-					},
-					{
-						"meal_schedule_id": 10,
-						"reservations": [
-							{
-								"date": "01.03.2023",
-								"amount": 440,
-								"amounts": {
-									"discount_category1": 374,
-									"discount_category2": 308
-								},
-								"available": 100
-							},
-							{
-								"date": "02.03.2023",
-								"amount": 440,
-								"amounts": {
-									"discount_category1": 374,
-									"discount_category2": 308
-								},
-								"available": 100
-							},
-							{
-								"date": "03.03.2023",
-								"amount": 440,
-								"amounts": {
-									"discount_category1": 374,
-									"discount_category2": 308
-								},
-								"available": 100
-							}
-						]
-					},
-					{
-						"meal_schedule_id": 11,
-						"reservations": [
-							{
-								"date": "01.03.2023",
-								"amount": 370,
-								"amounts": {
-									"discount_category1": 314.5,
-									"discount_category2": 259
-								},
-								"available": 100
-							},
-							{
-								"date": "02.03.2023",
-								"amount": 370,
-								"amounts": {
-									"discount_category1": 314.5,
-									"discount_category2": 259
-								},
-								"available": 100
-							},
-							{
-								"date": "03.03.2023",
-								"amount": 370,
-								"amounts": {
-									"discount_category1": 314.5,
-									"discount_category2": 259
-								},
-								"available": 100
-							}
-						]
-					}
-				]
-			},
-			"firstname": "Ребенок",
-			"lastname": "Ребенок",
-			"patronymic": "ребенкович",
+			"firstname": "1234",
+			"lastname": "1234",
+			"patronymic": "1234",
 			"gender": "male",
-			"birthdaydate": "01.03.2023",
+			"birth_date": "15.03.2023",
 			"document": {
 				"type": "Паспорт РФ",
-				"id": "123123",
-				"issued_by": "123123123123",
-				"issue_date": "01.03.2023"
+				"id": "1234",
+				"issued_by": "1234",
+				"issue_date": "07.03.2023"
 			},
-			"phone": "123123123",
-			"privilege": "Инвалид",
+			"phone": "1234",
+			"privilege": "Студент",
 			"comment": "",
 			"gender_id": 1,
-			"discount_category": 3
+			"discount_category": 1
 		}
 	],
 	"client": {
-		"firstname": "Иван",
-		"lastName": "",
-		"patronymic": "Иваныч",
+		"firstname": "qwer",
+		"lastname": "qwer",
+		"patronymic": "qwer",
 		"gender": "male",
-		"birthdaydate": "16.11.2022",
+		"birth_date": "07.03.2023",
 		"document": {
 			"type": "Паспорт РФ",
-			"id": "123123123",
-			"issued_by": "кем то",
+			"id": "qwer",
+			"issued_by": "qwer",
 			"issue_date": "07.03.2023"
 		},
-		"phone": "12312312",
-		"email": "mail@mail.ru",
+		"phone": "qwer",
+		"email": "ghalumyantigran2001@gmail.com",
 		"add": "",
 		"isPilgrim": true,
-		"lastname": "Иванов",
 		"gender_id": 1
 	}
 }

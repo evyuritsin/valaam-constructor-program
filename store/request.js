@@ -43,15 +43,13 @@ const request = {
 		},
 		addExcursion(state, action) {
 			const reservationsAdults = [...Array(action.tourist.adults)].map(i => ({
-				date: action.date,
+				...action.date,
 				discount_category: 1,
-				amount: action.amount,
 			}))
 			const reservationsChildren = [...Array(action.tourist.children)].map(
 				i => ({
-					date: action.date,
+					...action.date,
 					discount_category: 2,
-					amount: action.amount,
 				})
 			)
 
