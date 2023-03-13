@@ -460,8 +460,8 @@ const Order = {
 						method: 'post',
 						dataType: 'json',
 						data: { data: JSON.stringify({ ...this.requestData }) },
-						success: data => {
-							console.log(data)
+						success: ({ data }) => {
+							window.location.href = data.formUrl
 						},
 					})
 				}
