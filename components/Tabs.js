@@ -35,21 +35,18 @@ const Tabs = {
 													/>
 													<Datepicker v-if="isDepartureDate" @close="closeDepartureDate" @selectDate="setDepartureDate" />
 												</div>
-												<div class="search__col flex-2" >
+												<div class="search__col flex-2 relative" >
 													<label for="" class="search__filter-name"
 														>Количество человек</label
 													>
 													<input
 														type="text"
 														class="search__filter icon_count"
-														showmodal="count-list"
-														:value="info.peopleAmount"														
+														v-model='info.peopleAmount'
+														@click.stop="openGuestspicker"
 														readonly
-														@focus="e => peopleAmountOnFocus(e)"
-														ref="input3"
-														inputobj="65663"
 													/>
-													<Peoplepicker :click="onClickPeoplepicker"/>
+													<Guestspicker v-if="isGuestspicker" @close='closeGuestspicker' @setGuests="setGuests"/>
 												</div>
 												<div class="search__col flex-2 relative"  >
 													<label for="" class="search__filter-name"
@@ -85,21 +82,18 @@ const Tabs = {
 													/>
 													<Datepicker v-if="isArrivalDate" @close="closeArrivalDate" @selectDate="setArrivalDate"/>
 												</div>
-												<div class="search__col flex-2" >
+												<div class="search__col flex-2 relative" >
 													<label for="" class="search__filter-name"
 														>Количество человек</label
 													>
 													<input
 														type="text"
 														class="search__filter icon_count"
-														ref="input6"
+														v-model='info.peopleAmount'
+														@click.stop="openGuestspicker"
 														readonly
-														:value="info.peopleAmount"
-														showmodal="count-list"
-														inputobj="65663"
-														@focus="e => peopleAmountOnFocus(e)"
 													/>
-													<Peoplepicker :click="onClickPeoplepicker"/>
+													<Guestspicker v-if="isGuestspicker" @close='closeGuestspicker' @setGuests="setGuests"/>
 												</div>
 												<div class="search__col flex-2 relative">
 													<label for="" class="search__filter-name"
@@ -132,6 +126,7 @@ const Tabs = {
 		loaded: false,
 		isCitypicker: false,
 		isArrivalDate: false,
+		isGuestspicker: false,
 		isDepartureDate: false,
 	}),
 	methods: {
@@ -140,11 +135,9 @@ const Tabs = {
 		},
 		onClickToMultiDay() {
 			this.info.multiDay = true
-			$('.popup__blocked').click()
 		},
 		onClickToSingleDay() {
 			this.info.multiDay = false
-			$('.popup__blocked').click()
 		},
 		arrivalDateOnClick(e) {
 			this.info.arrivalDate = e.target.value
@@ -199,6 +192,15 @@ const Tabs = {
 				this.info.arrivalDate = date
 			}
 		},
+		openGuestspicker() {
+			this.isGuestspicker = true
+		},
+		closeGuestspicker() {
+			this.isGuestspicker = false
+		},
+		setGuests(string) {
+			this.info.peopleAmount = string
+		},
 		getLocateDate(date) {
 			const datetime_regex = /(\d\d)\.(\d\d)\.(\d\d\d\d)\s(\d\d):(\d\d)/
 
@@ -224,12 +226,13 @@ const Tabs = {
 			vm.closeCitypicker()
 			vm.closeDepartureDate()
 			vm.closeArrivalDate()
+			vm.closeGuestspicker()
 		})
 	},
 	components: {
 		Datepicker,
 		Citipicker,
-		Peoplepicker,
+		Guestspicker,
 	},
 	computed: {
 		peoples() {
@@ -265,6 +268,11 @@ const Tabs = {
 						...this.info,
 						guestsCount: this.guestsCount,
 					})
+					this.$store.commit(
+						'setDiscounts',
+						this.$store.getters['getData'].directory.other.discounts
+					)
+					this.$store.dispatch('getLowestAmount', { type: 'ships' })
 				}
 			},
 			deep: true,
@@ -292,6 +300,12 @@ const Tabs = {
 									: Object.keys(this.guestsObject)[i] === 'Дети от 0-6'
 									? 'Ребенок 0-6'
 									: 'Ребенок 7-12',
+							discount_category:
+								Object.keys(this.guestsObject)[i] === 'Взрослых'
+									? 1
+									: Object.keys(this.guestsObject)[i] === 'Дети от 0-6'
+									? 2
+									: 3,
 							feed: {
 								graph: 'default',
 								type: 'default',
@@ -309,7 +323,6 @@ const Tabs = {
 								issue_date: '',
 							},
 							phone: '',
-							privilege: '',
 							comment: '',
 						})
 						id++

@@ -511,7 +511,6 @@ const Order = {
 		TouristData,
 		TotalResult,
 		Documentspicker,
-		Privilegespicker,
 		Addpicker,
 		Datepicker,
 	},

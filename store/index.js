@@ -185,5 +185,6 @@ const store = createStore({
 	modules: {
 		getFetchRequests,
 		request,
+		discounts,
 	},
 })

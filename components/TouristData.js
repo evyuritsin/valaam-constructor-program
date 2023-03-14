@@ -96,15 +96,6 @@ const TouristData = {
 														name="telefon"
 													/>												
 												</div>
-												<div className="flex-1 relative" @click.stop="openPrivilegesPicker">
-													<input
-														type="text"
-														class="vp-input input__icon_right icon_arrowdown"
-														placeholder="Право на льготы"
-														v-model="guest.privilege"
-													/>
-													<Privilegespicker v-if="isPrivilegesOpen" @selectPrivilege="selectPrivilege" @close="closePrivilegesPicker"/>													
-												</div>
 												<div className="flex-1">
 													<input
 														type="text"
@@ -142,7 +133,6 @@ const TouristData = {
 		isIssueDate: false,
 	}),
 	components: {
-		Privilegespicker,
 		Datepicker,
 		Documentspicker,
 	},

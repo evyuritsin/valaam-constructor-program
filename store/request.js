@@ -32,8 +32,7 @@ const request = {
 		addShip(state, action) {
 			const reservations = action.guests.map(guest => ({
 				date: action.date,
-				discount_category:
-					guest.type === 'Взрослый' ? 1 : guest.type === 'Ребенок 7-12' ? 3 : 2,
+				discount_category: guest.discount_category,
 				amount: action.amount,
 			}))
 			state.ships.push({ ship_schedule_id: action.id, reservations })
@@ -108,12 +107,7 @@ const request = {
 							})
 							.map(item => ({
 								...item,
-								discount_category:
-									guest.type === 'Взрослый'
-										? 1
-										: guest.type === 'Ребенок 7-12'
-										? 3
-										: 2,
+								discount_category: guest.discount_category,
 							})),
 					})
 				})
