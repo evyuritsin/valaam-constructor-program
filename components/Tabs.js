@@ -251,10 +251,15 @@ const Tabs = {
 					this.$store.commit('setAlertSpan', 'Вы изменили данные')
 				}
 				if (
-					this.info.arrivalDate &&
-					this.info.departureDate &&
-					this.info.peopleAmount &&
-					this.info.departurePoint
+					(!this.info.multiDay &&
+						this.info.arrivalDate &&
+						this.info.peopleAmount &&
+						this.info.departurePoint) ||
+					(this.info.multiDay &&
+						this.info.arrivalDate &&
+						this.info.departureDate &&
+						this.info.peopleAmount &&
+						this.info.departurePoint)
 				) {
 					await this.$store.dispatch('fetchFirstStage', {
 						...this.info,
