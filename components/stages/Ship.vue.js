@@ -30,30 +30,69 @@ const Ship = {
 		},
 	},
 	methods: {
+		getLowestPrice(amount, id) {
+			return this.$store.getters['getLowestAmount']({
+				type: 'ships',
+				amount: amount,
+				discount_category_id: id,
+			})
+		},
 		clickToNextStage() {
 			if (!this.ships.there.id || !this.ships.back.id) {
 				return (this.alertSpan = 'Выберите теплоходы')
 			}
-			this.$store.commit('addShip', {
-				date: this.ships.there.prices[0].date,
-				id: this.ships.there.id,
-				amount: this.ships.there.prices[0].amount,
-				guests: this.guests,
-			})
-			this.$store.commit('addShip', {
-				date: this.ships.back.prices[this.ships.back.prices.length - 1].date,
-				id: this.ships.back.id,
-				amount:
-					this.ships.back.prices[this.ships.back.prices.length - 1].amount,
-				guests: this.guests,
-			})
 			this.$emit('clickToNext')
+			console.log(this.$store.getters['getRequest'])
 		},
 	},
 	mounted() {
 		this.$store.commit('setShipThere', { price: 0 })
 		this.$store.commit('setShipBack', { price: 0 })
-		this.$store.commit('removeAllShips')
+	},
+	watch: {
+		ships: {
+			handler() {
+				this.$store.commit('removeAllShips')
+
+				let therePrice
+				let backPrice
+
+				if (this.ships.there.prices) {
+					therePrice = this.ships.there.prices[0].amount
+				}
+				if (this.ships.back.prices) {
+					backPrice =
+						this.ships.back.prices[this.ships.back.prices.length - 1].amount
+				}
+
+				if (therePrice) {
+					this.$store.commit('addShip', {
+						date: this.ships.there.prices[0].date,
+						id: this.ships.there.id,
+						amounts: {
+							amount1: therePrice,
+							amount2: this.getLowestPrice(therePrice, 2),
+							amount3: this.getLowestPrice(therePrice, 3),
+						},
+						guests: this.guests,
+					})
+				}
+				if (backPrice) {
+					this.$store.commit('addShip', {
+						date: this.ships.back.prices[this.ships.back.prices.length - 1]
+							.date,
+						id: this.ships.back.id,
+						amounts: {
+							amount1: backPrice,
+							amount2: this.getLowestPrice(backPrice, 2),
+							amount3: this.getLowestPrice(backPrice, 3),
+						},
+						guests: this.guests,
+					})
+				}
+			},
+			deep: true,
+		},
 	},
 	components: {
 		ShipTimetable,

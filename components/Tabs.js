@@ -242,7 +242,10 @@ const Tabs = {
 			return this.$store.getters['getGuestsObject']
 		},
 		guestsCount() {
-			return this.$store.getters['getGuests'].length
+			return this.guests.length
+		},
+		guests() {
+			return this.$store.getters['getGuests']
 		},
 	},
 	watch: {
@@ -272,7 +275,6 @@ const Tabs = {
 						'setDiscounts',
 						this.$store.getters['getData'].directory.other.discounts
 					)
-					this.$store.dispatch('getLowestAmount', { type: 'ships' })
 				}
 			},
 			deep: true,

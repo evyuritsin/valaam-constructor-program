@@ -119,15 +119,15 @@ const AmountResult = {
 			return this.$store.getters['getShips']
 		},
 		shipsPrice() {
-			return (
-				this.ships.there.prices &&
-				this.ships.back.prices &&
-				(Number(this.ships.there.prices[0].amount) +
-					Number(
-						this.ships.back.prices[this.ships.back.prices.length - 1].amount
-					)) *
-					this.guests.length
-			)
+			const ships = this.$store.getters['getRequest'].ships
+			let result = 0
+
+			ships.forEach(ship => {
+				ship.reservations.forEach(item => {
+					result += Number(item.amount)
+				})
+			})
+			return result
 		},
 		guests() {
 			return this.$store.getters['getGuests']

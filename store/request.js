@@ -33,7 +33,7 @@ const request = {
 			const reservations = action.guests.map(guest => ({
 				date: action.date,
 				discount_category: guest.discount_category,
-				amount: action.amount,
+				amount: action.amounts[`amount${guest.discount_category}`],
 			}))
 			state.ships.push({ ship_schedule_id: action.id, reservations })
 		},
