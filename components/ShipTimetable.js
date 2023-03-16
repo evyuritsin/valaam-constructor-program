@@ -145,6 +145,12 @@ const ShipTimetable = {
 						},
 					})
 				}
+			} else {
+				if (this.direction === 'ОБРАТНО') {
+					this.$store.commit('setShipBack', { price: 0 })
+				} else {
+					this.$store.commit('setShipThere', { price: 0 })
+				}
 			}
 		},
 	},

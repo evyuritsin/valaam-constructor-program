@@ -212,15 +212,7 @@ const Feed = {
 			const guest = this.$store.getters.getGuestById(g.id)[0]
 			let result = 0
 			guest.feed.schedules.forEach(item => {
-				result += item.reservations.reduce(
-					(sum, r) =>
-						sum +
-						this.getLowestPrice({
-							amount: r.amount,
-							id: guest.discount_category,
-						}),
-					0
-				)
+				result += item.reservations.reduce((sum, r) => sum + r.amount, 0)
 			})
 			return result
 		},
@@ -237,6 +229,10 @@ const Feed = {
 							reservations: [
 								...meal.prices.map(price => ({
 									...price,
+									amount:
+										guest.discount_category !== 1 && meal.type_id === 1
+											? price.amount / 2
+											: price.amount,
 									time: this.meals.directory.meals[`meal${meal.meal_id}`].time,
 								})),
 							],

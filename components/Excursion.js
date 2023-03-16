@@ -75,7 +75,7 @@ const Excursion = {
 											<span class="find-list__price-value mt-40" v-else-if="selectDate">{{selectDate.amount * (tourist.adults + tourist.children)}} ₽</span>
 										</div>
 										<div class="find-list__footer-price">
-											<a :href="excursion.url" class="find-list__footer-link">Смотреть</a>
+											<a :href="excursion.url" class="find-list__footer-link" target="_blank">Смотреть</a>
 										</div>
 									</div>
 									<div class="excursion-list__duration">

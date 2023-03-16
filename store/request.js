@@ -51,9 +51,11 @@ const request = {
 			const reservationsChildren = [...Array(action.tourist.children)].map(
 				i => ({
 					...action.date,
+					price: action.date.price / 2,
 					discount_category: 2,
 				})
 			)
+			console.log(reservationsChildren)
 
 			state.excursions.push({
 				excursion_schedule_id: action.id,

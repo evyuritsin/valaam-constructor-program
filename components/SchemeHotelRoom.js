@@ -94,7 +94,7 @@ const SchemeHotelRoom = {
 			if (this.room.guests.adults === 0) return
 			if (
 				this.maxChildren712 > 0 &&
-				Number(this.room.directory.roomPlaces) - this.guestsInRoom >= 0
+				this.guestsInRoom < Number(this.room.directory.roomPlaces)
 			) {
 				this.room.guests.children712++
 			}
@@ -122,9 +122,9 @@ const SchemeHotelRoom = {
 			)
 		},
 		guestsInRoom() {
-			return Object.values(this.room.guests).reduce(
-				(sum, val) => (sum += val),
-				0
+			return (
+				Object.values(this.room.guests).reduce((sum, val) => (sum += val), 0) -
+				this.room.guests.children06
 			)
 		},
 		selectGuests() {

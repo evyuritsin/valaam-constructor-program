@@ -49,7 +49,7 @@ const HotelRoom = {
 	</div>
 	<div class="placement-item__prices">
 		<div class="placement-item__price-label">
-			Стоимость номера за ночь для взрослого
+			Стоимость номера за ночь {{room.per_person ? 'для взрослого' : ''}}
 		</div>
 		<div class="placement-item__price">
 			<span class="placement-item__value">{{room.prices[0].amount}}</span>
