@@ -5,6 +5,7 @@ const request = {
 				tour_id: null,
 				total_amount: 0,
 				tours_prices_payments_types: [1, 4],
+				payment_method: 1,
 			},
 			ships: [],
 			placements: [],

@@ -148,7 +148,6 @@ const Order = {
 								</div>
 								<div class="order-form__title">Данные туристов</div>
 								<TouristData v-for="(guest, index) in guests" :key="guest.id" :id="guest.id" :validationErrors="validationErrors" :index="index" />
-								<TotalResult />
 								<div class="order-form__title">Способ оплаты</div>
 								<div class="order-form__field pos-h">
 									<div class="order-form__group order-form__pay-group">
@@ -509,7 +508,6 @@ const Order = {
 	components: {
 		AmountResult,
 		TouristData,
-		TotalResult,
 		Documentspicker,
 		Addpicker,
 		Datepicker,

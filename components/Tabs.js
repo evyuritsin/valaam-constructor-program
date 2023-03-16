@@ -117,7 +117,7 @@ const Tabs = {
 	data: () => ({
 		info: {
 			multiDay: false,
-			arrivalDate: '04.03.2023',
+			arrivalDate: '',
 			departureDate: '',
 			peopleAmount: '',
 			departurePoint: '',
@@ -334,13 +334,6 @@ const Tabs = {
 					}
 				}
 				this.$store.commit('setGuests', [...result])
-			}
-		},
-		'info.multiDay'() {
-			if (!this.info.multiDay) {
-				this.info.departureDate = this.info.arrivalDate
-			} else {
-				this.info.departureDate = ''
 			}
 		},
 		guestsCount() {
