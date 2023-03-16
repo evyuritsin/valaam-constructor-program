@@ -76,9 +76,9 @@ const AmountResult = {
 								</div>
 								<div class="program-card__footer">
 									<div class="program-card__info">
-										<div class="program-card__item" v-if="mainInfo.multiDay && accommodationsPrice">
+										<div class="program-card__item" v-if="mainInfo.multiDay && placementsPrice">
 											<span class="program-card__label">Проживание:</span>
-											<span class="program-card__price"><b>{{accommodationsPrice}}</b> ₽</span>
+											<span class="program-card__price"><b>{{placementsPrice}}</b> ₽</span>
 										</div>
 										<div class="program-card__item" v-if="shipsPrice">
 											<span class="program-card__label">Теплоход:</span>
@@ -112,8 +112,17 @@ const AmountResult = {
 		hotelRooms() {
 			return this.$store.getters['getHotelRooms']
 		},
-		accommodationsPrice() {
-			return this.$store.getters['getAccommodationsPrice']
+		placementsPrice() {
+			let result = 0
+			const placements = this.$store.getters['getRequest'].placements
+
+			placements.forEach(place => {
+				result += place.reservations.reduce(
+					(sum, res) => (sum += res.amount),
+					0
+				)
+			})
+			return result
 		},
 		ships() {
 			return this.$store.getters['getShips']

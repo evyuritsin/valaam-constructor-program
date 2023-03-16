@@ -44,22 +44,23 @@ const Guestspicker = {
 			children06: 0,
 			children712: 0,
 		},
+		maxValue: 50,
 	}),
 	methods: {
 		addAdult() {
-			if (this.guests.adults < 6) this.guests.adults++
+			if (this.guests.adults < this.maxValue) this.guests.adults++
 		},
 		deleteAdult() {
 			if (this.guests.adults > 0) this.guests.adults--
 		},
 		addChildren06() {
-			if (this.guests.children06 < 6) this.guests.children06++
+			if (this.guests.children06 < this.maxValue) this.guests.children06++
 		},
 		deleteChildren06() {
 			if (this.guests.children06 > 0) this.guests.children06--
 		},
 		addChildren712() {
-			if (this.guests.children712 < 6) this.guests.children712++
+			if (this.guests.children712 < this.maxValue) this.guests.children712++
 		},
 		deleteChildren712() {
 			if (this.guests.children712 > 0) this.guests.children712--

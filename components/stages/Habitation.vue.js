@@ -39,12 +39,15 @@ const Habitation = {
 							</div>
 						</div>
 						<div class="list-grid" v-if="showHabitations">
-							<HotelRoom v-for="room in showingRooms" :key="room.id" :room="room.room" :directory="room.directory" :addRoom='addRoom' 				:allRooms="selectRooms" :hotel="activeHotel"/>
+							<HotelRoom v-for="room in showingRooms" :key="room.id" :room="room.room" :directory="room.directory" :addRoom='addRoom' 				:removeRoom="removeRoom" :allRooms="selectRooms" :hotel="activeHotel"/>
+						</div>
+						<div className="list pt-25" v-if="selectRooms.length">
+							<SchemeHotelRoom v-for="room in selectRooms" :key="room.id" :room="room"/>
 						</div>
 						<div class="program-designer__footer">
 							<AmountResult />
 						</div>
-						<span v-if="alertSpan" class="red show ml-auto mw-fit">{{alertSpan}}</span>
+						<span v-if="alertSpan" class="red show ml-auto mw-fit pt-10">{{alertSpan}}</span>
 						<div class="program-designer__nav">
 							<button class="vp-btn-inline mr-20" @click="clickToPervStage">Назад</button>
 							<button class="vp-btn" @click="clickToNextStage">Дальше</button>
@@ -56,7 +59,7 @@ const Habitation = {
 		selectRooms: [],
 		alertSpan: '',
 	}),
-	components: { HotelRoom, Tabs, AmountResult, Stages },
+	components: { HotelRoom, Tabs, AmountResult, Stages, SchemeHotelRoom },
 	computed: {
 		mainInfo() {
 			return this.$store.getters['getMainInfo']
@@ -84,37 +87,69 @@ const Habitation = {
 					}
 				})
 		},
+		guestsObject() {
+			return this.$store.getters['getGuestsObject']
+		},
+		maxAdults() {
+			return Number(this.guestsObject['Взрослых']) - this.selectGuests.adults
+		},
+		maxChildren06() {
+			return (
+				Number(this.guestsObject['Дети от 0-6']) - this.selectGuests.children06
+			)
+		},
+		maxChildren712() {
+			return (
+				Number(this.guestsObject['Дети 7-12 лет']) -
+				this.selectGuests.children712
+			)
+		},
+		guestsInRoom() {
+			return Object.values(this.room.guests).reduce(
+				(sum, val) => (sum += val),
+				0
+			)
+		},
+		selectGuests() {
+			return this.$store.getters['getSelectionGuestsInRoom']
+		},
 	},
 	methods: {
 		addRoom(room, directory) {
-			if (this.selectRooms.some(r => r.id === room.id)) {
-				this.selectRooms = this.selectRooms.filter(r => r.id !== room.id)
-			} else {
-				this.selectRooms.push({ ...room, directory })
-			}
+			this.selectRooms.push({
+				...room,
+				directory,
+				guests: { adults: 0, children06: 0, children712: 0 },
+				amount: 0,
+			})
+		},
+		removeRoom(room) {
+			this.$store.commit('setGuestsInRoom', {
+				adults: 0,
+				children06: 0,
+				children712: 0,
+			})
+			this.selectRooms = this.selectRooms.filter(r => r.id !== room.id)
+			this.selectRooms = this.selectRooms.map(room => ({
+				...room,
+				guests: {
+					adults: 0,
+					children06: 0,
+					children712: 0,
+				},
+			}))
 		},
 		clickToNextStage() {
 			if (!this.selectRooms.length && this.mainInfo.multiDay) {
 				return (this.alertSpan = 'Выберите комнату')
 			}
-			if (this.mainInfo.multiDay) {
-				if (!this.mainInfo.arrivalDate || !this.mainInfo.departureDate) {
-					return (this.alertSpan = 'Выберите дату')
-				}
-			} else {
-				if (!this.mainInfo.arrivalDate) {
-					return (this.alertSpan = 'Выберите дату')
-				}
+			if (
+				this.maxAdults > 0 ||
+				this.maxChildren06 > 0 ||
+				this.maxChildren06 > 0
+			) {
+				return (this.alertSpan = 'Размещены не все гости')
 			}
-			if (!this.mainInfo.peopleAmount) {
-				return (this.alertSpan = 'Выберите кол-во гостей')
-			}
-			if (!this.mainInfo.departurePoint) {
-				return (this.alertSpan = 'Выберите место отправления')
-			}
-			this.selectRooms.forEach(room => {
-				this.$store.commit('addPlacement', { id: room.id, prices: room.prices })
-			})
 			this.$emit('clickToNext')
 		},
 		clickToPervStage() {
@@ -144,8 +179,15 @@ const Habitation = {
 	watch: {
 		selectRooms: {
 			handler() {
+				this.alertSpan = ''
 				this.$store.commit('setHotelRooms', this.selectRooms)
-				this.$store.commit('setAlertSpan', '')
+				this.$store.commit('removeAllPlacements')
+				this.selectRooms.forEach(room => {
+					this.$store.commit('addPlacement', {
+						id: room.id,
+						prices: room.prices,
+					})
+				})
 			},
 			deep: true,
 		},
@@ -161,5 +203,10 @@ const Habitation = {
 	mounted() {
 		this.selectRooms = []
 		this.$store.commit('setHotelRooms', [])
+		this.$store.commit('setGuestsInRoom', {
+			adults: 0,
+			children06: 0,
+			children712: 0,
+		})
 	},
 }

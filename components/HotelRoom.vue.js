@@ -49,10 +49,10 @@ const HotelRoom = {
 	</div>
 	<div class="placement-item__prices">
 		<div class="placement-item__price-label">
-			Стоимость номера за весь период поездки
+			Стоимость номера за ночь для взрослого
 		</div>
 		<div class="placement-item__price">
-			<span class="placement-item__value">{{totalPrice}}</span>
+			<span class="placement-item__value">{{room.prices[0].amount}}</span>
 			₽
 		</div>
 	</div>
@@ -60,9 +60,14 @@ const HotelRoom = {
 		obj="habitation"
 		class="placement-item__btn"
 		:selectedOrder="isSelectRoom"
-		@click="addRoom(room, directory)"
+		@click="addOneRoom"
 	>
-		{{isSelectRoom ? 'ОТМЕНИТЬ' : 'ДОБАВИТЬ В ЗАЯВКУ'}}
+		<div v-if="isSelectRoom" @click.stop class="d-flex w-100 no-select">
+			<div @click="deleteOneRoom" class="w-100 text-center">-</div>
+			<label>{{count}}</label>
+			<div @click="addOneRoom" class="w-100 text-center">+</div>
+		</div>
+		<span v-else>ДОБАВИТЬ В ЗАЯВКУ</span>
 	</div>
 	<div class="placement-item__included" v-if="directory.roomFacilities.length">
 		<img
@@ -74,7 +79,18 @@ const HotelRoom = {
 	</div> 
 </div>
 `,
-	props: ['addRoom', 'room', 'directory', 'allRooms', 'hotel'],
+	props: ['addRoom', 'removeRoom', 'room', 'directory', 'allRooms', 'hotel'],
+	data: () => ({
+		count: 0,
+	}),
+	methods: {
+		addOneRoom() {
+			if (this.count < this.available) this.count++
+		},
+		deleteOneRoom() {
+			if (this.count > 0) this.count--
+		},
+	},
 	computed: {
 		isSelectRoom() {
 			return this.allRooms.some(r => r.id === this.room.id)
@@ -82,17 +98,12 @@ const HotelRoom = {
 		guestsAmount() {
 			return this.$store.getters['getGuests'].length
 		},
-		roomPrice() {
-			return this.room.prices.reduce((sum, price) => (sum += price.amount), 0)
-		},
-		totalPrice() {
-			if (this.room.per_person) {
-				return this.roomPrice * this.guestsAmount
-			}
-			return this.roomPrice
-		},
 		daysInTrip() {
 			return this.$store.getters['getDaysInTrip']
+		},
+		available() {
+			const availableArray = this.room.prices.map(({ available }) => available)
+			return Math.min(...availableArray)
 		},
 	},
 	mounted() {
@@ -104,5 +115,17 @@ const HotelRoom = {
 			},
 			effect: 'fade',
 		})
+	},
+	watch: {
+		count(newVal, oldVal) {
+			if (newVal > oldVal) {
+				this.addRoom(this.room, this.directory)
+			} else {
+				this.removeRoom(this.room)
+				for (let i = 0; i < newVal; i++) {
+					this.addRoom(this.room, this.directory)
+				}
+			}
+		},
 	},
 }

@@ -127,18 +127,24 @@ const ShipTimetable = {
 	},
 	watch: {
 		selectShip() {
-			if (this.direction === 'ОБРАТНО') {
-				this.$store.commit('setShipBack', {
-					...this.selectShip,
-					route: { ...this.getShipRoutesDirectory(this.selectShip.route_id) },
-					ship: { ...this.getShipDirectory(this.selectShip.prices[0].ship_id) },
-				})
-			} else {
-				this.$store.commit('setShipThere', {
-					...this.selectShip,
-					route: { ...this.getShipRoutesDirectory(this.selectShip.route_id) },
-					ship: { ...this.getShipDirectory(this.selectShip.prices[0].ship_id) },
-				})
+			if (this.selectShip.prices) {
+				if (this.direction === 'ОБРАТНО') {
+					this.$store.commit('setShipBack', {
+						...this.selectShip,
+						route: { ...this.getShipRoutesDirectory(this.selectShip.route_id) },
+						ship: {
+							...this.getShipDirectory(this.selectShip.prices[0].ship_id),
+						},
+					})
+				} else {
+					this.$store.commit('setShipThere', {
+						...this.selectShip,
+						route: { ...this.getShipRoutesDirectory(this.selectShip.route_id) },
+						ship: {
+							...this.getShipDirectory(this.selectShip.prices[0].ship_id),
+						},
+					})
+				}
 			}
 		},
 	},

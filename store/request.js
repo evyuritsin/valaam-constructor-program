@@ -20,7 +20,10 @@ const request = {
 			state.order.total_amount = action
 		},
 		addPlacement(state, action) {
-			const reservations = action.prices
+			const reservations = action.prices.map(price => ({
+				date: price.date,
+				amount: price.totalAmount,
+			}))
 			state.placements.push({
 				room_schedule_id: action.id,
 				reservations,

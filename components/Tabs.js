@@ -252,6 +252,9 @@ const Tabs = {
 		info: {
 			async handler(nV, oV) {
 				this.$store.commit('setMainInfo', { ...this.info })
+				this.$store.commit('setData', {})
+				this.$store.commit('setLoaded', false)
+
 				if (this.selectStage > 1) {
 					this.$emit('goToStage', 1)
 					this.$store.commit('setAlertSpan', 'Вы изменили данные')

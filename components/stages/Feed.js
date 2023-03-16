@@ -212,7 +212,15 @@ const Feed = {
 			const guest = this.$store.getters.getGuestById(g.id)[0]
 			let result = 0
 			guest.feed.schedules.forEach(item => {
-				result += item.reservations.reduce((sum, r) => sum + r.amount, 0)
+				result += item.reservations.reduce(
+					(sum, r) =>
+						sum +
+						this.getLowestPrice({
+							amount: r.amount,
+							id: guest.discount_category,
+						}),
+					0
+				)
 			})
 			return result
 		},
@@ -238,6 +246,13 @@ const Feed = {
 				})
 			}
 			return result
+		},
+		getLowestPrice(amount, id) {
+			return this.$store.getters['getLowestAmount']({
+				type: 'meals',
+				amount: amount,
+				discount_category_id: id,
+			})
 		},
 	},
 	watch: {

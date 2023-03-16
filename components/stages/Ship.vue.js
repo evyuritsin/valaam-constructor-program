@@ -7,7 +7,7 @@ const Ship = {
 						<div class="program-designer__footer">
 							<AmountResult />
 						</div>
-						<div v-if="alertSpan" class="red show ml-auto mw-fit">{{alertSpan}}</div>
+						<div v-if="alertSpan" class="red show ml-auto mw-fit pt-10">{{alertSpan}}</div>
 						<div class="program-designer__nav">
 							<button class="vp-btn" @click="clickToNextStage" :disabled="!loaded">Дальше</button>
 						</div>						
@@ -46,6 +46,7 @@ const Ship = {
 		},
 	},
 	mounted() {
+		this.$store.commit('removeAllShips')
 		this.$store.commit('setShipThere', { price: 0 })
 		this.$store.commit('setShipBack', { price: 0 })
 	},

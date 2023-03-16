@@ -4812,6 +4812,64 @@ select {
 	appearance: none;
 }
 
+/* new */
+.scheme-room {
+	display: flex;
+	background-color: #fff;
+	box-shadow: 0px 0px 20px rgba(5, 68, 88, 0.2);
+	border-radius: 20px;
+	width: 100%;
+	max-height: 300px;
+}
+
+.scheme-room__gallery {
+	border-radius: 20px 0 0 20px;
+	max-width: 35%;
+}
+
+.scheme-room .swiper {
+	margin-right: 0 !important;
+	margin-left: 0 !important;
+}
+
+.scheme-room__left {
+	display: flex;
+	flex-direction: column;
+	flex: 1;
+}
+
+.scheme-room__info {
+	padding: 20px 40px 0 40px;
+	width: 100%;
+	height: 90px;
+	font-style: normal;
+	font-weight: 700;
+	font-size: 24px;
+	color: #1d3054;
+}
+
+.scheme-room__scheme {
+	padding: 20px 40px 0 40px;
+	flex: 1;
+}
+
+.scheme-room__left .placement-item__prices {
+	padding: 20px 40px;
+	border-radius: 0 0 20px 0;
+}
+
+.text-center {
+	text-align: center;
+}
+
+.no-select {
+	-webkit-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+}
+/* new */
+
 @media screen and (max-width: 1200px) {
 	:root {
 		--width-page: calc(100% - 20px);

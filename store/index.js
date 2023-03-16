@@ -12,6 +12,11 @@ const store = createStore({
 			},
 			guests: [],
 			hotelRooms: [],
+			selectGuestsInRoom: {
+				adults: 0,
+				children06: 0,
+				children712: 0,
+			},
 			ships: {
 				there: { price: 0 },
 				back: { price: 0 },
@@ -50,6 +55,23 @@ const store = createStore({
 		//habitation
 		setHotelRooms(state, action) {
 			state.hotelRooms = action
+		},
+		setAdultsInRoom(state, action) {
+			state.selectGuestsInRoom.adults -= action.oldVal
+			state.selectGuestsInRoom.adults += action.newVal
+		},
+		setChildren06InRoom(state, action) {
+			state.selectGuestsInRoom.children06 -= action.oldVal
+			state.selectGuestsInRoom.children06 += action.newVal
+		},
+		setChildren712InRoom(state, action) {
+			state.selectGuestsInRoom.children712 -= action.oldVal
+			state.selectGuestsInRoom.children712 += action.newVal
+		},
+		setGuestsInRoom(state, action) {
+			state.selectGuestsInRoom = {
+				...action,
+			}
 		},
 		//ships
 		setShipThere(state, action) {
@@ -125,6 +147,9 @@ const store = createStore({
 				result += roomPrice
 			})
 			return result
+		},
+		getSelectionGuestsInRoom(state) {
+			return state.selectGuestsInRoom
 		},
 		//ships
 		getShips(state) {

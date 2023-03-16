@@ -65,7 +65,20 @@ const getFetchRequests = {
 				data: { data: JSON.stringify(formData) },
 				success: data => data,
 			})
-			commit('setData', data)
+
+			//remove last date for placements prices
+			const doneData = {
+				...data,
+				schedules: {
+					...data.schedules,
+					placements: data.schedules.placements.map(place => ({
+						...place,
+						prices: place.prices.splice(0, place.prices.length - 1),
+					})),
+				},
+			}
+
+			commit('setData', doneData)
 			commit('setLoaded', true)
 		},
 	},
