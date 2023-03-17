@@ -39,18 +39,13 @@ const Feed = {
 								<div
 									class="program-designer__calc-item program-designer_calc-header"
 								>
-									<div class="program-designer__calc-col">
 										<span class="program-designer__calc-title"
 											>Задать всем гостям</span
 										>
-									</div>
-									<div class="program-designer__calc-col">
 										<select class="custom-select custom-select__body" v-model="toAllFeed.type" @click="isPersonalMeals = false">
 											<option selected disabled hidden value="default">Тип меню</option>
 											<option class="custom-select__item" v-for="type in menuTypes" :key="type.id" :value="type">{{type.title}}</option>
 										</select>									
-									</div>
-									<div class="program-designer__calc-col">
 										<select class="custom-select custom-select__body" v-model="toAllFeed.graph" @click="isPersonalMeals = false">
 											<option selected disabled hidden value="default">График питания</option>
 											<option 
@@ -62,7 +57,6 @@ const Feed = {
 												{{item.title}}
 											</option>
 										</select>
-									</div>									
 									<div
 										class="program-designer__calc-col"
 										
@@ -74,18 +68,13 @@ const Feed = {
 									>Или задать каждому гостю:</span
 								>
 								<div class="program-designer__calc-item" v-for="(guest, i) in copyGuests" :key="guest.id">
-									<div class="program-designer__calc-col">
 										<span class="program-designer__calc-title"
 											>{{guest.id}}. {{guest.type}}</span
 										>
-									</div>
-									<div class="program-designer__calc-col" >
 										<select class="custom-select custom-select__body" v-model="guest.feed.type" @click="isPersonalMeals = true">
 											<option selected disabled hidden value="default">Тип меню</option>
 											<option class="custom-select__item" v-for="type in menuTypes" :key="type.id" :value="type">{{type.title}}</option>
 										</select>									
-									</div>
-									<div class="program-designer__calc-col">
 										<select class="custom-select custom-select__body" v-model="guest.feed.graph" @click="isPersonalMeals = true">
 											<option selected disabled hidden value="default">График питания</option>
 											<option 
@@ -97,7 +86,6 @@ const Feed = {
 												{{item.title}}
 											</option>
 										</select>
-									</div>
 									<div
 										class="program-designer__calc-col program-designer__calc-subtitle"
 									>

@@ -1,22 +1,8 @@
 const SchemeHotelRoom = {
 	template: /*html*/ `
 		<div className="scheme-room mb-25">
-			<div className="scheme-room__gallery slider-for swiper">
-				<div className="swiper-wrapper">
-					<img
-						v-for="image in room.directory.gallery"
-						:key="image"
-						:src="'http://valaamskiy-polomnik.directpr.beget.tech' + image"
-						alt="Hotel room image"
-						class="swiper-slide"
-					/>
-				</div>
-				<img src="../img/arrow_prev_slider.png" alt="btn prev" class="gallery__btn-prev" v-if="room.directory.gallery.length > 1">
-				<img src="../img/arrow_next_slider.png" alt="btn next" class="gallery__btn-next" v-if="room.directory.gallery.length > 1">
-			</div>
-			<div className="scheme-room__left">
 				<div className="scheme-room__info">
-					<span>{{room.directory.pagetitle}}</span>
+					<h4>{{room.directory.pagetitle}}</h4>
 				</div>
 				<div className="scheme-room__scheme">
 					<div class="popup__composition-list">

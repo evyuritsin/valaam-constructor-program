@@ -31,7 +31,7 @@ const ShipTimetable = {
 												<th class="ta-left">
 													<div class="find-list__date-item ml-0">
 														<div class="find-list__point find-list_green"></div>
-														<span class="find-list__date">{{100}}</span>
+														<span class="find-list__date">{{ships[index].prices[0].available}}</span>
 													</div>
 												</th>
 												<th class="fw-700">{{ships[index].prices[0].amount}} ₽</th>
@@ -52,7 +52,7 @@ const ShipTimetable = {
 												<th class="ta-left">
 													<div class="find-list__date-item ml-0">
 														<div class="find-list__point find-list_green"></div>
-														<span class="find-list__date">{{100}}</span>
+														<span class="find-list__date">{{ship.prices[0].available}}</span>
 													</div>
 												</th>
 												<th class="fw-700">{{ship.prices[0].amount}} ₽</th>
@@ -65,7 +65,38 @@ const ShipTimetable = {
 												</th>
 											</tr>
 										</tbody>
-									</table>		
+									</table>
+									<div class="direction-table-mobile">
+										<div className="direction-table-mobile__item" v-for="ship in ships" :key="ship.id">
+											<div className="direction-table-mobile__row">
+												<label>Отправление</label>
+												<span class="fw-700">{{ship.time_start}}</span>
+											</div>
+											<div className="direction-table-mobile__row">
+												<label>Прибытие</label>
+												<span class="fw-700">{{ship.time_end}}</span>
+											</div>
+											<div className="direction-table-mobile__row">
+												<label>Теплоход</label>
+												<span class="fw-700">{{getShipTitle(ship.prices[0].ship_id)}}</span>
+											</div>
+											<div className="direction-table-mobile__row">
+												<label>Наличие</label>
+												<span class="fw-700">{{ship.prices[0].available}}</span>
+											</div>
+											<div className="direction-table-mobile__row">
+												<label>Цена</label>
+												<span class="fw-700">{{ship.prices[0].amount}} ₽</span>
+											</div>
+											<div 
+													class="direction-table__select-ship text-center" 
+													@click.prevent="clickToSelectShip(ship)" 
+													:class="{'direction-table_select-ship-active' : ship.id === selectShip.id}"
+												>
+													{{ship.id === selectShip.id ? 'ВЫБРАНО' : 'ВЫБРАТЬ'}}
+												</div>
+										</div>
+									</div>		
 									<h2 v-if="!ships.length">На выбранную дату нет доступных теплоходов</h2>							
 									<button v-if="ships.length > 3" class="btn-more-show" @click="clickToShow">{{!showDetails ? 'Показать еще' : 'Скрыть'}}</button>
 								</div>

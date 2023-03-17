@@ -19,6 +19,23 @@ const Stages = {
 									<div v-else class="program-designer__stage-label">{{stage.name}}</div>
 								</div>
 							</div>
+							<div class="program-designer__stages_mobile pt-15">
+								<div 
+									class="program-designer__stages_mobile-item" 
+									:class='[stage.id < selectId ? "program-designer__stages_mobile-item_complete" : stage.id === selectId && "program-designer__stages_mobile-item_active"]' 
+									v-for="stage in stages" 
+									:key="stage.id"
+								>
+									<div 
+										class="program-designer__stages_mobile-item__id" 
+										v-if="stage.id >= selectId"
+									>
+										{{stage.id + '.'}}
+									</div>
+									<img v-else src="../img/icons-svg/completed.svg" alt="done icon" />
+									<span>{{stage.name}}</span>
+								</div>
+							</ol>
 							<h4 class="red" v-if="alertSpan">{{alertSpan}}</h4>
 							<h4 v-if="mainInfo.multiDay ? selectId === 4 : selectId === 2" class="green">Детям до 6 лет проход на любую экскурсию - бесплатно</h4>
 	`,
