@@ -59,17 +59,27 @@ const App = {
 			return this.$store.getters['getMainInfo']
 		},
 		sectionClass() {
-			return this.selectStage === 1
-				? 'program-designer-habitation'
-				: this.selectStage === 2
-				? 'program-designer-ship'
-				: this.selectStage === 3
-				? 'program-designer-feed'
-				: this.selectStage === 4
-				? 'program-designer-excursions'
-				: this.selectStage === 5
-				? 'program-designer-services'
-				: 'program-designer-order'
+			if (this.mainInfo.multiDay) {
+				return this.selectStage === 1
+					? 'program-designer-ship'
+					: this.selectStage === 2
+					? 'program-designer-habitation'
+					: this.selectStage === 3
+					? 'program-designer-feed'
+					: this.selectStage === 4
+					? 'program-designer-excursions'
+					: this.selectStage === 5
+					? 'program-designer-services'
+					: 'program-designer-order'
+			} else {
+				return this.selectStage === 1
+					? 'program-designer-ship'
+					: this.selectStage === 2
+					? 'program-designer-excursions'
+					: this.selectStage === 3
+					? 'program-designer-services'
+					: 'program-designer-order'
+			}
 		},
 	},
 	watch: {
