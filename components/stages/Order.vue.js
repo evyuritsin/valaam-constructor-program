@@ -473,13 +473,13 @@ const Order = {
 		// $('[name=telefon]').mask('+7 (999) 999 99 99')
 
 		//add logic to close picker on click to out of theme
-		console.log(authUser)
+		console.log(JSON.parse(authUser))
 		if (authUser.id) {
-			this.firstNameModel = authUser.firstname
-			this.middleNameModel = authUser.patronymic
-			this.lastNameModel = authUser.lastname
-			this.emailModel = authUser.email
-			this.phoneModel = authUser.phone
+			this.firstNameModel = JSON.parse(authUser).firstname
+			this.middleNameModel = JSON.parse(authUser).patronymic
+			this.lastNameModel = JSON.parse(authUser).lastname
+			this.emailModel = JSON.parse(authUser).email
+			this.phoneModel = JSON.parse(authUser).phone
 		}
 		const vm = this
 		document.addEventListener('click', function () {
