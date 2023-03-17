@@ -5530,11 +5530,6 @@ select {
 		padding-top: 10px;
 	}
 
-	.excursion-list__duration {
-		/* new */
-		width: auto;
-		/* new */
-	}
 	.find-programs__title {
 		font-size: 26px;
 		line-height: 36px;

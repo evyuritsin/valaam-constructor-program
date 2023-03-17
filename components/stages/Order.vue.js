@@ -473,6 +473,7 @@ const Order = {
 		// $('[name=telefon]').mask('+7 (999) 999 99 99')
 
 		//add logic to close picker on click to out of theme
+		сonsole.log(authUser)
 		const vm = this
 		document.addEventListener('click', function () {
 			vm.closeDocumentsPicker()
