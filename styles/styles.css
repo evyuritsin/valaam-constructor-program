@@ -5628,6 +5628,9 @@ select {
 	.pos-h {
 		flex-direction: column;
 	}
+	.program-designer-order .order-form__group.order-form__pay-group {
+		width: 100%;
+	}
 	/* new */
 	.search__col {
 		width: 100%;
