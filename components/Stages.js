@@ -35,8 +35,9 @@ const Stages = {
 									<img v-else src="../img/icons-svg/completed.svg" alt="done icon" />
 									<span>{{stage.name}}</span>
 								</div>
-							</ol>
+							</div>
 							<h4 class="red" v-if="alertSpan">{{alertSpan}}</h4>
+							<h4 v-if="mainInfo.multiDay ? selectId === 5 : selectId === 3" class="green">Услуги могут быть приобретены на острове по факту</h4>
 							<h4 v-if="mainInfo.multiDay ? selectId === 4 : selectId === 2" class="green">Детям до 6 лет проход на любую экскурсию - бесплатно</h4>
 	`,
 	data: () => ({
