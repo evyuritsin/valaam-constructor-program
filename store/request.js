@@ -4,8 +4,8 @@ const request = {
 			order: {
 				tour_id: null,
 				total_amount: 0,
-				tours_prices_payments_types: [1, 4],
-				payment_method: 1,
+				payment_type: null,
+				payment_category: null,
 			},
 			ships: [],
 			placements: [],
@@ -144,6 +144,12 @@ const request = {
 		},
 		setRequestClient(state, action) {
 			state.client = action
+		},
+		setSelectCategory(state, action) {
+			state.order.payment_category = action
+		},
+		setSelectType(state, action) {
+			state.order.payment_type = action
 		},
 	},
 	getters: {

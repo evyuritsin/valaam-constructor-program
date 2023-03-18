@@ -152,34 +152,23 @@ const Order = {
 								<div class="order-form__field pos-h">
 									<div class="order-form__group order-form__pay-group">
 										<div class="order-form__subtitle">Категория оплаты</div>
-										<div class="radiobox__label mt-20">
-											<input name="categorypay" type="radio" id="rb_standard" class="radiobox" />
-											<label for="rb_standard" class="radiobox__text">Стандартная</label>
+										<div class="radiobox__label mt-20" v-for="category in paymentsCategories" :key="category.id">
+											<input :value="category.id" v-model="selectCategory" name="categorypay" type="radio" id="rb_standard" class="radiobox" />
+											<label for="rb_standard" class="radiobox__text">{{category.title}}</label>
 										</div>
-							<!--  <div class="radiobox__label mt-20">
-											<input name="categorypay" type="radio" class="radiobox" />
-											<span class="radiobox__text">Пожертвование</span>
-										</div> -->
 										<div class="order-form__help mt-20">
 											<a href="#" class="order-form__help-link">Справка</a>
 										</div>
 									</div>
 									<div class="order-form__group order-form__pay-group">
 										<div class="order-form__subtitle">Тип платежа</div>
-										<div class="radiobox__label mt-20">
-											<input name="typepay" type="radio" id="rb_card" class="radiobox" />
-											<label for="rb_card" class="radiobox__text">Картой он-лайн</label>
+										<div class="radiobox__label mt-20" v-for="type in paymentsTypes" :key="type.id">
+											<input :value='type.id' v-model="selectType" name="typepay" type="radio" id="rb_card" class="radiobox" />
+											<label for="rb_card" class="radiobox__text">{{type.title}}</label>
 										</div>
-									<!-- 	<div class="radiobox__label mt-20">
-											<input name="typepay" type="radio" class="radiobox" />
-											<span class="radiobox__text">По счету</span>
-										</div>
-										<div class="radiobox__label mt-20">
-											<input name="typepay" type="radio" class="radiobox" />
-											<span class="radiobox__text">Наличными в офисе</span>
-										</div> -->
 									</div>
 								</div>
+								<span v-if="alertSpan" class="red show ml-auto mw-fit pt-10">{{alertSpan}}</span>
 								<div class="order-form__field_bottom">
 									<button class="vp-btn-inline" @click="clickToPervStage">Назад</button>
 										<div class="order-form__agreement">
@@ -207,6 +196,9 @@ const Order = {
 		validationErrors: false,
 		isBdDatepicker: false,
 		isIssueDate: false,
+		paymentsCategories: [],
+		paymentsTypes: [],
+		alertSpan: '',
 	}),
 	computed: {
 		guests() {
@@ -361,8 +353,27 @@ const Order = {
 					: (this.client.add = val)
 			},
 		},
+		directory() {
+			return this.$store.getters['getData'].directory
+		},
 		requestData() {
 			return this.$store.getters['getRequest']
+		},
+		selectCategory: {
+			get() {
+				this.requestData.order.payment_category
+			},
+			set(val) {
+				this.$store.commit('setSelectCategory', val)
+			},
+		},
+		selectType: {
+			get() {
+				this.requestData.order.payment_type
+			},
+			set(val) {
+				this.$store.commit('setSelectType', val)
+			},
 		},
 	},
 	methods: {
@@ -422,6 +433,8 @@ const Order = {
 		},
 		async clickToOrder() {
 			this.validationErrors = true
+			if (!this.selectCategory || !this.selectType)
+				return (this.alertSpan = 'Выберите тип и категорию оплаты')
 			setTimeout(async () => {
 				const invalidInputs = document.querySelectorAll('.vp-input_invalid')
 				if (invalidInputs.length) {
@@ -473,13 +486,38 @@ const Order = {
 		// $('[name=telefon]').mask('+7 (999) 999 99 99')
 
 		//add logic to close picker on click to out of theme
-		console.log(JSON.parse(authUser))
-		if (authUser.id) {
-			this.firstNameModel = JSON.parse(authUser).firstname
-			this.middleNameModel = JSON.parse(authUser).patronymic
-			this.lastNameModel = JSON.parse(authUser).lastname
-			this.emailModel = JSON.parse(authUser).email
-			this.phoneModel = JSON.parse(authUser).phone
+		let jsonAuthUser
+
+		this.paymentsTypes = Object.values(
+			this.directory.tours.prices_payments_types
+		).filter(type => type.id === 1)
+
+		this.paymentsCategories = Object.values(
+			this.directory.tours.prices_payments_categories
+		).filter(cat => cat.id === 2)
+
+		if (authUser) {
+			jsonAuthUser = JSON.parse(authUser)
+
+			if (jsonAuthUser.role_id === 3) {
+				this.paymentsTypes = Object.values(
+					this.directory.tours.prices_payments_types
+				).filter(type => type.id === 1 || type.id === 2)
+			}
+		}
+
+		if (jsonAuthUser.role_id === 3) {
+			this.paymentsCategories = Object.values(
+				this.directory.tours.prices_payments_categories
+			).filter(cat => cat.id === 1)
+		}
+
+		if (jsonAuthUser.id) {
+			this.firstNameModel = jsonAuthUser.firstname
+			this.middleNameModel = jsonAuthUser.patronymic
+			this.lastNameModel = jsonAuthUser.lastname
+			this.emailModel = jsonAuthUser.email
+			this.phoneModel = jsonAuthUser.phone
 		}
 		const vm = this
 		document.addEventListener('click', function () {
