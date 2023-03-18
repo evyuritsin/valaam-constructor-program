@@ -173,7 +173,7 @@ const Order = {
 									<button class="vp-btn-inline" @click="clickToPervStage">Назад</button>
 										<div class="order-form__agreement">
 											<div class="checkbox__label">
-												<input type="checkbox" class="checkbox" id="cb_agree" checked />
+												<input type="checkbox" class="checkbox" id="cb_agree" v-model="agreeWithTerms" />
 												<span class="checkbox__text"
 													>Я согласен с условиями передачи информации</span
 												>
@@ -198,6 +198,7 @@ const Order = {
 		isIssueDate: false,
 		paymentsCategories: [],
 		paymentsTypes: [],
+		agreeWithTerms: true,
 		alertSpan: '',
 	}),
 	computed: {
@@ -435,6 +436,8 @@ const Order = {
 			this.validationErrors = true
 			if (!this.selectCategory || !this.selectType)
 				return (this.alertSpan = 'Выберите тип и категорию оплаты')
+			if (!this.agreeWithTerms)
+				return (this.alertSpan = 'Согласитесь с правилами')
 			setTimeout(async () => {
 				const invalidInputs = document.querySelectorAll('.vp-input_invalid')
 				if (invalidInputs.length) {
