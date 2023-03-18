@@ -434,6 +434,7 @@ const Order = {
 		},
 		async clickToOrder() {
 			this.validationErrors = true
+			this.alertSpan = ''
 			if (!this.selectCategory || !this.selectType)
 				return (this.alertSpan = 'Выберите тип и категорию оплаты')
 			if (!this.agreeWithTerms)
