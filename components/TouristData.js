@@ -139,6 +139,14 @@ const TouristData = {
 		//add masks
 		// $('[name=passSN]').mask('9999 999999')
 		// $('[name=telefon]').mask('+7 (999) 999 99 99')
+
+		//add logic to close picker on click to out of theme
+		const vm = this
+		document.addEventListener('click', function () {
+			vm.closeDocumentsPicker()
+			vm.closeBdDatepicker()
+			vm.closeIssueDate()
+		})
 	},
 	methods: {
 		openDocumentsPicker() {
@@ -153,6 +161,12 @@ const TouristData = {
 		},
 		selectDoc(doc) {
 			this.guest.document.type = doc
+		},
+		closePrivilegesPicker() {
+			this.isPrivilegesOpen = false
+		},
+		selectPrivilege(p) {
+			this.guest.privilege = p
 		},
 		openBdDatepicker() {
 			if (this.isBdDatepicker) return (this.isBdDatepicker = false)
