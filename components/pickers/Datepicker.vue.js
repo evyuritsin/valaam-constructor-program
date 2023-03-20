@@ -1,6 +1,6 @@
 const Datepicker = {
 	template: /*html*/ `
-		<div class="popup popup__datepicker datepicker datepicker-lite w-100 absolute show">
+		<div class="popup popup__datepicker datepicker datepicker-lite w-100 absolute show" v-click-outside="() => $emit('close')">
 	<div class="datepicker__header bg-while" @click.stop>
 		<div class="datepicker_prev-btn datepicker-lite__prev-btn"></div>
 		<div class="datepicker__label">

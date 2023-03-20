@@ -842,7 +842,6 @@ option::after {
 	flex-direction: row;
 	justify-content: center;
 	align-items: center;
-	padding: 10px 20px;
 	box-sizing: border-box;
 	font-style: normal;
 	font-weight: 400;
@@ -5128,6 +5127,7 @@ select {
 	.program-card__footer {
 		width: auto;
 		gap: 10px;
+		border-radius: 0 0 10px 10px;
 	}
 	.program-card__info {
 		height: auto;
@@ -5670,6 +5670,13 @@ select {
 	/* new */
 	.index-form {
 		flex-direction: row;
+	}
+	.program-card__content {
+		padding: 20px 10px;
+	}
+
+	.program-card__labels {
+		grid-template-columns: 1fr;
 	}
 	/* new */
 }

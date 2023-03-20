@@ -163,6 +163,12 @@ const Tabs = {
 			}
 		},
 		openCitypicker() {
+			if (this.isCitypicker) return (this.isCitypicker = false)
+
+			this.isArrivalDate = false
+			this.isDepartureDate = false
+			this.isGuestspicker = false
+
 			if (this.loaded) this.isCitypicker = true
 		},
 		closeCitypicker() {
@@ -172,6 +178,12 @@ const Tabs = {
 			this.info.departurePoint = city
 		},
 		openDepartureDate() {
+			if (this.isDepartureDate) return (this.isDepartureDate = false)
+
+			this.isArrivalDate = false
+			this.isCitypicker = false
+			this.isGuestspicker = false
+
 			this.isDepartureDate = true
 		},
 		closeDepartureDate() {
@@ -182,6 +194,12 @@ const Tabs = {
 				this.info.departureDate = date
 		},
 		openArrivalDate() {
+			if (this.isArrivalDate) return (this.isArrivalDate = false)
+
+			this.isCitypicker = false
+			this.isDepartureDate = false
+			this.isGuestspicker = false
+
 			this.isArrivalDate = true
 		},
 		closeArrivalDate() {
@@ -193,6 +211,12 @@ const Tabs = {
 			}
 		},
 		openGuestspicker() {
+			if (this.isGuestspicker) return (this.isGuestspicker = false)
+
+			this.isArrivalDate = false
+			this.isDepartureDate = false
+			this.isCitypicker = false
+
 			this.isGuestspicker = true
 		},
 		closeGuestspicker() {
