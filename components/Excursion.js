@@ -25,9 +25,10 @@ const Excursion = {
 													:name="'excursionDate' + excursionData.excursion_id" 
 													:disabled="!tourist.adults && !tourist.children"
 													:value="item"
+													:id="excursionData.excursion_id + item.date"
 													v-model="selectDate"
 												/>
-												<span class="checkbox__text">{{dateFormatter(item.date)}}</span>
+												<label :for="excursionData.excursion_id + item.date" class="checkbox__text">{{dateFormatter(item.date)}}</label>
 											</div>
 											<div class="find-list__date-item" v-if="excursionData.prices.length > 6">
 												<span class="find-list__date-item-last"
