@@ -141,9 +141,9 @@ const Order = {
 									</div>
 								</div>
 								<div class="checkbox__label mt-10">
-									<input type="checkbox" class="checkbox" v-model="client.isPilgrim" />
-									<span class="checkbox__text"
-										>Заказчик является Паломником</span
+									<input id="isPilgrim" type="checkbox" class="checkbox" v-model="client.isPilgrim" />
+									<label for="isPilgrim" class="checkbox__text"
+										>Заказчик является Паломником</label
 									>
 								</div>
 								<div class="order-form__title">Данные туристов</div>
@@ -172,16 +172,16 @@ const Order = {
 								<div class="order-form__field_bottom">
 									<button class="vp-btn-inline" @click="clickToPervStage">Назад</button>
 										<div class="order-form__agreement">
-											<div class="checkbox__label">
+											<div class="checkbox__label w-fit">
 												<input type="checkbox" class="checkbox" id="cb_agree" v-model="agreeWithTerms" />
-												<span class="checkbox__text"
-													>Я согласен с условиями передачи информации</span
+												<label for="cb_agree" class="checkbox__text"
+													>Я согласен с условиями передачи информации</label
 												>
 											</div>
-											<div class="checkbox__label">
+											<div class="checkbox__label w-fit">
 												<input type="checkbox" id="cb_sub" class="checkbox" />
-												<span class="checkbox__text"
-													>Подписаться на рассылку новостей</span
+												<label for="cb_sub" class="checkbox__text"
+													>Подписаться на рассылку новостей</label
 												>
 											</div>
 										</div>

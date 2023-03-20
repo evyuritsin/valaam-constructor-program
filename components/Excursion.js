@@ -10,7 +10,7 @@ const Excursion = {
 										<div class="find-list__header">
 											<div class="find-list__col border-none">
 												<div class="find-list__title">
-													<a class="find-list__link" href="#">{{excursion.pagetitle}}</a>
+													<a class="find-list__link" :href="excursion.url">{{excursion.pagetitle}}</a>
 												</div>
 												<div class="find-list__desc mt-10">
 													{{excursion.introtext}}

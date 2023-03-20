@@ -1908,6 +1908,7 @@ option::after {
 	align-items: center;
 	padding: 0px;
 	width: 412px;
+	max-width: 100%;
 	height: 660px;
 	margin-top: 20px;
 	background-color: #fff;
@@ -5692,6 +5693,12 @@ select {
 	}
 	.list-grid {
 		grid-template-columns: repeat(auto-fill, 300px);
+	}
+
+	.program-designer__direction-title {
+		padding: 15px;
+		line-height: 40px;
+		height: auto;
 	}
 }
 
