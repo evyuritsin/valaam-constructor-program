@@ -1675,6 +1675,7 @@ option::after {
 	border-radius: 20px;
 	background-color: #fff;
 	box-shadow: 0px 0px 20px rgba(5, 68, 88, 0.2);
+	max-width: 100%;
 }
 .popular-list__header {
 	width: 100%;
@@ -2908,6 +2909,7 @@ option::after {
 	display: flex;
 	align-items: flex-start;
 	flex-direction: column;
+	gap: 10px;
 }
 
 .program-card__content {

@@ -146,15 +146,23 @@ const request = {
 			state.client = action
 		},
 		setSelectCategory(state, action) {
+			console.log(action)
 			state.order.payment_category = action
 		},
 		setSelectType(state, action) {
+			console.log(action)
 			state.order.payment_type = action
 		},
 	},
 	getters: {
 		getRequest(state) {
 			return state
+		},
+		getPaymentType(state) {
+			return state.order.payment_type
+		},
+		getPaymentCategory(state) {
+			return state.order.payment_category
 		},
 	},
 	actions: {},

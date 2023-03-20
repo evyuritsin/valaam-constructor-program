@@ -362,7 +362,7 @@ const Order = {
 		},
 		selectCategory: {
 			get() {
-				this.requestData.order.payment_category
+				return this.$store.getters['getPaymentCategory']
 			},
 			set(val) {
 				this.$store.commit('setSelectCategory', val)
@@ -370,7 +370,7 @@ const Order = {
 		},
 		selectType: {
 			get() {
-				this.requestData.order.payment_type
+				return this.$store.getters['getPaymentType']
 			},
 			set(val) {
 				this.$store.commit('setSelectType', val)
@@ -455,6 +455,7 @@ const Order = {
 		async clickToOrder() {
 			this.validationErrors = true
 			this.alertSpan = ''
+			console.log(this.selectType, this.selectCategory)
 			if (!this.selectCategory || !this.selectType)
 				return (this.alertSpan = 'Выберите тип и категорию оплаты')
 			if (!this.agreeWithTerms)
@@ -517,6 +518,8 @@ const Order = {
 			vm.closeBdDatepicker()
 			vm.closeIssueDate()
 		})
+
+		//detect auth user and autocomplete personal data inputs
 
 		let jsonAuthUser
 
