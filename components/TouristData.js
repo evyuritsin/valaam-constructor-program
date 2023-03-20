@@ -128,7 +128,6 @@ const TouristData = {
 	props: ['validationErrors', 'id', 'index'],
 	data: () => ({
 		isDocumentsOpen: false,
-		isPrivilegesOpen: false,
 		isBdDatepicker: false,
 		isIssueDate: false,
 	}),
@@ -140,18 +139,13 @@ const TouristData = {
 		//add masks
 		// $('[name=passSN]').mask('9999 999999')
 		// $('[name=telefon]').mask('+7 (999) 999 99 99')
-
-		//add logic to close picker on click to out of theme
-		const vm = this
-		document.addEventListener('click', function () {
-			vm.closeDocumentsPicker()
-			vm.closePrivilegesPicker()
-			vm.closeBdDatepicker()
-			vm.closeIssueDate()
-		})
 	},
 	methods: {
 		openDocumentsPicker() {
+			if (this.isDocumentsOpen) return (this.isDocumentsOpen = false)
+			this.isBdDatepicker = false
+			this.isIssueDate = false
+
 			this.isDocumentsOpen = true
 		},
 		closeDocumentsPicker() {
@@ -160,16 +154,11 @@ const TouristData = {
 		selectDoc(doc) {
 			this.guest.document.type = doc
 		},
-		openPrivilegesPicker() {
-			this.isPrivilegesOpen = true
-		},
-		closePrivilegesPicker() {
-			this.isPrivilegesOpen = false
-		},
-		selectPrivilege(p) {
-			this.guest.privilege = p
-		},
 		openBdDatepicker() {
+			if (this.isBdDatepicker) return (this.isBdDatepicker = false)
+			this.isDocumentsOpen = false
+			this.isIssueDate = false
+
 			this.isBdDatepicker = true
 		},
 		closeBdDatepicker() {
@@ -179,6 +168,10 @@ const TouristData = {
 			this.guest.birth_date = date
 		},
 		openIssueDate() {
+			if (this.isIssueDate) return (this.isIssueDate = false)
+			this.isDocumentsOpen = false
+			this.isBdDatepicker = false
+
 			this.isIssueDate = true
 		},
 		closeIssueDate() {

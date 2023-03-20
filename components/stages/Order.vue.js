@@ -379,6 +379,11 @@ const Order = {
 	},
 	methods: {
 		openDocumentsPicker() {
+			if (this.isDocumentsOpen) return (this.isDocumentsOpen = false)
+			this.isAddsOpen = false
+			this.isBdDatepicker = false
+			this.isIssueDate = false
+
 			this.isDocumentsOpen = true
 		},
 		closeDocumentsPicker() {
@@ -390,6 +395,11 @@ const Order = {
 				: (this.client.document.type = doc)
 		},
 		openAddsPicker() {
+			if (this.isAddsOpen) return (this.isAddsOpen = false)
+			this.isDocumentsOpen = false
+			this.isBdDatepicker = false
+			this.isIssueDate = false
+
 			this.isAddsOpen = true
 		},
 		closeAddsPicker() {
@@ -401,6 +411,11 @@ const Order = {
 				: (this.client.add = add)
 		},
 		openBdDatepicker() {
+			if (this.isBdDatepicker) return (this.isBdDatepicker = false)
+			this.isDocumentsOpen = false
+			this.isAddsOpen = false
+			this.isIssueDate = false
+
 			this.isBdDatepicker = true
 		},
 		closeBdDatepicker() {
@@ -412,6 +427,11 @@ const Order = {
 				: (this.client.birth_date = date)
 		},
 		openIssueDate() {
+			if (this.isIssueDate) return (this.isIssueDate = false)
+			this.isDocumentsOpen = false
+			this.isAddsOpen = false
+			this.isBdDatepicker = false
+
 			this.isIssueDate = true
 		},
 		closeIssueDate() {
@@ -489,7 +509,6 @@ const Order = {
 		// $('[name=passSN]').mask('9999 999999')
 		// $('[name=telefon]').mask('+7 (999) 999 99 99')
 
-		//add logic to close picker on click to out of theme
 		let jsonAuthUser
 
 		this.paymentsTypes = Object.values(
@@ -523,13 +542,6 @@ const Order = {
 			this.emailModel = jsonAuthUser.email
 			this.phoneModel = jsonAuthUser.phone
 		}
-		const vm = this
-		document.addEventListener('click', function () {
-			vm.closeDocumentsPicker()
-			vm.closeAddsPicker()
-			vm.closeBdDatepicker()
-			vm.closeIssueDate()
-		})
 	},
 	watch: {
 		'client.isPilgrim': {
