@@ -501,10 +501,10 @@ const Order = {
 	},
 	mounted() {
 		//add masks
-		$('[name=bdDate]').mask('99.99.9999')
-		$('[name=iDate]').mask('99.99.9999')
-		$('[name=passSN]').mask('9999 999999')
-		$('[name=telefon]').mask('+7 (999) 999 99 99')
+		$('[name=bdDate]').inputmask('99.99.9999')
+		$('[name=iDate]').inputmask('99.99.9999')
+		$('[name=passSN]').inputmask('9999 999999')
+		$('[name=telefon]').inputmask('+7 (999) 999 99 99')
 
 		const vm = this
 		$('[name=bdDate]').on('input', e => {
