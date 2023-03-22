@@ -34,11 +34,9 @@ const TouristData = {
 														class="vp-input flatpickr-input"
 														placeholder="Дата рождения*"
 														:class="{'vp-input_invalid' : !guest.birth_date && validationErrors}"		
-														readonly							
 														v-model="guest.birth_date"	
-														@click.stop="openBdDatepicker"				
+														:name="'bdDate' + guest.id"				
 													/>
-													<Datepicker v-if="isBdDatepicker" @selectDate="selectBirthday" @close="closeBdDatepicker"/>
 												</div>
 												<div className="relative flex-1" 	@click.stop="openDocumentsPicker">
 													<input 
@@ -57,7 +55,7 @@ const TouristData = {
 														class="vp-input flex-1"
 														v-model="guest.document.id"
 														placeholder="Паспорт серия/номер*"
-														name="passSN"
+														:name="'passSN' + guest.id"
 														:class="{'vp-input_invalid' : !guest.document.id && validationErrors}"															
 													/>
 												</div>
@@ -79,10 +77,8 @@ const TouristData = {
 														:class="{'vp-input_invalid' : !guest.document.issue_date && validationErrors}"															
 														placeholder="Дата выдачи*"
 														v-model="guest.document.issue_date"
-														@click.stop="openIssueDate"
-														readonly
+														name="'iDate' + guest.id"				
 													/>				
-													<Datepicker v-if="isIssueDate" @selectDate="selectIssueDate" @close="closeIssueDate"/>								
 												</div>
 											</div>
 											<div class="order-form__field-contact mt-20">
@@ -93,7 +89,7 @@ const TouristData = {
 														:class="{'vp-input_invalid' : !guest.phone && validationErrors}"															
 														v-model="guest.phone"
 														placeholder="Телефон*"
-														name="telefon"
+														:name="'telefon' + guest.id"
 													/>												
 												</div>
 												<div className="flex-1">
@@ -136,12 +132,28 @@ const TouristData = {
 		Documentspicker,
 	},
 	mounted() {
+		const guestId = this.guest.id
 		//add masks
-		// $('[name=passSN]').mask('9999 999999')
-		// $('[name=telefon]').mask('+7 (999) 999 99 99')
+		$(`[name=bdDate${guestId}]`).mask('99.99.9999')
+		$(`[name=iDate${guestId}]`).mask('99.99.9999')
+		$(`[name=passSN${guestId}]`).mask('9999 999999')
+		$(`[name=telefon${guestId}]`).mask('+7 (999) 999 99 99')
+
+		const vm = this
+		$(`[name=bdDate${guestId}]`).on('input', e => {
+			vm.guest.birth_date = e.target.value
+		})
+		$(`[name=iDate${guestId}]`).on('input', e => {
+			vm.guest.document.issue_date = e.target.value
+		})
+		$(`[name=passSN${guestId}]`).on('input', e => {
+			vm.guest.document.id = e.target.value
+		})
+		$(`[name=telefon${guestId}]`).on('input', e => {
+			vm.guest.phone = e.target.value
+		})
 
 		//add logic to close picker on click to out of theme
-		const vm = this
 		document.addEventListener('click', function () {
 			vm.closeDocumentsPicker()
 			vm.closeBdDatepicker()

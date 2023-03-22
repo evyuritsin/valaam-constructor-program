@@ -39,11 +39,9 @@ const Order = {
 														class="vp-input flatpickr-input"
 														v-model="birthdayDateModel"
 														placeholder="Дата рождения*"
-														@click.stop="openBdDatepicker"
+														name="bdDate"
 														:class="{'vp-input_invalid' : !birthdayDateModel && validationErrors}"		
-														readonly
 													/>
-													<Datepicker v-if="isBdDatepicker" @selectDate="selectBirthday" @close="closeBdDatepicker"/>
 												</div>
 												<div className="relative flex-1" 	@click.stop="openDocumentsPicker">
 													<input 
@@ -63,7 +61,6 @@ const Order = {
 														v-model="documentIdModel"
 														placeholder="Паспорт серия/номер*"
 														name="passSN"
-														v-mask="'####-##'"
 														:class="{'vp-input_invalid' : !documentIdModel && validationErrors}"															
 													/>
 												</div>
@@ -84,11 +81,9 @@ const Order = {
 														class="vp-input input-datedocp"
 														placeholder="Дата выдачи*"
 														v-model="documentIssueDateModel"
-														:class="{'vp-input_invalid' : !documentIssueDateModel && validationErrors}"						
-														readonly									
-														@click.stop="openIssueDate"
+														:class="{'vp-input_invalid' : !documentIssueDateModel && validationErrors}"		
+														name="iDate"				
 													/>									
-													<Datepicker v-if="isIssueDate" @selectDate="selectIssueDate" @close="closeIssueDate"/>			
 												</div>
 											</div>
 											<div class="order-form__field-contact mt-20">
@@ -104,7 +99,7 @@ const Order = {
 												</div>
 												<div className="flex-1">
 													<input
-														type="text"
+														type="email"
 														class="vp-input"
 														v-model="emailModel"
 														placeholder="E-mail*"
@@ -455,7 +450,6 @@ const Order = {
 		async clickToOrder() {
 			this.validationErrors = true
 			this.alertSpan = ''
-			console.log(this.selectType, this.selectCategory)
 			if (!this.selectCategory || !this.selectType)
 				return (this.alertSpan = 'Выберите тип и категорию оплаты')
 			if (!this.agreeWithTerms)
@@ -507,11 +501,26 @@ const Order = {
 	},
 	mounted() {
 		//add masks
-		// $('[name=passSN]').mask('9999 999999')
-		// $('[name=telefon]').mask('+7 (999) 999 99 99')
+		$('[name=bdDate]').mask('99.99.9999')
+		$('[name=iDate]').mask('99.99.9999')
+		$('[name=passSN]').mask('9999 999999')
+		$('[name=telefon]').mask('+7 (999) 999 99 99')
+
+		const vm = this
+		$('[name=bdDate]').on('input', e => {
+			vm.birthdayDateModel = e.target.value
+		})
+		$('[name=iDate]').on('input', e => {
+			vm.documentIssueDateModel = e.target.value
+		})
+		$('[name=passSN]').on('input', e => {
+			vm.documentIdModel = e.target.value
+		})
+		$('[name=telefon]').on('input', e => {
+			vm.phoneModel = e.target.value
+		})
 
 		//add logic to close picker on click to out of theme
-		const vm = this
 		document.addEventListener('click', function () {
 			vm.closeDocumentsPicker()
 			vm.closeAddsPicker()
@@ -521,39 +530,39 @@ const Order = {
 
 		//detect auth user and autocomplete personal data inputs
 
-		let jsonAuthUser
+		// let jsonAuthUser
 
-		this.paymentsTypes = Object.values(
-			this.directory.tours.prices_payments_types
-		).filter(type => type.id === 1)
+		// this.paymentsTypes = Object.values(
+		// 	this.directory.tours.prices_payments_types
+		// ).filter(type => type.id === 1)
 
-		this.paymentsCategories = Object.values(
-			this.directory.tours.prices_payments_categories
-		).filter(cat => cat.id === 2)
+		// this.paymentsCategories = Object.values(
+		// 	this.directory.tours.prices_payments_categories
+		// ).filter(cat => cat.id === 2)
 
-		if (authUser) {
-			jsonAuthUser = JSON.parse(authUser)
+		// if (authUser) {
+		// 	jsonAuthUser = JSON.parse(authUser)
 
-			if (jsonAuthUser.role_id === 3) {
-				this.paymentsTypes = Object.values(
-					this.directory.tours.prices_payments_types
-				).filter(type => type.id === 1 || type.id === 2)
-			}
-		}
+		// 	if (jsonAuthUser.role_id === 3) {
+		// 		this.paymentsTypes = Object.values(
+		// 			this.directory.tours.prices_payments_types
+		// 		).filter(type => type.id === 1 || type.id === 2)
+		// 	}
+		// }
 
-		if (jsonAuthUser.role_id === 3) {
-			this.paymentsCategories = Object.values(
-				this.directory.tours.prices_payments_categories
-			).filter(cat => cat.id === 1)
-		}
+		// if (jsonAuthUser.role_id === 3) {
+		// 	this.paymentsCategories = Object.values(
+		// 		this.directory.tours.prices_payments_categories
+		// 	).filter(cat => cat.id === 1)
+		// }
 
-		if (jsonAuthUser.id) {
-			this.firstNameModel = jsonAuthUser.firstname
-			this.middleNameModel = jsonAuthUser.patronymic
-			this.lastNameModel = jsonAuthUser.lastname
-			this.emailModel = jsonAuthUser.email
-			this.phoneModel = jsonAuthUser.phone
-		}
+		// if (jsonAuthUser.id) {
+		// 	this.firstNameModel = jsonAuthUser.firstname
+		// 	this.middleNameModel = jsonAuthUser.patronymic
+		// 	this.lastNameModel = jsonAuthUser.lastname
+		// 	this.emailModel = jsonAuthUser.email
+		// 	this.phoneModel = jsonAuthUser.phone
+		// }
 	},
 	watch: {
 		'client.isPilgrim': {
