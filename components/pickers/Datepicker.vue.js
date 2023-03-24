@@ -258,6 +258,9 @@ const Datepicker = {
 				Number(label.attr('year'))
 			)
 			$(this).closest('.datepicker').find('.datepicker__body').html(days)
+			$('.datepicker__date').click(e => {
+				vm.clickToDate(e)
+			})
 		})
 		$('.datepicker_next-btn').click(function (e) {
 			e.stopPropagation()
@@ -295,6 +298,9 @@ const Datepicker = {
 				Number(label.attr('year'))
 			)
 			$(this).closest('.datepicker').find('.datepicker__body').html(days)
+			$('.datepicker__date').click(e => {
+				vm.clickToDate(e)
+			})
 		})
 		$('body').on('click', '.datepicker_label', function () {
 			var target = $(this).closest('.datepicker__header')
@@ -309,7 +315,7 @@ const Datepicker = {
 				.removeClass('hide')
 				.addClass('showFlex')
 		})
-		$('.datepicker-date').click(e => {
+		$('.datepicker__date').click(e => {
 			this.clickToDate(e)
 		})
 	},
@@ -362,9 +368,7 @@ const Datepicker = {
 	}),
 	methods: {
 		clickToDate(e) {
-			const date = new Date(
-				e.target.attributes[2].name.slice(0, -1)
-			).toLocaleDateString()
+			const date = new Date(e.target.attributes[1].value).toLocaleDateString()
 
 			this.$emit('selectDate', date)
 			this.$emit('close')

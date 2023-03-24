@@ -206,7 +206,11 @@ const Tabs = {
 			this.isArrivalDate = false
 		},
 		setArrivalDate(date) {
-			if (this.getLocateDate(date) > new Date().toLocaleString()) {
+			if (
+				new Date(
+					`${date.split('.')[2]}-${date.split('.')[1]}-${date.split('.')[0]}`
+				) > new Date()
+			) {
 				this.info.arrivalDate = date
 			}
 		},
