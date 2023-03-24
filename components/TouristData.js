@@ -77,7 +77,7 @@ const TouristData = {
 														:class="{'vp-input_invalid' : !guest.document.issue_date && validationErrors}"															
 														placeholder="Дата выдачи*"
 														v-model="guest.document.issue_date"
-														name="'iDate' + guest.id"				
+														:name="'iDate' + guest.id"				
 													/>				
 												</div>
 											</div>

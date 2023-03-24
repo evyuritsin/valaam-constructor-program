@@ -313,7 +313,7 @@ const Order = {
 					? this.firstGuest.document.issue_date
 					: this.client.document.issue_date
 			},
-			set() {
+			set(val) {
 				this.client.isPilgrim
 					? (this.firstGuest.document.issue_date = val)
 					: (this.client.document.issue_date = val)

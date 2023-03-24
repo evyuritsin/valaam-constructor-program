@@ -1,40 +1,42 @@
 const Datepicker = {
 	template: /*html*/ `
-		<div class="popup popup__datepicker datepicker datepicker-lite w-100 absolute show">
-	<div class="datepicker__header bg-while" @click.stop>
-		<div class="datepicker_prev-btn datepicker-lite__prev-btn"></div>
-		<div class="datepicker__label">
-			<div
-				class="datepicker_label datepicker-lite__header-label"
-				month="2"
-				year="2023"
-			>
-				Март 2023
-			</div>
-			<div class="datepicker-lite__header-select hide" month="" year="">
-				<div class="datepicker-lite__header-select-items">
-					<div class="datepicker-lite__header-month">
-						<div class="datepicker-lite__header-item">Январь</div>
-						<div class="datepicker-lite__header-item">Февраль</div> 
-						<div class="datepicker-lite__header-item">Март</div>
-						<div class="datepicker-lite__header-item">Апрель</div>
-						<div class="datepicker-lite__header-item">Май</div>
-					</div>
-					<div class="datepicker-lite__header-year">
-						<div class="datepicker-lite__header-item">2015</div>
-						<div class="datepicker-lite__header-item">2016</div>
-						<div class="datepicker-lite__header-item">2017</div>
-						<div class="datepicker-lite__header-item">2018</div>
-						<div class="datepicker-lite__header-item">2019</div>
-					</div>
-				</div>
+		<div class="popup popup__datepicker datepicker datepicker-prog w-100 absolute show">
 
-				<button class="datepicker-lite__header-select-close">Закрыть</button>
+		<div class="datepicker__header bg-while" @click.stop>
+			<div class="datepicker_prev-btn datepicker-lite__prev-btn"></div>
+			<div class="datepicker__label">
+				<div
+					class="datepicker_label datepicker-lite__header-label"
+					month="2"
+					year="2023"
+				>
+					Март 2023
+				</div>
+				<div class="datepicker-lite__header-select hide" month="" year="">
+					<div class="datepicker-lite__header-select-items">
+						<div class="datepicker-lite__header-month">
+							<div class="datepicker-lite__header-item">Январь</div>
+							<div class="datepicker-lite__header-item">Февраль</div> 
+							<div class="datepicker-lite__header-item">Март</div>
+							<div class="datepicker-lite__header-item">Апрель</div>
+							<div class="datepicker-lite__header-item">Май</div>
+						</div>
+						<div class="datepicker-lite__header-year">
+							<div class="datepicker-lite__header-item">2015</div>
+							<div class="datepicker-lite__header-item">2016</div>
+							<div class="datepicker-lite__header-item">2017</div>
+							<div class="datepicker-lite__header-item">2018</div>
+							<div class="datepicker-lite__header-item">2019</div>
+						</div>
+					</div>
+
+					<button class="datepicker-lite__header-select-close">Закрыть</button>
+				</div>
 			</div>
+
+			<div class="datepicker_next-btn datepicker-lite__next-btn"></div>
 		</div>
 
-		<div class="datepicker_next-btn datepicker-lite__next-btn"></div>
-	</div>
 	<div class="datepicker__body border-none p-0" @click.stop>
 		<div
 			v-for="date in dates"
@@ -76,8 +78,15 @@ const Datepicker = {
 			}
 			return days
 		}
+
 		function getFullMonth(month, year) {
 			var dateList = getDaysInMonth(month, year)
+			var newDateF = []
+			dateList.forEach(function (elem, keyf) {
+				var arrDate = elem.split('.')
+				newDateF.push(arrDate[2] + '-' + arrDate[0] + '-' + arrDate[1])
+			})
+			dateList = newDateF
 			var firstDate = new Date(dateList[0])
 			var lastDate = new Date(dateList[dateList.length - 1])
 			var nDate = lastDate
@@ -98,7 +107,8 @@ const Datepicker = {
 						lDate[1] = fMonth
 					}
 					lDate[2] = nextDate.getFullYear()
-					dateList.push(lDate[1] + '.' + lDate[0] + '.' + lDate[2])
+					//dateList.push(lDate[1] + '.' + lDate[0] + '.' + lDate[2]);
+					dateList.push(lDate[2] + '-' + lDate[1] + '-' + lDate[0])
 					nDate = nextDate
 				}
 			}
@@ -120,7 +130,8 @@ const Datepicker = {
 						fDate[1] = fMonth
 					}
 					fDate[2] = prevDate.getFullYear()
-					dateList.unshift(fDate[1] + '.' + fDate[0] + '.' + fDate[2])
+					//dateList.unshift(fDate[1] + '.' + fDate[0] + '.' + fDate[2]);
+					dateList.unshift(fDate[2] + '-' + fDate[1] + '-' + fDate[0])
 					nDate = prevDate
 				}
 			} else {
@@ -140,25 +151,28 @@ const Datepicker = {
 						fDate[1] = fMonth
 					}
 					fDate[2] = prevDate.getFullYear()
-					dateList.unshift(fDate[1] + '.' + fDate[0] + '.' + fDate[2])
+					//dateList.unshift(fDate[1] + '.' + fDate[0] + '.' + fDate[2]);
+					dateList.unshift(fDate[2] + '-' + fDate[1] + '-' + fDate[0])
 					nDate = prevDate
 				}
 			}
 			var output = []
 			dateList.forEach(function (item, i, dateList) {
 				var cDate = new Date(item)
+				var parseDate = item.split('-')
+				var dataDate = parseDate[1] + '.' + parseDate[2] + '.' + parseDate[0]
 				if (cDate.getMonth() === month) {
 					output.push(
-						'<div class="datepicker-date" date=""' +
-							item +
-							'" @click="clickToDate(date.value)">' +
+						'<div class="datepicker__date" date="' +
+							dataDate +
+							'">' +
 							cDate.getDate() +
 							'</div>'
 					)
 				} else {
 					output.push(
-						'<div class="datepicker-date datepicker_another-month" @click="clickToDate(date.value)" date=""' +
-							item +
+						'<div class="datepicker__date datepicker_another-month" date="' +
+							dataDate +
 							'">' +
 							cDate.getDate() +
 							'</div>'
@@ -167,6 +181,7 @@ const Datepicker = {
 			})
 			return output.join('')
 		}
+
 		function getLabelCalendar(month, year) {
 			var label = $('.datepicker-lite').find('.datepicker_label')
 			var labelProg = $('.datepicker-prog').find('.datepicker_label')
@@ -185,7 +200,13 @@ const Datepicker = {
 				'Ноябрь',
 				'Декабрь',
 			]
-			label.text(months[month] + ' ' + String(year))
+			label.html(
+				'<span>' +
+					months[month] +
+					'</span>&nbsp;<span>' +
+					String(year) +
+					'</span>'
+			)
 			label.attr('month', month)
 			label.attr('year', year)
 			labelProg.text(months[month] + ' ' + String(year))
