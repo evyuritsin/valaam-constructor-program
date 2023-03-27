@@ -207,7 +207,7 @@ const Tabs = {
 		},
 		setArrivalDate(date) {
 			if (date > new Date()) {
-				this.info.arrivalDate = date.toLocaleString()
+				this.info.arrivalDate = date.toLocaleString().split(', ')[0]
 			}
 		},
 		openGuestspicker() {
