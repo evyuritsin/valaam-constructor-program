@@ -146,11 +146,9 @@ const request = {
 			state.client = action
 		},
 		setSelectCategory(state, action) {
-			console.log(action)
 			state.order.payment_category = action
 		},
 		setSelectType(state, action) {
-			console.log(action)
 			state.order.payment_type = action
 		},
 	},

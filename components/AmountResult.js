@@ -157,11 +157,17 @@ const AmountResult = {
 			return this.$store.getters['getExcursions']
 		},
 		excursionsPrice() {
-			return this.excursions.reduce(
-				(sum, v) =>
-					sum + Number(v.date.amount) * (v.tourist.adults + v.tourist.children),
-				0
-			)
+			const excursions = this.$store.getters['getRequest'].excursions
+			let result = 0
+			console.log(excursions)
+			excursions.forEach(excursion => {
+				result += excursion.reservations.reduce(
+					(sum, date) => (sum += date.amount),
+					0
+				)
+			})
+
+			return result
 		},
 		totalPrice() {
 			let result = 0
@@ -172,6 +178,14 @@ const AmountResult = {
 			if (this.servicesPrice) result += this.servicesPrice
 
 			return result
+		},
+	},
+	watch: {
+		totalPrice: {
+			handler() {
+				this.$store.commit('setTotalAmount', this.totalPrice)
+			},
+			deep: true,
 		},
 	},
 }
