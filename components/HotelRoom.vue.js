@@ -72,7 +72,7 @@ const HotelRoom = {
 	<div class="placement-item__included" v-if="directory.roomFacilities.length">
 		<img
 			v-for="item in directory.roomFacilities"
-			:src="'http://valaamskiy-polomnik.directpr.beget.tech' +  item.iconPath"
+			:src="'http://valaamskiy-polomnik.directpr.beget.tech' +  facilities[item]"
 			:alt="item.title"
 			class="placement-item__icon"
 		/>
@@ -104,6 +104,9 @@ const HotelRoom = {
 		available() {
 			const availableArray = this.room.prices.map(({ available }) => available)
 			return Math.min(...availableArray)
+		},
+		facilities() {
+			return this.$store.getters['getData'].directory.facilities
 		},
 	},
 	mounted() {
