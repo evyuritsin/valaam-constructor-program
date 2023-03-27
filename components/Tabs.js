@@ -190,8 +190,26 @@ const Tabs = {
 			this.isDepartureDate = false
 		},
 		setDepartureDate(date) {
-			if (date > this.getLocateDate(this.info.arrivalDate))
-				this.info.departureDate = date
+			const formateDate = date.toLocaleDateString().includes('/')
+				? date.toLocaleDateString().split('/').join('.')
+				: date.toLocaleDateString()
+
+			const dateArray = date.split('.').map(item => Number(item))
+			const arrivalDateArray = this.info.arrivalDate
+				.split('.')
+				.map(item => Number(item))
+			if (
+				new Date(dateArray[2], dateArray[1] - 1, dateArray[0], 0, 0, 0) >
+				new Date(
+					arrivalDateArray[2],
+					arrivalDateArray[1] - 1,
+					arrivalDateArray[0],
+					0,
+					0,
+					0
+				)
+			)
+				this.info.departureDate = formateDate
 		},
 		openArrivalDate() {
 			if (this.isArrivalDate) return (this.isArrivalDate = false)
@@ -207,7 +225,9 @@ const Tabs = {
 		},
 		setArrivalDate(date) {
 			if (date > new Date()) {
-				const formateDate = date.toLocaleDateString().replaceAll('/', '.')
+				const formateDate = date.toLocaleDateString().includes('/')
+					? date.toLocaleDateString().split('/').join('.')
+					: date.toLocaleDateString()
 				this.info.arrivalDate = formateDate
 			}
 		},
