@@ -106,7 +106,7 @@ const HotelRoom = {
 			return Math.min(...availableArray)
 		},
 		facilities() {
-			return this.$store.getters['getData'].directory.facilities
+			return this.$store.getters['getData'].directory.placements.facilities
 		},
 	},
 	mounted() {
