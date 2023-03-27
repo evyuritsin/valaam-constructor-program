@@ -194,12 +194,11 @@ const Tabs = {
 				? date.toLocaleDateString().split('/').join('.')
 				: date.toLocaleDateString()
 
-			const dateArray = date.split('.').map(item => Number(item))
 			const arrivalDateArray = this.info.arrivalDate
 				.split('.')
 				.map(item => Number(item))
 			if (
-				new Date(dateArray[2], dateArray[1] - 1, dateArray[0], 0, 0, 0) >
+				date >
 				new Date(
 					arrivalDateArray[2],
 					arrivalDateArray[1] - 1,
