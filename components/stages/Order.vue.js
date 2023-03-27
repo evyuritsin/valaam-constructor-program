@@ -75,7 +75,7 @@ const Order = {
 														:class="{'vp-input_invalid' : !documentIssuedByModel && validationErrors}"	
 													/>												
 												</div>
-												<div className="flex-1 relative">
+												<div className="flex-1">
 													<input
 														type="text"
 														class="vp-input input-datedocp"
@@ -83,6 +83,15 @@ const Order = {
 														v-model="documentIssueDateModel"
 														:class="{'vp-input_invalid' : !documentIssueDateModel && validationErrors}"		
 														name="iDate"				
+													/>									
+												</div>
+												<div className="flex-1">
+													<input
+														type="text"
+														class="vp-input"
+														placeholder="Адрес регистрации*"
+														v-model="addressModel"
+														:class="{'vp-input_invalid' : !addressModel && validationErrors}"		
 													/>									
 												</div>
 											</div>
@@ -319,6 +328,18 @@ const Order = {
 					: (this.client.document.issue_date = val)
 			},
 		},
+		addressModel: {
+			get() {
+				return this.client.isPilgrim
+					? this.firstGuest.address
+					: this.client.address
+			},
+			set(val) {
+				this.client.isPilgrim
+					? (this.firstGuest.address = val)
+					: (this.client.address = val)
+			},
+		},
 		phoneModel: {
 			get() {
 				return this.client.isPilgrim ? this.firstGuest.phone : this.client.phone
@@ -530,39 +551,39 @@ const Order = {
 
 		//detect auth user and autocomplete personal data inputs
 
-		let jsonAuthUser
+		// let jsonAuthUser
 
-		this.paymentsTypes = Object.values(
-			this.directory.tours.prices_payments_types
-		).filter(type => type.id === 1)
+		// this.paymentsTypes = Object.values(
+		// 	this.directory.tours.prices_payments_types
+		// ).filter(type => type.id === 1)
 
-		this.paymentsCategories = Object.values(
-			this.directory.tours.prices_payments_categories
-		).filter(cat => cat.id === 2)
+		// this.paymentsCategories = Object.values(
+		// 	this.directory.tours.prices_payments_categories
+		// ).filter(cat => cat.id === 2)
 
-		if (authUser) {
-			jsonAuthUser = JSON.parse(authUser)
+		// if (authUser) {
+		// 	jsonAuthUser = JSON.parse(authUser)
 
-			if (jsonAuthUser.role_id === 3) {
-				this.paymentsTypes = Object.values(
-					this.directory.tours.prices_payments_types
-				).filter(type => type.id === 1 || type.id === 2)
-			}
-		}
+		// 	if (jsonAuthUser.role_id === 3) {
+		// 		this.paymentsTypes = Object.values(
+		// 			this.directory.tours.prices_payments_types
+		// 		).filter(type => type.id === 1 || type.id === 2)
+		// 	}
+		// }
 
-		if (jsonAuthUser.role_id === 3) {
-			this.paymentsCategories = Object.values(
-				this.directory.tours.prices_payments_categories
-			).filter(cat => cat.id === 1)
-		}
+		// if (jsonAuthUser.role_id === 3) {
+		// 	this.paymentsCategories = Object.values(
+		// 		this.directory.tours.prices_payments_categories
+		// 	).filter(cat => cat.id === 1)
+		// }
 
-		if (jsonAuthUser.id) {
-			this.firstNameModel = jsonAuthUser.firstname
-			this.middleNameModel = jsonAuthUser.patronymic
-			this.lastNameModel = jsonAuthUser.lastname
-			this.emailModel = jsonAuthUser.email
-			this.phoneModel = jsonAuthUser.phone
-		}
+		// if (jsonAuthUser.id) {
+		// 	this.firstNameModel = jsonAuthUser.firstname
+		// 	this.middleNameModel = jsonAuthUser.patronymic
+		// 	this.lastNameModel = jsonAuthUser.lastname
+		// 	this.emailModel = jsonAuthUser.email
+		// 	this.phoneModel = jsonAuthUser.phone
+		// }
 	},
 	watch: {
 		'client.isPilgrim': {

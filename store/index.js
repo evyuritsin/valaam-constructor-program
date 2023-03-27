@@ -36,6 +36,7 @@ const store = createStore({
 					issued_by: '',
 					issue_date: '',
 				},
+				address: '',
 				phone: '',
 				email: '',
 				add: '',

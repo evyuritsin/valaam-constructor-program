@@ -355,6 +355,7 @@ const Tabs = {
 								issued_by: '',
 								issue_date: '',
 							},
+							address: '',
 							phone: '',
 							comment: '',
 						})

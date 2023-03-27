@@ -70,7 +70,7 @@ const TouristData = {
 														:class="{'vp-input_invalid' : !guest.document.issued_by && validationErrors}"															
 													/>												
 												</div>
-												<div className="flex-1 relative">
+												<div className="flex-1">
 													<input
 														type="text"
 														class="vp-input"
@@ -79,6 +79,15 @@ const TouristData = {
 														v-model="guest.document.issue_date"
 														:name="'iDate' + guest.id"				
 													/>				
+												</div>
+												<div className="flex-1">
+													<input
+														type="text"
+														class="vp-input"
+														placeholder="Адрес регистрации*"
+														v-model="guest.address"
+														:class="{'vp-input_invalid' : !guest.address && validationErrors}"		
+													/>									
 												</div>
 											</div>
 											<div class="order-form__field-contact mt-20">
