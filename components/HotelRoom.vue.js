@@ -72,8 +72,8 @@ const HotelRoom = {
 	<div class="placement-item__included" v-if="directory.roomFacilities.length">
 		<img
 			v-for="item in directory.roomFacilities"
-			:src="'http://valaamskiy-polomnik.directpr.beget.tech' +  facilities[item]"
-			:alt="item.title"
+			:src="'http://valaamskiy-polomnik.directpr.beget.tech' +  getFacility(item).icon"
+			:alt="getFacility(item).title"
 			class="placement-item__icon"
 		/>
 	</div> 
@@ -89,6 +89,9 @@ const HotelRoom = {
 		},
 		deleteOneRoom() {
 			if (this.count > 0) this.count--
+		},
+		getFacility(id) {
+			return this.facilities[`facility${id}`]
 		},
 	},
 	computed: {
