@@ -370,6 +370,7 @@ const Datepicker = {
 		clickToDate(e) {
 			const date = new Date(e.target.attributes[1].value).toLocaleDateString()
 
+			alert(date)
 			this.$emit('selectDate', date)
 			this.$emit('close')
 		},
