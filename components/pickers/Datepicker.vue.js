@@ -372,14 +372,7 @@ const Datepicker = {
 			const month = Number(e.target.attributes[1].value.split('.')[0])
 			const date = Number(e.target.attributes[1].value.split('.')[1])
 
-			const selectDate = new Date(
-				year,
-				month,
-				date,
-				0,
-				0,
-				0
-			).toLocaleDateString()
+			const selectDate = new Date(year, month, date, 0, 0, 0)
 
 			this.$emit('selectDate', selectDate)
 			this.$emit('close')

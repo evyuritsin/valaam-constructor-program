@@ -190,7 +190,7 @@ const Tabs = {
 			this.isDepartureDate = false
 		},
 		setDepartureDate(date) {
-			if (this.getLocateDate(date) > this.getLocateDate(this.info.arrivalDate))
+			if (date > this.getLocateDate(this.info.arrivalDate))
 				this.info.departureDate = date
 		},
 		openArrivalDate() {
@@ -206,12 +206,8 @@ const Tabs = {
 			this.isArrivalDate = false
 		},
 		setArrivalDate(date) {
-			if (
-				new Date(
-					`${date.split('.')[2]}-${date.split('.')[1]}-${date.split('.')[0]}`
-				) > new Date()
-			) {
-				this.info.arrivalDate = date
+			if (date > new Date()) {
+				this.info.arrivalDate = date.toLocaleString()
 			}
 		},
 		openGuestspicker() {
