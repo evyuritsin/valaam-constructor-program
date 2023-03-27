@@ -368,10 +368,16 @@ const Datepicker = {
 	}),
 	methods: {
 		clickToDate(e) {
-			const date = new Date(e.target.attributes[1].value).toLocaleDateString()
+			const year = e.target.attributes[1].value.split('.')[2]
+			const month = e.target.attributes[1].value.split('.')[0]
+			const date = e.target.attributes[1].value.split('.')[1]
 
-			alert(date)
-			this.$emit('selectDate', date)
+			const selectDate = new Date(
+				`${year}-${month}-${date} 23:59:59'`
+			).toLocaleDateString()
+
+			alert(selectDate)
+			this.$emit('selectDate', selectDate)
 			this.$emit('close')
 		},
 	},
