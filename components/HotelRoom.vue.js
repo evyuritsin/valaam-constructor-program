@@ -3,13 +3,9 @@ const HotelRoom = {
 <div class="placement-item" :class="[isSelectRoom && 'hotel-room_selected']" >
 	<div class="placement-item__gallery slider-for swiper">
 		<div className="swiper-wrapper">
-			<img
-				v-for="image in directory.gallery"
-				:key="image"
-				:src="'http://valaamskiy-polomnik.directpr.beget.tech' + image"
-				alt="Hotel room image"
-				class="placement-item__gallery-item swiper-slide"
-			/>
+			<div className="placement-item__gallery-item swiper-slide" v-for="image in directory.gallery"
+				:key="image" :style="{'background-image': url('http://valaamskiy-polomnik.directpr.beget.tech' + image)}"></div>
+
 		</div>
 		<img src="../img/arrow_prev_slider.png" alt="btn prev" class="gallery__btn-prev" v-if="directory.gallery.length > 1">
 		<img src="../img/arrow_next_slider.png" alt="btn next" class="gallery__btn-next" v-if="directory.gallery.length > 1">
