@@ -4,7 +4,7 @@ const HotelRoom = {
 	<div class="placement-item__gallery slider-for swiper">
 		<div className="swiper-wrapper">
 			<div className="placement-item__gallery-item swiper-slide" v-for="image in directory.gallery"
-				:key="image" :style="{'background-image': url('http://valaamskiy-polomnik.directpr.beget.tech' + image)}"></div>
+				:key="image" :style="{'background-image': 'url(http://valaamskiy-polomnik.directpr.beget.tech' + image + ')'}"></div>
 
 		</div>
 		<img src="../img/arrow_prev_slider.png" alt="btn prev" class="gallery__btn-prev" v-if="directory.gallery.length > 1">
