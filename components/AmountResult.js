@@ -117,10 +117,12 @@ const AmountResult = {
 			const placements = this.$store.getters['getRequest'].placements
 
 			placements.forEach(place => {
-				result += place.reservations.reduce(
-					(sum, res) => (sum += res.amount),
-					0
-				)
+				if (place.reservations) {
+					result += place.reservations.reduce(
+						(sum, res) => (sum += res.amount),
+						0
+					)
+				}
 			})
 			return result
 		},

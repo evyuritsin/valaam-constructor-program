@@ -1,6 +1,6 @@
 const Excursion = {
 	template: /*html*/ `
-								<div class="find-list find-list_details">
+								<div class="find-list">
 									<img
 										class="find-list__img"
 										:src="'http://valaamskiy-polomnik.directpr.beget.tech' + excursion.gallery[0]"

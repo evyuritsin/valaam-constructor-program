@@ -5,12 +5,12 @@ const Habitation = {
 								{{hotels.length ? 'Выберите понравившийся Вам вариант размещения' : 'Нет свободных номеров в выбранные даты'}}
 							</div>
 							<div class="list">
-								<div class="find-list find-list_details" v-for="hotel in hotels" :key="hotel.id">
+								<div class="find-list" v-for="hotel in hotels" :key="hotel.id">
 									<div className="find-list__img find-list__img_bg" :style="{'background-image': 'url(http://valaamskiy-polomnik.directpr.beget.tech' + hotel.gallery[0] + ')'}">
 									</div>
 									<div class="find-list__content">
 										<div class="find-list__header">
-											<div class="find-list__col border-none">
+											<div class="find-list__col flex-1 border-none">
 												<div class="find-list__title">
 													<a class="find-list__link" href="#"
 														>{{hotel.pagetitle}}</a
