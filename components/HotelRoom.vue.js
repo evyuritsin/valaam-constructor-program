@@ -53,9 +53,7 @@ const HotelRoom = {
 		</div>
 	</div>
 	<div
-		obj="habitation"
 		class="placement-item__btn"
-		:selectedOrder="isSelectRoom"
 		@click="addOneRoom"
 	>
 		<div v-if="isSelectRoom" @click.stop class="d-flex w-100 no-select">

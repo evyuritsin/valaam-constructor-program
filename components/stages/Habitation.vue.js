@@ -6,11 +6,8 @@ const Habitation = {
 							</div>
 							<div class="list">
 								<div class="find-list" v-for="hotel in hotels" :key="hotel.id">
-									<img
-										class="find-list__img"
-										:src="'http://valaamskiy-polomnik.directpr.beget.tech' + hotel.gallery[0]"
-										:alt="Hotel"
-									/>
+									<div className="find-list__img find-list__img_bg" :style="{'background-image': 'url(http://valaamskiy-polomnik.directpr.beget.tech' + hotel.gallery[0] + ')'}">
+									</div>
 									<div class="find-list__content">
 										<div class="find-list__header">
 											<div class="find-list__col border-none">
