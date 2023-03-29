@@ -34,7 +34,7 @@ const ShipTimetable = {
 														<span class="find-list__date">{{ships[index].prices[0].available}}</span>
 													</div>
 												</th>
-												<th class="fw-700">{{ships[index].prices[0].amount}} ₽</th>
+												<th class="fw-700">{{formatPrice(ships[index].prices[0].amount)}} ₽</th>
 												<th 
 													class="direction-table__select-ship w-15" 
 													@click.prevent="clickToSelectShip(ships[index])" 
@@ -55,7 +55,7 @@ const ShipTimetable = {
 														<span class="find-list__date">{{ship.prices[0].available}}</span>
 													</div>
 												</th>
-												<th class="fw-700">{{ship.prices[0].amount}} ₽</th>
+												<th class="fw-700">{{formatPrice(ship.prices[0].amount)}} ₽</th>
 												<th 
 													class="direction-table__select-ship w-15" 
 													@click.prevent="clickToSelectShip(ship)" 
@@ -86,7 +86,7 @@ const ShipTimetable = {
 											</div>
 											<div className="direction-table-mobile__row">
 												<label>Цена</label>
-												<span class="fw-700">{{ship.prices[0].amount}} ₽</span>
+												<span class="fw-700">{{formatPrice(ship.prices[0].amount)}} ₽</span>
 											</div>
 											<div 
 													class="direction-table__select-ship text-center" 
@@ -154,6 +154,9 @@ const ShipTimetable = {
 				this.selectShip = { ...ship }
 			}
 			this.$store.commit('setAlertSpan', '')
+		},
+		formatPice(price) {
+			return price.split('.')[0]
 		},
 	},
 	watch: {
