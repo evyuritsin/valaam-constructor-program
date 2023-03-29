@@ -383,6 +383,10 @@ const Tabs = {
 		},
 		guestsCount() {
 			if (this.guestsCount >= 10) {
+				this.info.multiDay = false
+				this.info.departureDate = ''
+				this.info.peopleAmount = ''
+				this.info.departurePoint = ''
 				window.location.href = '/zayavka-na-gruppovuyu-programu.html'
 			}
 		},
