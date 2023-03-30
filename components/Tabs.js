@@ -227,6 +227,7 @@ const Tabs = {
 			this.isArrivalDate = false
 		},
 		setArrivalDate(date) {
+			alert(date)
 			if (date > new Date()) {
 				const formateDate = date.toLocaleDateString().includes('/')
 					? date.toLocaleDateString().split('/').join('.')
