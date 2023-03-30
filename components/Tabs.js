@@ -134,9 +134,13 @@ const Tabs = {
 			console.log(this.$data)
 		},
 		onClickToMultiDay() {
+			if (this.firstFetchIsLoaded) return
+
 			this.info.multiDay = true
 		},
 		onClickToSingleDay() {
+			if (this.firstFetchIsLoaded) return
+
 			this.info.multiDay = false
 		},
 		arrivalDateOnClick(e) {
@@ -290,6 +294,9 @@ const Tabs = {
 		},
 		guests() {
 			return this.$store.getters['getGuests']
+		},
+		firstFetchIsLoaded() {
+			return this.$store.getters['getIsLoaded']
 		},
 	},
 	watch: {

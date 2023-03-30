@@ -15,7 +15,7 @@ const ShipTimetable = {
 									<table class="direction-table" v-if="ships.length">
 										<thead class="direction-table__head">
 											<tr>
-												<th class="ta-left">Отправление</th>
+												<th class="ta-left pl-10">Отправление</th>
 												<th class="ta-left">Прибытие</th>
 												<th class="ta-left">Теплоход</th>
 												<th class="ta-left">Наличие</th>
@@ -25,7 +25,7 @@ const ShipTimetable = {
 										</thead>
 										<tbody class="direction-table__body" v-if="!showDetails && ships.length > 3">
 											<tr v-for="(ship, index) in [...Array(3)]" :key="index" >
-												<th class="ta-left">{{ships[index].time_start}}</th>
+												<th class="ta-left pl-10">{{ships[index].time_start}}</th>
 												<th class="ta-left">{{ships[index].time_end}}</th>
 												<th class="ta-left">{{getShipTitle(ships[index].prices[0].ship_id)}}</th>
 												<th class="ta-left">
@@ -46,7 +46,7 @@ const ShipTimetable = {
 										</tbody>
 										<tbody class="direction-table__body" v-if="showDetails || ships.length < 3">
 											<tr v-for="ship in ships" :key="ship.id">
-												<th class="ta-left">{{ship.time_start}}</th>
+												<th class="ta-left pl-10">{{ship.time_start}}</th>
 												<th class="ta-left">{{ship.time_end}}</th>
 												<th class="ta-left">{{getShipTitle(ship.prices[0].ship_id)}}</th>
 												<th class="ta-left">
@@ -155,7 +155,7 @@ const ShipTimetable = {
 			}
 			this.$store.commit('setAlertSpan', '')
 		},
-		formatPice(price) {
+		formatPrice(price) {
 			return price.split('.')[0]
 		},
 	},

@@ -3,6 +3,7 @@ const getFetchRequests = {
 		return {
 			data: {},
 			loaded: false,
+			isLoaded: false,
 		}
 	},
 	mutations: {
@@ -11,6 +12,9 @@ const getFetchRequests = {
 		},
 		setLoaded(state, action) {
 			state.loaded = action
+		},
+		setIsLoaded(state, action) {
+			state.isLoaded = action
 		},
 	},
 	getters: {
@@ -47,11 +51,14 @@ const getFetchRequests = {
 		getLoaded(state) {
 			return state.loaded
 		},
+		getIsLoaded(state) {
+			return state.isLoaded
+		},
 	},
 	actions: {
 		async fetchFirstStage({ commit }, inputsData) {
 			commit('setLoaded', false)
-			console.log(inputsData)
+			commit('setIsLoaded', true)
 			const formData = {
 				date_start: inputsData.arrivalDate,
 				date_end: inputsData.multiDay
@@ -83,6 +90,7 @@ const getFetchRequests = {
 
 			commit('setData', doneData)
 			commit('setLoaded', true)
+			commit('setIsLoaded', false)
 		},
 	},
 }
